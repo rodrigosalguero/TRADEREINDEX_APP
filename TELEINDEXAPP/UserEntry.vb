@@ -1,10 +1,12 @@
-﻿Public Class UserEntry
+﻿Imports System
+Imports System.IO
+
+Public Class UserEntry
+    Public rd_cedula As String
+    Public rd_nombre As String
+    Public rd_clave As String
 
     Private Sub TextBox1_Validated(sender As Object, e As EventArgs) Handles TextBox1.Validated
-        'Quitar la siguiente linea para version final
-        Button1.Enabled = True
-        Return
-        '********************************************
         ValidaCedula(TextBox1.Text.Trim())
     End Sub
 
@@ -62,62 +64,8 @@
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Mover las siguientes lineas para version final
-        MainForm.GestiónDocumentalToolStripMenuItem.Visible = True
-        MainForm.GestiónDocumentalToolStripMenuItem.Enabled = True
-        MainForm.InscripcionesToolStripMenuItem.Visible = True
-        MainForm.InscripcionesToolStripMenuItem.Enabled = True
-        MainForm.CertificacionesToolStripMenuItem.Visible = True
-        MainForm.CertificacionesToolStripMenuItem.Enabled = True
-        MainForm.FolioPersonalToolStripMenuItem.Visible = True
-        MainForm.FolioPersonalToolStripMenuItem.Enabled = True
-        MainForm.ReportesToolStripMenuItem.Visible = False
-        MainForm.FolioRealToolStripMenuItem.Visible = True
-        MainForm.FolioRealToolStripMenuItem.Enabled = True
-        MainForm.HerramientasToolStripMenuItem.Visible = True
-        MainForm.HerramientasToolStripMenuItem.Enabled = True
-        'remover para produccion
-        MainForm.nombres = "Rodrigo Xavier"
-        MainForm.apellidos = "Salguero Carvajal"
-        MainForm.identificacion = "1706551171"
-        MainForm.ToolStripStatusLabel1.Text = "Bienvenido " & MainForm.nombres & " " & MainForm.apellidos & ". Hoy es " + Today.ToLongDateString
-        '        MsgBox(My.Settings.BD_TRADEREConnectionString, vbOKOnly)
-        Me.Close()
-        Return
-        '**************************************************
-
-        Dim reg_contraseña As String
-        Dim registros() As DataRow = BD_TRADEREDataSet.Usuarios.Select("identificacion=" & TextBox1.Text.Trim)
-        '        MsgBox(TestEncoding(TextBox2.Text.Trim), MsgBoxStyle.OkOnly)
-        '     My.Computer.FileSystem.WriteAllText("c:\users\rpq01\documents\ultimopassword.txt", TestEncoding(TextBox2.Text.Trim), False)
-        If registros.Count > 0 Then
-            reg_contraseña = registros(0).Item("contraseña")
-            MainForm.nombres = registros(0).Item("nombres").trim()
-            MainForm.apellidos = registros(0).Item("apellidos").trim()
-            MainForm.identificacion = TextBox1.Text.Trim
-        Else
-            MsgBox("Usuario no encontrado!", MsgBoxStyle.OkOnly)
-            TextBox2.Text = ""
-            TextBox1.Focus()
-            Return
-        End If
-        If TestDecoding(reg_contraseña) = TextBox2.Text.Trim Then
-            MainForm.GestiónDocumentalToolStripMenuItem.Visible = True
-            MainForm.GestiónDocumentalToolStripMenuItem.Enabled = True
-            MainForm.InscripcionesToolStripMenuItem.Visible = True
-            MainForm.InscripcionesToolStripMenuItem.Enabled = True
-            MainForm.CertificacionesToolStripMenuItem.Visible = True
-            MainForm.CertificacionesToolStripMenuItem.Enabled = True
-            MainForm.FolioPersonalToolStripMenuItem.Visible = True
-            MainForm.FolioPersonalToolStripMenuItem.Enabled = True
-            MainForm.ReportesToolStripMenuItem.Visible = False
-            MainForm.FolioRealToolStripMenuItem.Visible = True
-            MainForm.FolioRealToolStripMenuItem.Enabled = True
-            MainForm.HerramientasToolStripMenuItem.Visible = True
-            MainForm.HerramientasToolStripMenuItem.Enabled = True
-            '            MsgBox(TestDecoding(reg_contraseña), MsgBoxStyle.OkOnly)
-            MainForm.ToolStripStatusLabel1.Text = "Bienvenido " & MainForm.nombres & " " & MainForm.apellidos & ". Hoy es " + Today.ToLongDateString
-            enviarnotificacion(MainForm.nombres & " " & MainForm.apellidos, Me.TextBox1.Text.Trim())
+        If TestDecoding(rd_clave) = TextBox2.Text.Trim Then
+            MainForm.IndexarToolStripMenuItem.Enabled = True
             Me.Close()
         Else
             MsgBox("Contraseña incorrecta!", MsgBoxStyle.OkOnly)
@@ -166,29 +114,15 @@
         Return plaintext
     End Function
 
-    Private Sub enviarnotificacion(ByVal nombre_usuario As String, identificacion As String)
-        ' Quitar Return para version final
-        Return
-        '*********************************
-        Dim EmailMessage As New MailMessage()
-        Try
-            EmailMessage.From = New MailAddress("notificaciones.tradere@gmail.com")
-            EmailMessage.To.Add("rodrigosalguero@live.com")
-            EmailMessage.Subject = "Sistema Registral TRADERE"
-            EmailMessage.Body = "Login de " + nombre_usuario + "(" + identificacion + ")." + Chr(10) + Chr(13) + "Efectuado el " + Today.Date.ToLongDateString + " a las " + TimeOfDay.ToShortTimeString + "."
-            Dim SMTP As New SmtpClient("smtp.gmail.com")
-            SMTP.Port = 587
-            SMTP.EnableSsl = True
-            SMTP.Credentials = New System.Net.NetworkCredential("notificaciones.tradere@gmail.com", "0669rxsc")
-            SMTP.Send(EmailMessage)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub frmUsersEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'BD_TRADEREDataSet.Usuarios' table. You can move, or remove it, as needed.
-        Me.UsuariosTableAdapter.Fill(Me.BD_TRADEREDataSet.Usuarios)
+    Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Open the file using a stream reader.
+        Using sr As New StreamReader("UConfig.txt")
+            ' Read the stream to a string and write the string to the console.
+            rd_cedula = sr.ReadLine()
+            rd_nombre = sr.ReadLine()
+            rd_clave = sr.ReadLine()
+            '            MsgBox(rd_cedula & rd_nombre & rd_clave, vbOKOnly)
+        End Using
         TextBox1.Focus()
     End Sub
 

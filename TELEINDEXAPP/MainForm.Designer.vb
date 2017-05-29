@@ -23,8 +23,8 @@ Partial Class MainForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IndexarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -37,17 +37,18 @@ Partial Class MainForm
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
+        'IndexarToolStripMenuItem
+        '
+        Me.IndexarToolStripMenuItem.Enabled = False
+        Me.IndexarToolStripMenuItem.Name = "IndexarToolStripMenuItem"
+        Me.IndexarToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
+        Me.IndexarToolStripMenuItem.Text = "Indexar"
+        '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
         Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(41, 20)
         Me.SalirToolStripMenuItem.Text = "Salir"
-        '
-        'IndexarToolStripMenuItem
-        '
-        Me.IndexarToolStripMenuItem.Name = "IndexarToolStripMenuItem"
-        Me.IndexarToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
-        Me.IndexarToolStripMenuItem.Text = "Indexar"
         '
         'MainForm
         '
@@ -55,6 +56,7 @@ Partial Class MainForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1334, 661)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "MainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
