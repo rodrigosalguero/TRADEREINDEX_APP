@@ -11,6 +11,7 @@ Public Class frmIndexacion
 
     Private Sub frmIndexacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim variables As New VariablesGlobalesYfunciones 'creamos un objeto de la clase
+        variables.ruta(0) = "g:"
 
         rutapdf = variables.ruta(0).ToString + "/pdf/"
 
@@ -40,9 +41,8 @@ Public Class frmIndexacion
         Dim leerArchivoGuia As New StreamReader(variables.ruta(0).ToArray + variables.archivoGuia)
         MsgBox(rutapdf + DataGridView1.Rows(leerArchivoGuia.ReadLine().ToString).Cells(0).Value.ToString)
 
-        AxAcroPDF1.src = "C:/pdf/20170105-02-0028.pdf"
-
         DataGridView1.Item(1, 0).Value = "hola"
+
 
     End Sub
 
@@ -53,4 +53,12 @@ Public Class frmIndexacion
     Public Function siguiente()
 
     End Function
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        AxAcroPDF1.src = "g:\pdf\20170105-02-0028.pdf"
+    End Sub
+
+    Private Sub frmIndexacion_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
+        AxAcroPDF1.src = "g:\pdf\20170105-02-0028.pdf"
+    End Sub
 End Class

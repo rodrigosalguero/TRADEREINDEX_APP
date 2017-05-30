@@ -52,20 +52,20 @@ Partial Class frmIndexacion
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel7.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel4
@@ -341,16 +341,6 @@ Partial Class frmIndexacion
         Me.Panel1.Size = New System.Drawing.Size(905, 574)
         Me.Panel1.TabIndex = 14
         '
-        'AxAcroPDF1
-        '
-        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.AxAcroPDF1.Enabled = True
-        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
-        Me.AxAcroPDF1.Name = "AxAcroPDF1"
-        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.AxAcroPDF1.Size = New System.Drawing.Size(901, 570)
-        Me.AxAcroPDF1.TabIndex = 0
-        '
         'Panel6
         '
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -388,6 +378,16 @@ Partial Class frmIndexacion
         Me.DataGridView1.Size = New System.Drawing.Size(376, 95)
         Me.DataGridView1.TabIndex = 0
         '
+        'AxAcroPDF1
+        '
+        Me.AxAcroPDF1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AxAcroPDF1.Enabled = True
+        Me.AxAcroPDF1.Location = New System.Drawing.Point(0, 0)
+        Me.AxAcroPDF1.Name = "AxAcroPDF1"
+        Me.AxAcroPDF1.OcxState = CType(resources.GetObject("AxAcroPDF1.OcxState"), System.Windows.Forms.AxHost.State)
+        Me.AxAcroPDF1.Size = New System.Drawing.Size(901, 570)
+        Me.AxAcroPDF1.TabIndex = 0
+        '
         'frmIndexacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -408,9 +408,9 @@ Partial Class frmIndexacion
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AxAcroPDF1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -446,7 +446,7 @@ Partial Class frmIndexacion
     Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button5 As Button
-    Friend WithEvents AxAcroPDF1 As AxAcroPDFLib.AxAcroPDF
     Friend WithEvents Button8 As Button
     Friend WithEvents Button4 As Button
+    Friend WithEvents AxAcroPDF1 As AxAcroPDFLib.AxAcroPDF
 End Class

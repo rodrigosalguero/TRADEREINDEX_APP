@@ -116,6 +116,7 @@ Public Class UserEntry
 
     Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim variables As New VariablesGlobalesYfunciones
+        variables.ruta(0) = "g:"
 
         If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivotext1) Then
             Dim creartxt As System.IO.FileStream
