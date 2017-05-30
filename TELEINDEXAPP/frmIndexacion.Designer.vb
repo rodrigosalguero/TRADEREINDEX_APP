@@ -24,9 +24,11 @@ Partial Class frmIndexacion
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIndexacion))
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Button8 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -55,8 +57,6 @@ Partial Class frmIndexacion
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -77,6 +77,15 @@ Partial Class frmIndexacion
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(389, 49)
         Me.Panel4.TabIndex = 16
+        '
+        'Button8
+        '
+        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
+        Me.Button8.Location = New System.Drawing.Point(287, 6)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(36, 35)
+        Me.Button8.TabIndex = 40
+        Me.Button8.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -115,6 +124,15 @@ Partial Class frmIndexacion
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(377, 224)
         Me.Panel5.TabIndex = 35
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(194, 83)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(177, 23)
+        Me.Button4.TabIndex = 38
+        Me.Button4.Text = "Borrar"
+        Me.Button4.UseVisualStyleBackColor = True
         '
         'Button2
         '
@@ -370,29 +388,11 @@ Partial Class frmIndexacion
         Me.DataGridView1.Size = New System.Drawing.Size(376, 95)
         Me.DataGridView1.TabIndex = 0
         '
-        'Button8
-        '
-        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
-        Me.Button8.Location = New System.Drawing.Point(287, 6)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(36, 35)
-        Me.Button8.TabIndex = 40
-        Me.Button8.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(194, 83)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(177, 23)
-        Me.Button4.TabIndex = 38
-        Me.Button4.Text = "Borrar"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
         'frmIndexacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1309, 591)
+        Me.ClientSize = New System.Drawing.Size(1301, 573)
         Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel2)

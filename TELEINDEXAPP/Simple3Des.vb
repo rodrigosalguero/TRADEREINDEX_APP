@@ -6,7 +6,6 @@ Public NotInheritable Class Simple3Des
     Private Function TruncateHash(
     ByVal key As String,
     ByVal length As Integer) As Byte()
-
         Dim sha1 As New SHA1CryptoServiceProvider
 
         ' Hash the key.

@@ -107,6 +107,7 @@
     <Compile Include="UserEntry.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="VariablesGlobalesYfunciones.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmIndexacion.resx">

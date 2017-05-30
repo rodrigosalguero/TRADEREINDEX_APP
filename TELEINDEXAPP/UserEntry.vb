@@ -115,6 +115,33 @@ Public Class UserEntry
     End Function
 
     Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim variables As New VariablesGlobalesYfunciones
+
+        If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivotext1) Then
+            Dim creartxt As System.IO.FileStream
+            creartxt = File.Create(variables.ruta(0).ToString + variables.archivotext1)
+            creartxt.Close()
+
+            Dim folderPdf As New DirectoryInfo(variables.ruta(0) + "\pdf")
+            Dim file1 As New System.IO.StreamWriter(variables.ruta(0).ToString + variables.archivotext1)
+
+            For Each folder As FileInfo In folderPdf.GetFiles
+                file1.WriteLine(folder.Name.ToString)
+            Next
+            'PERMITE INSERTAR CONTENIDO A UN ARCHIVO
+            file1.Close()
+        End If
+
+        If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivoGuia) Then
+            Dim crearGuia As FileStream
+            crearGuia = File.Create(variables.ruta(0).ToString + variables.archivoGuia)
+            crearGuia.Close()
+
+            Dim escribir As New StreamWriter(variables.ruta(0).ToString + variables.archivoGuia)
+            escribir.WriteLine("0")
+            escribir.Close()
+        End If
+
         ' Open the file using a stream reader.
         Using sr As New StreamReader("UConfig.txt")
             ' Read the stream to a string and write the string to the console.
@@ -125,5 +152,9 @@ Public Class UserEntry
         End Using
         TextBox1.Focus()
     End Sub
+
+    Function generarTXtPdf()
+
+    End Function
 
 End Class
