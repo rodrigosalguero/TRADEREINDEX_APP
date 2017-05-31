@@ -116,7 +116,7 @@ Public Class UserEntry
 
     Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim variables As New VariablesGlobalesYfunciones
-        variables.ruta(0) = "g:"
+
 
         If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivotext1) Then
             Dim creartxt As System.IO.FileStream
@@ -127,7 +127,7 @@ Public Class UserEntry
             Dim file1 As New System.IO.StreamWriter(variables.ruta(0).ToString + variables.archivotext1)
 
             For Each folder As FileInfo In folderPdf.GetFiles
-                file1.WriteLine(folder.Name.ToString)
+                file1.WriteLine(folder.Name.ToString + "|" + "|" + "|" + "|" + "|")
             Next
             'PERMITE INSERTAR CONTENIDO A UN ARCHIVO
             file1.Close()
