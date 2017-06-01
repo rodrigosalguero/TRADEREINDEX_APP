@@ -23,10 +23,9 @@ Partial Class frmIndexacion
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIndexacion))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Button8 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -57,7 +56,6 @@ Partial Class frmIndexacion
         Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel4.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -73,21 +71,11 @@ Partial Class frmIndexacion
         'Panel4
         '
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel4.Controls.Add(Me.Button8)
         Me.Panel4.Controls.Add(Me.Button1)
         Me.Panel4.Location = New System.Drawing.Point(4, -1)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(389, 49)
         Me.Panel4.TabIndex = 16
-        '
-        'Button8
-        '
-        Me.Button8.Image = CType(resources.GetObject("Button8.Image"), System.Drawing.Image)
-        Me.Button8.Location = New System.Drawing.Point(287, 6)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(36, 35)
-        Me.Button8.TabIndex = 40
-        Me.Button8.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -197,7 +185,7 @@ Partial Class frmIndexacion
         '
         Me.ComboBox3.DisplayMember = "nombre"
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Items.AddRange(New Object() {"prueba 1", "prueba 2", "prueba 3"})
+        Me.ComboBox3.Items.AddRange(New Object() {"Comprador", "Vendedor", "Deudor", "Acreedor", "Causante", "Heredero"})
         Me.ComboBox3.Location = New System.Drawing.Point(3, 16)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(177, 21)
@@ -206,18 +194,18 @@ Partial Class frmIndexacion
         '
         'DataGridView2
         '
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridView2.Location = New System.Drawing.Point(3, 110)
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.Size = New System.Drawing.Size(367, 104)
@@ -253,6 +241,7 @@ Partial Class frmIndexacion
         '
         'DateTimePicker1
         '
+        Me.DateTimePicker1.CalendarTitleBackColor = System.Drawing.SystemColors.MenuHighlight
         Me.DateTimePicker1.Location = New System.Drawing.Point(105, 84)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(264, 20)
@@ -330,7 +319,7 @@ Partial Class frmIndexacion
         '
         Me.ComboBox1.DisplayMember = "nombre"
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"hola1", "hola2", "hola 3"})
+        Me.ComboBox1.Items.AddRange(New Object() {"Propiedades", "Gravamenes", "Phohibiciones", "Sentencias", "Personal", "Embargos"})
         Me.ComboBox1.Location = New System.Drawing.Point(105, 32)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(264, 21)
@@ -341,7 +330,7 @@ Partial Class frmIndexacion
         '
         Me.ComboBox2.DisplayMember = "nombre"
         Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"prueba 1", "prueba 2", "prueba 3"})
+        Me.ComboBox2.Items.AddRange(New Object() {"P1", "P2", "P3", "P4", "P5", "P6", "P7"})
         Me.ComboBox2.Location = New System.Drawing.Point(105, 110)
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(264, 21)
@@ -371,7 +360,6 @@ Partial Class frmIndexacion
         '
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel6.Controls.Add(Me.Button5)
-        Me.Panel6.Controls.Add(Me.Button3)
         Me.Panel6.Controls.Add(Me.DataGridView1)
         Me.Panel6.Location = New System.Drawing.Point(4, 54)
         Me.Panel6.Name = "Panel6"
@@ -386,15 +374,6 @@ Partial Class frmIndexacion
         Me.Button5.TabIndex = 20
         Me.Button5.Text = "Siguiente"
         Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(3, 101)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(182, 23)
-        Me.Button3.TabIndex = 19
-        Me.Button3.Text = "Anterior"
-        Me.Button3.UseVisualStyleBackColor = True
         '
         'DataGridView1
         '
@@ -461,10 +440,8 @@ Partial Class frmIndexacion
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel6 As Panel
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button5 As Button
-    Friend WithEvents Button8 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents AxAcroPDF1 As AxAcroPDFLib.AxAcroPDF
 End Class
