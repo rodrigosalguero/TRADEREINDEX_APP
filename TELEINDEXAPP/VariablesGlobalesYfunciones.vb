@@ -26,7 +26,6 @@ Public Class VariablesGlobalesYfunciones
 
 
     Public Function MarcarFilaActual()
-
         If obtenerPosicionFila() < (frmIndexacion.DataGridView1.Rows.Count - 2) Then
             ''PERMITEN POSICIONAR EL FOCUS EN UNA POSICION DE LA FILA
             frmIndexacion.DataGridView1.CurrentCell = frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(0)

@@ -129,7 +129,20 @@ Public Class frmIndexacion
                 End If
             Case "siguiente"
                 siguiente()
-
+            Case "repertorio"
+                TextBox2.Focus()
+                If elemento IsNot Nothing Then
+                    elemento.BackColor = Color.White
+                    elemento = TextBox2
+                    elemento.BackColor = Color.FromName("Highlight")
+                End If
+            Case "libro registral"
+                ComboBox1.Focus()
+                If elemento IsNot Nothing Then
+                    elemento.BackColor = Color.White
+                    elemento = ComboBox1
+                    ComboBox1.BackColor = Color.FromName("Highlight")
+                End If
         End Select
 
     End Sub
