@@ -11,6 +11,9 @@ Public Class frmIndexacion
     Public ModoEdit As Boolean = False
     Dim elemento As New Control(Nothing)
     Dim microfono As New SpeechRecognitionEngine
+    Dim digitosRepertorio As Integer = 4
+    Dim cryp As New Simple3Des("123456")
+    Dim seleccion2 As Integer = -1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
@@ -49,6 +52,8 @@ Public Class frmIndexacion
         DataGridView1.Columns.Add(4, "Fecha")
         DataGridView1.Columns.Add(5, "Parroquia")
 
+        ''DataGridView1.Columns(6).Visible = False
+
         DataGridView1.Columns(0).SortMode = SortOrder.Descending
 
         ''SE CREAN LAS COLUMNAS DE LOS COMPARECIENTE
@@ -68,7 +73,15 @@ Public Class frmIndexacion
             linea = pdftxt.ReadLine()
             If linea IsNot Nothing Then
                 Dim arrayPdfNombre As String() = linea.Split("|")
-                DataGridView1.Rows.Add(arrayPdfNombre)
+                Dim array(arrayPdfNombre.Count - 1) As String
+
+                For index = 0 To array.Count - 2
+                    If arrayPdfNombre(index).Trim() IsNot "" Then
+                        array(index) = cryp.DecryptData(arrayPdfNombre(index))
+                    End If
+                Next
+
+                DataGridView1.Rows.Add(array)
             End If
         Loop Until linea Is Nothing
 
@@ -166,6 +179,14 @@ Public Class frmIndexacion
             DataGridView1.Item(3, seleccion).Value = TextBox3.Text
             DataGridView1.Item(4, seleccion).Value = DateTimePicker1.Value.ToString
             DataGridView1.Item(5, seleccion).Value = ComboBox2.SelectedItem.ToString
+
+            Dim NombrePdf As String
+            Dim NombrePdfOld As String = DataGridView1(0, seleccion).Value
+            NombrePdf = Format(DateTimePicker1.Value, "yyyyMMdd") + "-" + variables.retornarIdLibro(ComboBox1.SelectedItem.ToString) + "-" + variables.completarDigitos(Convert.ToInt64(TextBox2.Text))
+
+            File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
+            DataGridView1(0, seleccion).Value = NombrePdf + ".pdf"
+
             crearComparecientes()
             limpiar1()
             limpiar2()
@@ -188,16 +209,23 @@ Public Class frmIndexacion
                         If linea IsNot Nothing Then
 
                             Dim arrayLinea As String() = linea.Split("|")
-                            If arrayLinea(0).ToString.Equals(DataGridView1(0, seleccion).Value.ToString) Then
-                                DataGridView2.Rows.Add(arrayLinea)
+                            Dim datoId As String = cryp.DecryptData(arrayLinea(0))
+                            If datoId.ToString.Equals(DataGridView1(0, seleccion).Value.ToString) Then
+
+                                Dim array(arrayLinea.Count - 1) As String
+
+                                For index = 0 To array.Count - 1
+                                    If arrayLinea(index).Trim() IsNot "" Then
+                                        array(index) = cryp.DecryptData(arrayLinea(index))
+                                    End If
+                                Next
+
+                                DataGridView2.Rows.Add(array)
                             End If
                         End If
                     Loop Until linea Is Nothing
-
                     lectorCompareciente.Close()
-
                 End If
-
                 DataGridView1.Rows(seleccion - 1).DefaultCellStyle.BackColor = Color.White
                 DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.Cyan
                 DataGridView1.CurrentCell = DataGridView1.Rows(seleccion).Cells(0)
@@ -206,8 +234,8 @@ Public Class frmIndexacion
                 AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, seleccion).Value.ToString
                 DataGridView1.CurrentCell = DataGridView1.Rows(seleccion).Cells(0)
                 ModoEdit = False
+                seleccion = -1
             End If
-
         Else
             Dim errores As Boolean = False
             If variables.obtenerPosicionFila() < DataGridView1.RowCount - 1 Then
@@ -263,6 +291,12 @@ Public Class frmIndexacion
                     DataGridView1.Item(4, variables.obtenerPosicionFila()).Value = DateTimePicker1.Value.ToString
                     DataGridView1.Item(5, variables.obtenerPosicionFila()).Value = ComboBox2.SelectedItem.ToString
 
+                    Dim NombrePdf As String
+                    Dim NombrePdfOld As String = DataGridView1(0, variables.obtenerPosicionFila()).Value
+                    NOmbrePdf = Format(DateTimePicker1.Value, "yyyyMMdd") + "-" + variables.retornarIdLibro(ComboBox1.SelectedItem.ToString) + "-" + variables.completarDigitos(Convert.ToInt64(TextBox2.Text))
+
+                    File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
+                    DataGridView1(0, variables.obtenerPosicionFila()).Value = NombrePdf + ".pdf"
                     crearComparecientes()
                     guardarMetadatosPdf()
                     variables.MarcarFilaActual()
@@ -280,6 +314,8 @@ Public Class frmIndexacion
 
     Private Sub frmIndexacion_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
         AxAcroPDF1.src = variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
+        'AxAcroPDF1.gotoLastPage()
+
     End Sub
 
     Public Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
@@ -293,6 +329,8 @@ Public Class frmIndexacion
     End Sub
 
     Public Function agregar()
+        ''AxAcroPDF1.gotoLastPage()
+
         If (ModoEdit) Then
             If ComboBox3.SelectedIndex = -1 Then
                 Label1.BackColor = Color.Red
@@ -341,7 +379,10 @@ Public Class frmIndexacion
                 linea = lectorCompareciente.ReadLine()
                 If linea IsNot Nothing Then
                     Dim vectorLinea As String() = linea.Split("|")
-                    If (vectorLinea(0).Equals(DataGridView2(0, 0).Value.ToString)) Then
+
+                    Dim datoID As String = cryp.DecryptData(vectorLinea(0))
+
+                    If (datoID.Equals(DataGridView2(0, 0).Value.ToString)) Then
                         ''MsgBox(vectorLinea(0).ToString)
                     Else
                         escribirCompaTemp.WriteLine(linea)
@@ -352,8 +393,14 @@ Public Class frmIndexacion
 
             lectorCompareciente.Close()
 
-            For index = 0 To DataGridView2.Rows.Count - 2
-                escribirCompaTemp.WriteLine(DataGridView2(0, index).Value.ToString + "|" + DataGridView2(1, index).Value.ToString + "|" + DataGridView2(2, index).Value.ToString + "|" + DataGridView2(3, index).Value.ToString + "|" + DataGridView2(4, index).Value.ToString)
+            For index = 0 To DataGridView2.Rows.Count - 1
+                If ModoEdit Then
+                    DataGridView2(0, index).Value = DataGridView1(0, seleccion).Value
+                Else
+                    DataGridView2(0, index).Value = DataGridView1(0, variables.obtenerPosicionFila()).Value
+                End If
+
+                escribirCompaTemp.WriteLine(cryp.EncryptData(DataGridView2(0, index).Value) + "|" + cryp.EncryptData(DataGridView2(1, index).Value) + "|" + cryp.EncryptData(DataGridView2(2, index).Value) + "|" + cryp.EncryptData(DataGridView2(3, index).Value) + "|" + cryp.EncryptData(DataGridView2(4, index).Value))
             Next
             escribirCompaTemp.Close()
 
@@ -368,8 +415,8 @@ Public Class frmIndexacion
     Public Function limpiar1()
         Me.TextBox2.Clear()
         Me.TextBox3.Clear()
-        Me.ComboBox1.Text = ""
-        Me.ComboBox2.Text = ""
+        Me.ComboBox1.SelectedIndex = -1
+        Me.ComboBox2.SelectedIndex = -1
         DateTimePicker1.Value = Now
         DataGridView2.Rows.Clear()
     End Function
@@ -393,8 +440,18 @@ Public Class frmIndexacion
         Dim escritorPDFMetadatos As New StreamWriter(txtPDFTemp)
 
 
-        For index = 0 To DataGridView1.Rows.Count - 2
-            Dim linea As String = DataGridView1(0, index).Value.ToString + "|" + DataGridView1(1, index).Value.ToString + "|" + DataGridView1(2, index).Value.ToString + "|" + DataGridView1(3, index).Value.ToString + "|" + DataGridView1(4, index).Value.ToString + "|" + DataGridView1(5, index).Value.ToString
+        For index = 0 To DataGridView1.Rows.Count - 1
+            Dim linea As String = ""
+            Dim cryp1 As New Simple3Des("123456")
+
+            For index2 = 0 To DataGridView1.Columns.Count - 1
+                Dim dato As String = DataGridView1(index2, index).Value
+                If dato = "" Or dato = " " Then
+                    linea = linea + "|"
+                Else
+                    linea = linea + cryp1.EncryptData(dato) + "|"
+                End If
+            Next
             escritorPDFMetadatos.WriteLine(linea)
         Next
 
@@ -406,7 +463,16 @@ Public Class frmIndexacion
     End Function
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        limpiar2()
+
+        ''Dim opcion As Integer = MsgBox("Seguro que deseas borrar estos datos", MsgBoxStyle.OkCancel)
+
+        ''If opcion = 1 Then
+
+        ''limpiar2()
+        ''Else
+
+        ''End If
+
     End Sub
 
     Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
@@ -434,14 +500,20 @@ Public Class frmIndexacion
                     If linea IsNot Nothing Then
 
                         Dim arrayLinea As String() = linea.Split("|")
-                        If arrayLinea(0).ToString.Equals(id) Then
-                            DataGridView2.Rows.Add(arrayLinea)
+                        Dim datoId As String = cryp.DecryptData(arrayLinea(0))
+                        If datoId.ToString.Equals(id) Then
+                            Dim array(arrayLinea.Count - 1) As String
+                            For index = 0 To array.Count - 1
+                                If arrayLinea(index).Trim() IsNot "" Then
+                                    array(index) = cryp.DecryptData(arrayLinea(index))
+                                End If
+                            Next
+
+                            DataGridView2.Rows.Add(array)
                         End If
                     End If
                 Loop Until linea Is Nothing
-
                 lectorCompareciente.Close()
-
             End If
 
             DataGridView1.Rows(e.RowIndex).DefaultCellStyle.BackColor = Color.Cyan
@@ -457,5 +529,17 @@ Public Class frmIndexacion
             End If
 
         End If
+    End Sub
+
+    Private Sub DataGridView2_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellDoubleClick
+        'seleccion2 = e.RowIndex
+        'If e.RowIndex = -1 Then
+        'Else
+        '    ComboBox3.SelectedItem = DataGridView2(1, e.RowIndex).Value
+        '    TextBox4.Text = DataGridView2(2, e.RowIndex).Value.ToString
+        '    TextBox5.Text = DataGridView2(3, e.RowIndex).Value.ToString
+        '    TextBox7.Text = DataGridView2(4, e.RowIndex).Value.ToString
+        '    Button4.Enabled = True
+        'End If
     End Sub
 End Class

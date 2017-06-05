@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmIndexacion
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmIndexacion
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIndexacion))
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -117,6 +117,7 @@ Partial Class frmIndexacion
         '
         'Button4
         '
+        Me.Button4.Enabled = False
         Me.Button4.Location = New System.Drawing.Point(194, 83)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(177, 23)
@@ -129,7 +130,7 @@ Partial Class frmIndexacion
         Me.Button2.Location = New System.Drawing.Point(3, 83)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(177, 23)
-        Me.Button2.TabIndex = 21
+        Me.Button2.TabIndex = 5
         Me.Button2.Text = "Agregar"
         Me.Button2.UseVisualStyleBackColor = True
         '
@@ -165,21 +166,21 @@ Partial Class frmIndexacion
         Me.TextBox7.Location = New System.Drawing.Point(194, 57)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(177, 20)
-        Me.TextBox7.TabIndex = 34
+        Me.TextBox7.TabIndex = 4
         '
         'TextBox5
         '
         Me.TextBox5.Location = New System.Drawing.Point(3, 57)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(177, 20)
-        Me.TextBox5.TabIndex = 33
+        Me.TextBox5.TabIndex = 3
         '
         'TextBox4
         '
         Me.TextBox4.Location = New System.Drawing.Point(194, 17)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(177, 20)
-        Me.TextBox4.TabIndex = 26
+        Me.TextBox4.TabIndex = 2
         '
         'ComboBox3
         '
@@ -189,11 +190,12 @@ Partial Class frmIndexacion
         Me.ComboBox3.Location = New System.Drawing.Point(3, 16)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(177, 21)
-        Me.ComboBox3.TabIndex = 26
+        Me.ComboBox3.TabIndex = 1
         Me.ComboBox3.ValueMember = "codigo"
         '
         'DataGridView2
         '
+        Me.DataGridView2.AllowUserToAddRows = False
         DataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black
         DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
         Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle3
@@ -206,10 +208,12 @@ Partial Class frmIndexacion
         DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle4
+        Me.DataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridView2.Location = New System.Drawing.Point(3, 110)
         Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.ReadOnly = True
         Me.DataGridView2.Size = New System.Drawing.Size(367, 104)
-        Me.DataGridView2.TabIndex = 1
+        Me.DataGridView2.TabIndex = 0
         '
         'Label1
         '
@@ -245,7 +249,7 @@ Partial Class frmIndexacion
         Me.DateTimePicker1.Location = New System.Drawing.Point(105, 84)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(264, 20)
-        Me.DateTimePicker1.TabIndex = 27
+        Me.DateTimePicker1.TabIndex = 4
         '
         'Label2
         '
@@ -270,7 +274,7 @@ Partial Class frmIndexacion
         Me.TextBox2.Location = New System.Drawing.Point(105, 6)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(264, 20)
-        Me.TextBox2.TabIndex = 5
+        Me.TextBox2.TabIndex = 1
         '
         'Label5
         '
@@ -304,7 +308,7 @@ Partial Class frmIndexacion
         Me.TextBox3.Location = New System.Drawing.Point(105, 59)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(264, 20)
-        Me.TextBox3.TabIndex = 14
+        Me.TextBox3.TabIndex = 3
         '
         'Label9
         '
@@ -323,7 +327,7 @@ Partial Class frmIndexacion
         Me.ComboBox1.Location = New System.Drawing.Point(105, 32)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox1.TabIndex = 19
+        Me.ComboBox1.TabIndex = 2
         Me.ComboBox1.ValueMember = "codigo"
         '
         'ComboBox2
@@ -334,7 +338,7 @@ Partial Class frmIndexacion
         Me.ComboBox2.Location = New System.Drawing.Point(105, 110)
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox2.TabIndex = 25
+        Me.ComboBox2.TabIndex = 5
         Me.ComboBox2.ValueMember = "id"
         '
         'Panel1
@@ -371,12 +375,13 @@ Partial Class frmIndexacion
         Me.Button5.Location = New System.Drawing.Point(198, 101)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(182, 23)
-        Me.Button5.TabIndex = 20
+        Me.Button5.TabIndex = 6
         Me.Button5.Text = "Siguiente"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'DataGridView1
         '
+        Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridView1.Location = New System.Drawing.Point(4, 4)

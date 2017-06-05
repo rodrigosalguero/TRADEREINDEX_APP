@@ -127,7 +127,7 @@ Public Class UserEntry
             Dim file1 As New System.IO.StreamWriter(variables.ruta(0).ToString + variables.archivotext1)
 
             For Each folder As FileInfo In folderPdf.GetFiles
-                file1.WriteLine(folder.Name.ToString + "|" + "|" + "|" + "|" + "|")
+                file1.WriteLine(TestEncoding(folder.Name.ToString) + "|" + "|" + "|" + "|" + "|")
             Next
             'PERMITE INSERTAR CONTENIDO A UN ARCHIVO
             file1.Close()
@@ -139,7 +139,7 @@ Public Class UserEntry
             crearGuia.Close()
 
             Dim escribir As New StreamWriter(variables.ruta(0).ToString + variables.archivoGuia)
-            escribir.WriteLine("0")
+            escribir.WriteLine(TestEncoding("0"))
             escribir.Close()
         End If
 

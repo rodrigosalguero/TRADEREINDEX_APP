@@ -9,6 +9,7 @@ Public Class VariablesGlobalesYfunciones
     Public ruta As String() = Application.StartupPath.ToString.Split("\")
     Public columnas1 As String() = {"id", "Repertorio", "Libro Registral", "Nº Inscripcion", "Fecha", "Parroquia"}
 
+    Public encryp As New Simple3Des("123456")
     Public Function crearColumna(ByVal grid As DataGridView, ParamArray columnas() As String)
         For index = 0 To columnas.Count
             grid.Columns.Add(index, columnas(index).ToString)
@@ -18,9 +19,9 @@ Public Class VariablesGlobalesYfunciones
 
     Function obtenerPosicionFila() As Integer
         Dim lectorArchivo As New StreamReader(Me.ruta(0).ToString + Me.archivoGuia)
-        Dim posicion As Integer = Convert.ToInt64(lectorArchivo.ReadLine())
+        Dim posicion As String = lectorArchivo.ReadLine()
         lectorArchivo.Close()
-        Return posicion
+        Return CInt(encryp.DecryptData(posicion))
     End Function
 
 
@@ -65,9 +66,35 @@ Public Class VariablesGlobalesYfunciones
 
         Dim escribirtxt As New StreamWriter(ruta(0).ToString + archivoGuia)
 
-        escribirtxt.WriteLine(posicion)
+        escribirtxt.WriteLine(encryp.EncryptData(posicion.ToString))
         escribirtxt.Close()
 
+    End Function
+
+
+    Public Function retornarIdLibro(ByVal libro As String) As String
+        If libro.Equals("Propiedades") Then
+            Return "01"
+        ElseIf libro.Equals("Gravamenes") Then
+            Return "02"
+        ElseIf libro.Equals("Prohibiciones") Then
+            Return "03"
+        ElseIf libro.Equals("Sentencias") Then
+            Return "04"
+        ElseIf libro.Equals("Personal") Then
+            Return "05"
+        ElseIf libro.Equals("Embargues") Then
+            Return "06"
+        End If
+    End Function
+
+    Public Function completarDigitos(ByVal numero As Integer) As String
+        Dim CantDigitos As Integer = 3
+        Dim ceros As String = ""
+        For index = Len(numero) To CantDigitos
+            ceros = ceros + "0"
+        Next
+        Return ceros + Convert.ToString(numero)
     End Function
 
 End Class
