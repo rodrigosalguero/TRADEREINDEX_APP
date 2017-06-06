@@ -24,10 +24,18 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub frmIndexacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''MsgBox(MainForm.Size.Width.ToString)
 
+        Me.Width = MainForm.Size.Width - 20
+        Panel1.Width = (MainForm.Size.Width - 20) * 0.69
+        Panel2.Width = (MainForm.Size.Width - 20) * 0.3
+
+        Panel1.Location = New Point((Panel2.Location.X + Panel2.Size.Width), 0)
+
+        AxAcroPDF1.Width = (MainForm.Size.Width - 40) * 0.7
         Dim cultura As New CultureInfo("es-ES")
         microfono = New SpeechRecognitionEngine(cultura)
-        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro registral", "inscripcion", "parroquia", "fecha", "siguiente", "anterior", "agregar", "borrar"}
+        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro", "inscripcion", "parroquia", "fecha", "siguiente", "anterior", "agregar", "borrar"}
         Dim VOCABULARIO As New GrammarBuilder
         VOCABULARIO.Append(New Choices(comandos))
         microfono.LoadGrammar(New Grammar(VOCABULARIO))
@@ -63,25 +71,19 @@ Public Class frmIndexacion
         DataGridView2.Columns.Add(2, "Cédula")
         DataGridView2.Columns.Add(3, "Nombres")
         DataGridView2.Columns.Add(4, "Apellidos")
-
-
         'Dim grid As DataGridView = variables.crearColumna(DataGridView1, variables.columnas1)
         Dim pdftxt As New StreamReader(variables.ruta(0) + variables.archivotext1)
-
         Dim linea As String
-
         Do
             linea = pdftxt.ReadLine()
             If linea IsNot Nothing Then
                 Dim arrayPdfNombre As String() = linea.Split("|")
                 Dim array(arrayPdfNombre.Count - 1) As String
-
                 For index = 0 To array.Count - 2
                     If arrayPdfNombre(index).Trim() IsNot "" Then
                         array(index) = cryp.DecryptData(arrayPdfNombre(index))
                     End If
                 Next
-
                 DataGridView1.Rows.Add(array)
             End If
         Loop Until linea Is Nothing
@@ -95,9 +97,9 @@ Public Class frmIndexacion
         'DataGridView1.FirstDisplayedScrollingRowIndex = 0
         DataGridView1.CurrentCell = DataGridView1.Rows(variables.obtenerPosicionFila()).Cells(0)
         DataGridView1.Rows(variables.obtenerPosicionFila()).DefaultCellStyle.BackColor = Color.FromName("Highlight")
+        lblFin.Text = DataGridView1.RowCount.ToString
+        lblInicio.Text = (variables.obtenerPosicionFila() + 1).ToString
     End Sub
-
-
     Public Sub RECONOCE(ByVal sender As Object, ByVal e As SpeechRecognizedEventArgs)
         If microactive Then
             Dim resultado As RecognitionResult
@@ -151,7 +153,7 @@ Public Class frmIndexacion
                         elemento = TextBox2
                         elemento.BackColor = Color.FromName("Highlight")
                     End If
-                Case "libro registral"
+                Case "libro"
                     ComboBox1.Focus()
                     If elemento IsNot Nothing Then
                         elemento.BackColor = Color.White
@@ -196,14 +198,11 @@ Public Class frmIndexacion
             DataGridView1.Item(3, seleccion).Value = TextBox3.Text
             DataGridView1.Item(4, seleccion).Value = DateTimePicker1.Value.ToString
             DataGridView1.Item(5, seleccion).Value = ComboBox2.SelectedItem.ToString
-
             Dim NombrePdf As String
             Dim NombrePdfOld As String = DataGridView1(0, seleccion).Value
             NombrePdf = Format(DateTimePicker1.Value, "yyyyMMdd") + "-" + variables.retornarIdLibro(ComboBox1.SelectedItem.ToString) + "-" + variables.completarDigitos(Convert.ToInt64(TextBox2.Text))
-
             File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
             DataGridView1(0, seleccion).Value = NombrePdf + ".pdf"
-
             crearComparecientes()
             limpiar1()
             limpiar2()
@@ -216,27 +215,21 @@ Public Class frmIndexacion
                 TextBox3.Text = DataGridView1(3, seleccion).Value.ToString
                 DateTimePicker1.Value = DataGridView1(4, seleccion).Value
                 ComboBox2.Text = DataGridView1(5, seleccion).Value.ToString
-
                 If File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente) Then
                     Dim linea As String
                     Dim lectorCompareciente As New StreamReader(variables.ruta(0).ToString + variables.archivoCompareciente)
-
                     Do
                         linea = lectorCompareciente.ReadLine()
                         If linea IsNot Nothing Then
-
                             Dim arrayLinea As String() = linea.Split("|")
                             Dim datoId As String = cryp.DecryptData(arrayLinea(0))
                             If datoId.ToString.Equals(DataGridView1(0, seleccion).Value.ToString) Then
-
                                 Dim array(arrayLinea.Count - 1) As String
-
                                 For index = 0 To array.Count - 1
                                     If arrayLinea(index).Trim() IsNot "" Then
                                         array(index) = cryp.DecryptData(arrayLinea(index))
                                     End If
                                 Next
-
                                 DataGridView2.Rows.Add(array)
                             End If
                         End If
@@ -301,17 +294,14 @@ Public Class frmIndexacion
                 Else
                     Label5.BackColor = Color.Transparent
                     Label5.ForeColor = Color.Black
-
                     DataGridView1.Item(1, variables.obtenerPosicionFila()).Value = TextBox2.Text
                     DataGridView1.Item(2, variables.obtenerPosicionFila()).Value = ComboBox1.SelectedItem.ToString
                     DataGridView1.Item(3, variables.obtenerPosicionFila()).Value = TextBox3.Text
                     DataGridView1.Item(4, variables.obtenerPosicionFila()).Value = DateTimePicker1.Value.ToString
                     DataGridView1.Item(5, variables.obtenerPosicionFila()).Value = ComboBox2.SelectedItem.ToString
-
                     Dim NombrePdf As String
                     Dim NombrePdfOld As String = DataGridView1(0, variables.obtenerPosicionFila()).Value
-                    NOmbrePdf = Format(DateTimePicker1.Value, "yyyyMMdd") + "-" + variables.retornarIdLibro(ComboBox1.SelectedItem.ToString) + "-" + variables.completarDigitos(Convert.ToInt64(TextBox2.Text))
-
+                    NombrePdf = Format(DateTimePicker1.Value, "yyyyMMdd") + "-" + variables.retornarIdLibro(ComboBox1.SelectedItem.ToString) + "-" + variables.completarDigitos(Convert.ToInt64(TextBox2.Text))
                     File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
                     DataGridView1(0, variables.obtenerPosicionFila()).Value = NombrePdf + ".pdf"
                     crearComparecientes()
@@ -322,7 +312,6 @@ Public Class frmIndexacion
                     limpiar2()
                     AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
                 End If
-
             Else
                 MsgBox("No hay mas pdf")
             End If
@@ -347,29 +336,39 @@ Public Class frmIndexacion
 
     Public Function agregar()
         ''AxAcroPDF1.gotoLastPage()
-        If (ModoEdit) Then
-            If ComboBox3.SelectedIndex = -1 Then
-                Label1.BackColor = Color.Red
-                Label1.ForeColor = Color.White
-                DataGridView2.Rows.Add(DataGridView1(0, seleccion).Value.ToString, "", TextBox4.Text, TextBox5.Text, TextBox7.Text)
+        If Button2.Text = "Agregar" Then
+            If (ModoEdit) Then
+                If ComboBox3.SelectedIndex = -1 Then
+                    Label1.BackColor = Color.Red
+                    Label1.ForeColor = Color.White
+                    DataGridView2.Rows.Add(DataGridView1(0, seleccion).Value.ToString, "", TextBox4.Text, TextBox5.Text, TextBox7.Text)
+                Else
+                    DataGridView2.Rows.Add(DataGridView1(0, seleccion).Value.ToString, ComboBox3.SelectedItem.ToString, TextBox4.Text, TextBox5.Text, TextBox7.Text)
+                    Label1.BackColor = Color.Transparent
+                    Label1.ForeColor = Color.Black
+                End If
+                limpiar2()
             Else
-                DataGridView2.Rows.Add(DataGridView1(0, seleccion).Value.ToString, ComboBox3.SelectedItem.ToString, TextBox4.Text, TextBox5.Text, TextBox7.Text)
-                Label1.BackColor = Color.Transparent
-                Label1.ForeColor = Color.Black
+                If ComboBox3.SelectedIndex = -1 Then
+                    Label1.BackColor = Color.Red
+                    Label1.ForeColor = Color.White
+                    DataGridView2.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, "", TextBox4.Text, TextBox5.Text, TextBox7.Text)
+                Else
+                    DataGridView2.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, ComboBox3.SelectedItem.ToString, TextBox4.Text, TextBox5.Text, TextBox7.Text)
+                    Label1.BackColor = Color.Transparent
+                    Label1.ForeColor = Color.Black
+                End If
+                limpiar2()
             End If
+        ElseIf Button2.Text = "Cancelar" Then
             limpiar2()
+            Button2.Text = "Agregar"
         Else
-            If ComboBox3.SelectedIndex = -1 Then
-                Label1.BackColor = Color.Red
-                Label1.ForeColor = Color.White
-                DataGridView2.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, "", TextBox4.Text, TextBox5.Text, TextBox7.Text)
-            Else
-                DataGridView2.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, ComboBox3.SelectedItem.ToString, TextBox4.Text, TextBox5.Text, TextBox7.Text)
-                Label1.BackColor = Color.Transparent
-                Label1.ForeColor = Color.Black
-            End If
-            limpiar2()
+
+
         End If
+
+
     End Function
 
     Public Function crearComparecientes()
@@ -480,14 +479,14 @@ Public Class frmIndexacion
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
-        ''Dim opcion As Integer = MsgBox("Seguro que deseas borrar estos datos", MsgBoxStyle.OkCancel)
+        Dim opcion As Integer = MsgBox("Seguro que deseas borrar estos datos", MsgBoxStyle.OkCancel)
 
-        ''If opcion = 1 Then
+        If opcion = 1 Then
 
-        ''limpiar2()
-        ''Else
+            limpiar2()
+        Else
 
-        ''End If
+        End If
 
     End Sub
 
@@ -548,15 +547,16 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub DataGridView2_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellDoubleClick
-        'seleccion2 = e.RowIndex
-        'If e.RowIndex = -1 Then
-        'Else
-        '    ComboBox3.SelectedItem = DataGridView2(1, e.RowIndex).Value
-        '    TextBox4.Text = DataGridView2(2, e.RowIndex).Value.ToString
-        '    TextBox5.Text = DataGridView2(3, e.RowIndex).Value.ToString
-        '    TextBox7.Text = DataGridView2(4, e.RowIndex).Value.ToString
-        '    Button4.Enabled = True
-        'End If
+        seleccion2 = e.RowIndex
+        If e.RowIndex = -1 Then
+        Else
+            ComboBox3.SelectedItem = DataGridView2(1, e.RowIndex).Value
+            TextBox4.Text = DataGridView2(2, e.RowIndex).Value.ToString
+            TextBox5.Text = DataGridView2(3, e.RowIndex).Value.ToString
+            TextBox7.Text = DataGridView2(4, e.RowIndex).Value.ToString
+            Button4.Enabled = True
+            Button2.Text = "Cancelar"
+        End If
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -567,8 +567,9 @@ Public Class frmIndexacion
             Button3.BackgroundImage = Image.FromFile(Application.StartupPath.ToString + "\microactive.png")
             microactive = True
         End If
+    End Sub
 
-
+    Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
 
     End Sub
 End Class
