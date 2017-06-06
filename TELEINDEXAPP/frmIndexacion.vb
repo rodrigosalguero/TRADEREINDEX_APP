@@ -14,6 +14,7 @@ Public Class frmIndexacion
     Dim digitosRepertorio As Integer = 4
     Dim cryp As New Simple3Des("123456")
     Dim seleccion2 As Integer = -1
+    Dim microactive As Boolean = False
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
@@ -26,7 +27,7 @@ Public Class frmIndexacion
 
         Dim cultura As New CultureInfo("es-ES")
         microfono = New SpeechRecognitionEngine(cultura)
-        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro registral", "numero de inscripcion", "inscripcion", "parroquia", "fecha", "siguiente", "anterior", "agregar", "borrar"}
+        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro registral", "inscripcion", "parroquia", "fecha", "siguiente", "anterior", "agregar", "borrar"}
         Dim VOCABULARIO As New GrammarBuilder
         VOCABULARIO.Append(New Choices(comandos))
         microfono.LoadGrammar(New Grammar(VOCABULARIO))
@@ -54,7 +55,7 @@ Public Class frmIndexacion
 
         ''DataGridView1.Columns(6).Visible = False
 
-        DataGridView1.Columns(0).SortMode = SortOrder.Descending
+        DataGridView1.Columns(0).SortMode = SortOrder.Ascending
 
         ''SE CREAN LAS COLUMNAS DE LOS COMPARECIENTE
         DataGridView2.Columns.Add(0, "id")
@@ -98,66 +99,82 @@ Public Class frmIndexacion
 
 
     Public Sub RECONOCE(ByVal sender As Object, ByVal e As SpeechRecognizedEventArgs)
-        Dim resultado As RecognitionResult
-        resultado = e.Result
-        Dim palabra As String = resultado.Text
+        If microactive Then
+            Dim resultado As RecognitionResult
+            resultado = e.Result
+            Dim palabra As String = resultado.Text
 
-        Select Case palabra
-            Case "fecha"
-                DateTimePicker1.Focus()
+            Select Case palabra
+                Case "fecha"
+                    DateTimePicker1.Focus()
 
-            Case "nombres"
-                TextBox5.Focus()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    elemento = TextBox5
-                    elemento.BackColor = Color.FromName("Highlight")
-                End If
-            Case "cedula"
-                TextBox4.Focus()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    elemento = TextBox4
-                    elemento.BackColor = Color.FromName("Highlight")
-                End If
-            Case "apellido"
-                TextBox7.Focus()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    elemento = TextBox7
-                    elemento.BackColor = Color.FromName("Highlight")
-                End If
-            Case "compareciente"
-                ComboBox3.Focus()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    elemento = ComboBox3
-                    elemento.BackColor = Color.FromName("Highlight")
-                End If
-            Case "agregar"
-                agregar()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    Label1.Focus()
-                End If
-            Case "siguiente"
-                siguiente()
-            Case "repertorio"
-                TextBox2.Focus()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    elemento = TextBox2
-                    elemento.BackColor = Color.FromName("Highlight")
-                End If
-            Case "libro registral"
-                ComboBox1.Focus()
-                If elemento IsNot Nothing Then
-                    elemento.BackColor = Color.White
-                    elemento = ComboBox1
-                    ComboBox1.BackColor = Color.FromName("Highlight")
-                End If
-        End Select
+                Case "nombres"
+                    TextBox5.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = TextBox5
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
+                Case "cedula"
+                    TextBox4.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = TextBox4
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
+                Case "apellido"
+                    TextBox7.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = TextBox7
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
+                Case "compareciente"
+                    ComboBox3.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = ComboBox3
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
+                Case "agregar"
+                    agregar()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        Label1.Focus()
+                    End If
+                Case "siguiente"
+                    siguiente()
+                Case "repertorio"
+                    TextBox2.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = TextBox2
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
+                Case "libro registral"
+                    ComboBox1.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = ComboBox1
+                        ComboBox1.BackColor = Color.FromName("Highlight")
+                    End If
+                Case "inscripcion"
+                    TextBox3.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = TextBox3
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
 
+                Case "parroquia"
+                    ComboBox2.Focus()
+                    If elemento IsNot Nothing Then
+                        elemento.BackColor = Color.White
+                        elemento = ComboBox2
+                        elemento.BackColor = Color.FromName("Highlight")
+                    End If
+            End Select
+        End If
     End Sub
 
     Public Sub DETECTA()
@@ -330,12 +347,11 @@ Public Class frmIndexacion
 
     Public Function agregar()
         ''AxAcroPDF1.gotoLastPage()
-
         If (ModoEdit) Then
             If ComboBox3.SelectedIndex = -1 Then
                 Label1.BackColor = Color.Red
                 Label1.ForeColor = Color.White
-                MsgBox("debe seleccionar un compareciente")
+                DataGridView2.Rows.Add(DataGridView1(0, seleccion).Value.ToString, "", TextBox4.Text, TextBox5.Text, TextBox7.Text)
             Else
                 DataGridView2.Rows.Add(DataGridView1(0, seleccion).Value.ToString, ComboBox3.SelectedItem.ToString, TextBox4.Text, TextBox5.Text, TextBox7.Text)
                 Label1.BackColor = Color.Transparent
@@ -346,7 +362,7 @@ Public Class frmIndexacion
             If ComboBox3.SelectedIndex = -1 Then
                 Label1.BackColor = Color.Red
                 Label1.ForeColor = Color.White
-                MsgBox("debe seleccionar un compareciente")
+                DataGridView2.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, "", TextBox4.Text, TextBox5.Text, TextBox7.Text)
             Else
                 DataGridView2.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, ComboBox3.SelectedItem.ToString, TextBox4.Text, TextBox5.Text, TextBox7.Text)
                 Label1.BackColor = Color.Transparent
@@ -357,7 +373,7 @@ Public Class frmIndexacion
     End Function
 
     Public Function crearComparecientes()
-        If (DataGridView2.Rows.Count > 1) Then
+        If (DataGridView2.Rows.Count > 0) Then
             If (Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente)) Then
                 Dim creararchivo As FileStream
                 creararchivo = File.Create(variables.ruta(0).ToString + variables.archivoCompareciente)
@@ -541,5 +557,18 @@ Public Class frmIndexacion
         '    TextBox7.Text = DataGridView2(4, e.RowIndex).Value.ToString
         '    Button4.Enabled = True
         'End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If microactive Then
+            Button3.BackgroundImage = Image.FromFile(Application.StartupPath.ToString + "\microdisable.png")
+            microactive = False
+        Else
+            Button3.BackgroundImage = Image.FromFile(Application.StartupPath.ToString + "\microactive.png")
+            microactive = True
+        End If
+
+
+
     End Sub
 End Class
