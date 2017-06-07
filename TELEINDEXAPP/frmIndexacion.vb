@@ -25,14 +25,20 @@ Public Class frmIndexacion
 
     Private Sub frmIndexacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''MsgBox(MainForm.Size.Width.ToString)
+        Dim columna1 As Double = 0.4
+        Dim columna2 As Double = 0.6
+        Dim pantalla As Size
+        pantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize
 
-        Me.Width = MainForm.Size.Width - 20
-        Panel1.Width = (MainForm.Size.Width - 20) * 0.69
-        Panel2.Width = (MainForm.Size.Width - 20) * 0.3
 
-        Panel1.Location = New Point((Panel2.Location.X + Panel2.Size.Width), 0)
+        Me.Width = pantalla.Width + 10
+        Me.Height = pantalla.Height
+        Panel1.Width = (pantalla.Width - 20) * columna2
+        Panel1.Height = (pantalla.Height) - 35
+        Panel2.Width = pantalla.Width * 0.4
+        Panel6.Width = pantalla.Width * 0.4
+        Panel1.Location = New Point(Panel2.Location.X + Panel2.Width, 0)
 
-        AxAcroPDF1.Width = (MainForm.Size.Width - 40) * 0.7
         Dim cultura As New CultureInfo("es-ES")
         microfono = New SpeechRecognitionEngine(cultura)
         Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro", "inscripcion", "parroquia", "fecha", "siguiente", "anterior", "agregar", "borrar"}
@@ -87,9 +93,7 @@ Public Class frmIndexacion
                 DataGridView1.Rows.Add(array)
             End If
         Loop Until linea Is Nothing
-
         pdftxt.Close()
-
         'Dim leerArchivoGuia As New StreamReader(variables.ruta(0).ToArray + variables.archivoGuia)
         'MsgBox(rutapdf + DataGridView1.Rows(leerArchivoGuia.ReadLine().ToString).Cells(0).Value.ToString)
         'DataGridView1.Item(1, 0).Value = "hola"
@@ -109,7 +113,7 @@ Public Class frmIndexacion
             Select Case palabra
                 Case "fecha"
                     DateTimePicker1.Focus()
-
+                    elemento.BackColor = Color.White
                 Case "nombres"
                     TextBox5.Focus()
                     If elemento IsNot Nothing Then
@@ -363,9 +367,16 @@ Public Class frmIndexacion
         ElseIf Button2.Text = "Cancelar" Then
             limpiar2()
             Button2.Text = "Agregar"
+            seleccion2 = -1
         Else
-
-
+            DataGridView2(1, seleccion2).Value = ComboBox3.SelectedItem.ToString
+            DataGridView2(2, seleccion2).Value = TextBox4.Text
+            DataGridView2(3, seleccion2).Value = TextBox5.Text
+            DataGridView2(4, seleccion2).Value = TextBox7.Text
+            seleccion2 = -1
+            Button2.Text = "Agregar"
+            Button4.Enabled = False
+            limpiar2()
         End If
 
 
@@ -482,8 +493,9 @@ Public Class frmIndexacion
         Dim opcion As Integer = MsgBox("Seguro que deseas borrar estos datos", MsgBoxStyle.OkCancel)
 
         If opcion = 1 Then
-
+            DataGridView2.Rows.RemoveAt(seleccion2)
             limpiar2()
+            seleccion2 = -1
         Else
 
         End If
@@ -570,6 +582,44 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub TextBox4_TextChanged(sender As Object, e As EventArgs) Handles TextBox4.TextChanged
+        cambiarEstado()
+    End Sub
 
+    Private Sub TextBox7_TextChanged(sender As Object, e As EventArgs) Handles TextBox7.TextChanged
+        cambiarEstado()
+    End Sub
+
+    Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
+        cambiarEstado()
+    End Sub
+
+    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
+        cambiarEstado()
+    End Sub
+
+    Function cambiarEstado()
+        If seleccion2 > -1 Then
+            If Button2.Text <> "Actualizar" Then
+                Button2.Text = "Actualizar"
+            End If
+        End If
+    End Function
+
+    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
+
+    End Sub
+
+    Private Sub DateTimePicker1_LostFocus(sender As Object, e As EventArgs) Handles DateTimePicker1.LostFocus
+        DateTimePicker1.Format = DateTimePickerFormat.Long
+
+    End Sub
+
+    Private Sub DateTimePicker1_GotFocus(sender As Object, e As EventArgs) Handles DateTimePicker1.GotFocus
+
+        DateTimePicker1.Focus()
+    End Sub
+
+    Private Sub DateTimePicker1_Enter(sender As Object, e As EventArgs) Handles DateTimePicker1.Enter
+        DateTimePicker1.Format = DateTimePickerFormat.Short
     End Sub
 End Class
