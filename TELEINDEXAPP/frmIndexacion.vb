@@ -15,6 +15,8 @@ Public Class frmIndexacion
     Dim cryp As New Simple3Des("123456")
     Dim seleccion2 As Integer = -1
     Dim microactive As Boolean = False
+    Dim lectorPdf As iTextSharp.text.pdf.PdfReader
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
@@ -25,23 +27,98 @@ Public Class frmIndexacion
 
     Private Sub frmIndexacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''MsgBox(MainForm.Size.Width.ToString)
+
         Dim columna1 As Double = 0.4
         Dim columna2 As Double = 0.6
         Dim pantalla As Size
         pantalla = System.Windows.Forms.SystemInformation.PrimaryMonitorSize
 
-
         Me.Width = pantalla.Width + 10
-        Me.Height = pantalla.Height
+        Me.Height = pantalla.Height - 50
         Panel1.Width = (pantalla.Width - 20) * columna2
-        Panel1.Height = (pantalla.Height) - 35
-        Panel2.Width = pantalla.Width * 0.4
-        Panel6.Width = pantalla.Width * 0.4
+        Panel1.Height = (pantalla.Height) - 90
+
+        Panel2.Width = pantalla.Width * columna1
+        Panel6.Width = pantalla.Width * columna1
+        Panel4.Width = pantalla.Width * columna1
         Panel1.Location = New Point(Panel2.Location.X + Panel2.Width, 0)
 
-        Dim cultura As New CultureInfo("es-ES")
-        microfono = New SpeechRecognitionEngine(cultura)
-        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro", "inscripcion", "parroquia", "fecha", "siguiente", "anterior", "agregar", "borrar"}
+        Dim sobrante As Integer = (pantalla.Height - 20) - (Panel4.Height + Panel6.Height + Panel2.Height)
+        Panel6.Height = sobrante + 50
+
+        DataGridView1.Width = Panel6.Width - 11
+        DataGridView1.Height = Panel6.Height - 50
+        Button5.Width = Panel6.Width - 11
+        Button5.Height = 30
+        Button5.Location = New Point(4, DataGridView1.Height + 10)
+        Panel2.Location = New Point(4, sobrante + 110)
+
+
+        Panel7.Width = Panel2.Width - 10
+        Panel5.Width = Panel2.Width - 10
+
+
+        ''ORDENAR LOS ELEMENTOS DEL PANEL 5
+        ''SE DEFINEN 2 COLUMNAS CON UN ESPACIO ENTRE CADA COLUMNA
+        Dim espacioentre As Integer = 30
+        Dim inicio As Integer = 10
+        Dim anchoPanel As Integer = Panel5.Width - (inicio * 2)
+
+        Dim tamanioColuma As Integer = anchoPanel / 2 - (espacioentre / 2)
+        Label1.Location = New Point(inicio, 0)
+        ComboBox3.Width = tamanioColuma
+        ComboBox3.Location = New Point(inicio, Label1.Height + 3)
+
+
+        Label8.Location = New Point((ComboBox3.Width + inicio) + espacioentre, 0)
+        TextBox4.Width = tamanioColuma
+        TextBox4.Location = New Point((ComboBox3.Width + inicio) + espacioentre, Label8.Height + 3)
+
+        Label4.Location = New Point(inicio, (Label1.Height + 3) + ComboBox3.Height + 3)
+        TextBox5.Width = tamanioColuma
+        TextBox5.Location = New Point(Label4.Location.X, Label4.Location.Y + Label4.Height + 3)
+
+        Label11.Location = New Point(TextBox5.Width + inicio + espacioentre, Label4.Location.Y)
+        TextBox7.Width = tamanioColuma
+        TextBox7.Location = New Point(Label8.Location.X, Label11.Location.Y + Label11.Height + 3)
+
+        Button2.Width = tamanioColuma
+        Button2.Location = New Point(inicio, TextBox5.Location.Y + TextBox5.Height + 3)
+
+        Button4.Width = tamanioColuma
+        Button4.Location = New Point(TextBox7.Location.X, TextBox7.Location.Y + TextBox7.Height + 3)
+
+        DataGridView2.Width = Panel5.Width - 20
+        DataGridView2.Location = New Point(inicio, Button2.Location.Y + Button2.Height + 5)
+
+        Label3.Location = New Point(10, Label3.Location.Y)
+        Label5.Location = New Point(10, Label5.Location.Y)
+        Label6.Location = New Point(10, Label6.Location.Y)
+        Label2.Location = New Point(10, Label2.Location.Y)
+        Label9.Location = New Point(10, Label9.Location.Y)
+
+        TextBox2.Location = New Point(96 + 20, TextBox2.Location.Y)
+        TextBox2.Width = Panel7.Width - (96 + 30)
+
+        ComboBox1.Location = New Point(96 + 20, ComboBox1.Location.Y)
+        ComboBox1.Width = Panel7.Width - (96 + 30)
+
+        TextBox3.Location = New Point(96 + 20, TextBox3.Location.Y)
+        TextBox3.Width = Panel7.Width - (96 + 30)
+
+        DateTimePicker1.Location = New Point(96 + 20, DateTimePicker1.Location.Y)
+        DateTimePicker1.Width = Panel7.Width - (96 + 30)
+
+        ComboBox2.Location = New Point(96 + 20, ComboBox2.Location.Y)
+        ComboBox2.Width = Panel7.Width - (96 + 30)
+
+        Button1.Location = New Point(Panel4.Width - (Button1.Width + 30), Button1.Location.Y)
+        Button3.Location = New Point(Panel4.Width - (Button3.Width + Button1.Width + 60), Button1.Location.Y)
+        Panel3.Location = New Point(Panel4.Width - (Panel3.Width + Button3.Width + Button1.Width + 90), Panel3.Location.Y)
+
+
+        microfono = New SpeechRecognitionEngine()
+        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro", "inscripcion", "parroquia", "fecha", "siguiente", "agregar", "borrar", "actualizar", "cancelar"}
         Dim VOCABULARIO As New GrammarBuilder
         VOCABULARIO.Append(New Choices(comandos))
         microfono.LoadGrammar(New Grammar(VOCABULARIO))
@@ -143,13 +220,27 @@ Public Class frmIndexacion
                         elemento.BackColor = Color.FromName("Highlight")
                     End If
                 Case "agregar"
-                    agregar()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        Label1.Focus()
+                    If Button2.Text = "Agregar" Then
+                        agregar()
+                        If elemento IsNot Nothing Then
+                            elemento.BackColor = Color.White
+                            Label1.Focus()
+                        End If
                     End If
                 Case "siguiente"
                     siguiente()
+                Case "borrar"
+                    If Button4.Enabled Then
+                        Button4_Click(Nothing, Nothing)
+                    End If
+                Case "cancelar"
+                    If Button2.Text = "Cancelar" Then
+                        Button2_Click_1(Nothing, Nothing)
+                    End If
+                Case "actualizar"
+                    If Button2.Text = "Actualizar" Then
+                        Button2_Click_1(Nothing, Nothing)
+                    End If
                 Case "repertorio"
                     TextBox2.Focus()
                     If elemento IsNot Nothing Then
@@ -202,6 +293,8 @@ Public Class frmIndexacion
             DataGridView1.Item(3, seleccion).Value = TextBox3.Text
             DataGridView1.Item(4, seleccion).Value = DateTimePicker1.Value.ToString
             DataGridView1.Item(5, seleccion).Value = ComboBox2.SelectedItem.ToString
+            Button2.Text = "Agregar"
+            Button4.Enabled = False
             Dim NombrePdf As String
             Dim NombrePdfOld As String = DataGridView1(0, seleccion).Value
             NombrePdf = Format(DateTimePicker1.Value, "yyyyMMdd") + "-" + variables.retornarIdLibro(ComboBox1.SelectedItem.ToString) + "-" + variables.completarDigitos(Convert.ToInt64(TextBox2.Text))
@@ -212,6 +305,7 @@ Public Class frmIndexacion
             limpiar2()
             guardarMetadatosPdf()
             seleccion = seleccion + 1
+            lblInicio.Text = (seleccion + 1).ToString
             If (seleccion < variables.obtenerPosicionFila()) Then
                 AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, seleccion).Value.ToString
                 TextBox2.Text = DataGridView1(1, seleccion).Value.ToString
@@ -296,6 +390,8 @@ Public Class frmIndexacion
                 If errores Then
                     MsgBox("Los campos Marcados son Obligatorios")
                 Else
+                    Button2.Text = "Agregar"
+                    Button4.Enabled = False
                     Label5.BackColor = Color.Transparent
                     Label5.ForeColor = Color.Black
                     DataGridView1.Item(1, variables.obtenerPosicionFila()).Value = TextBox2.Text
@@ -312,6 +408,7 @@ Public Class frmIndexacion
                     guardarMetadatosPdf()
                     variables.MarcarFilaActual()
                     variables.cambiarPosicion(1)
+                    lblInicio.Text = (1 + variables.obtenerPosicionFila()).ToString
                     limpiar1()
                     limpiar2()
                     AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
@@ -322,11 +419,7 @@ Public Class frmIndexacion
         End If
     End Function
 
-    Private Sub frmIndexacion_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
-        AxAcroPDF1.src = variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
-        'AxAcroPDF1.gotoLastPage()
 
-    End Sub
 
     Public Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
         If elemento IsNot Nothing Then
@@ -368,6 +461,7 @@ Public Class frmIndexacion
             limpiar2()
             Button2.Text = "Agregar"
             seleccion2 = -1
+            Button4.Enabled = False
         Else
             DataGridView2(1, seleccion2).Value = ComboBox3.SelectedItem.ToString
             DataGridView2(2, seleccion2).Value = TextBox4.Text
@@ -496,6 +590,8 @@ Public Class frmIndexacion
             DataGridView2.Rows.RemoveAt(seleccion2)
             limpiar2()
             seleccion2 = -1
+            Button4.Enabled = False
+            Button2.Text = "Agregar"
         Else
 
         End If
@@ -503,59 +599,68 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
-        If e.RowIndex < variables.obtenerPosicionFila Then
-            If Not seleccion = -1 Then
-                DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.White
-            End If
-            seleccion = e.RowIndex
-            ModoEdit = True
-            DataGridView2.Rows.Clear()
-            TextBox2.Text = DataGridView1(1, seleccion).Value.ToString
-            ComboBox1.Text = DataGridView1(2, seleccion).Value.ToString
-            TextBox3.Text = DataGridView1(3, seleccion).Value.ToString
-            DateTimePicker1.Value = DataGridView1(4, seleccion).Value
-            ComboBox2.Text = DataGridView1(5, seleccion).Value.ToString
-            DataGridView1.CurrentCell = DataGridView1.Rows(e.RowIndex).Cells(0)
-            Dim id As String = DataGridView1(0, seleccion).Value.ToString
-            AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + id
-            If File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente) Then
-                Dim linea As String
-                Dim lectorCompareciente As New StreamReader(variables.ruta(0).ToString + variables.archivoCompareciente)
 
-                Do
-                    linea = lectorCompareciente.ReadLine()
-                    If linea IsNot Nothing Then
+        If e.RowIndex <> -1 Then
+            lblInicio.Text = (e.RowIndex + 1).ToString
+            If e.RowIndex < variables.obtenerPosicionFila Then
+                If Not seleccion = -1 Then
+                    DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.White
+                End If
+                seleccion = e.RowIndex
+                ModoEdit = True
+                DataGridView2.Rows.Clear()
+                TextBox2.Text = DataGridView1(1, seleccion).Value.ToString
+                ComboBox1.Text = DataGridView1(2, seleccion).Value.ToString
+                TextBox3.Text = DataGridView1(3, seleccion).Value.ToString
+                DateTimePicker1.Value = DataGridView1(4, seleccion).Value
+                ComboBox2.Text = DataGridView1(5, seleccion).Value.ToString
+                DataGridView1.CurrentCell = DataGridView1.Rows(e.RowIndex).Cells(0)
+                Dim id As String = DataGridView1(0, seleccion).Value.ToString
+                AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + id
+                If File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente) Then
+                    Dim linea As String
+                    Dim lectorCompareciente As New StreamReader(variables.ruta(0).ToString + variables.archivoCompareciente)
 
-                        Dim arrayLinea As String() = linea.Split("|")
-                        Dim datoId As String = cryp.DecryptData(arrayLinea(0))
-                        If datoId.ToString.Equals(id) Then
-                            Dim array(arrayLinea.Count - 1) As String
-                            For index = 0 To array.Count - 1
-                                If arrayLinea(index).Trim() IsNot "" Then
-                                    array(index) = cryp.DecryptData(arrayLinea(index))
-                                End If
-                            Next
+                    Do
+                        linea = lectorCompareciente.ReadLine()
+                        If linea IsNot Nothing Then
 
-                            DataGridView2.Rows.Add(array)
+                            Dim arrayLinea As String() = linea.Split("|")
+                            Dim datoId As String = cryp.DecryptData(arrayLinea(0))
+                            If datoId.ToString.Equals(id) Then
+                                Dim array(arrayLinea.Count - 1) As String
+                                For index = 0 To array.Count - 1
+                                    If arrayLinea(index).Trim() IsNot "" Then
+                                        array(index) = cryp.DecryptData(arrayLinea(index))
+                                    End If
+                                Next
+
+                                DataGridView2.Rows.Add(array)
+                            End If
                         End If
-                    End If
-                Loop Until linea Is Nothing
-                lectorCompareciente.Close()
-            End If
+                    Loop Until linea Is Nothing
+                    lectorCompareciente.Close()
+                End If
 
-            DataGridView1.Rows(e.RowIndex).DefaultCellStyle.BackColor = Color.Cyan
+                DataGridView1.Rows(e.RowIndex).DefaultCellStyle.BackColor = Color.Cyan
 
-        Else
-            If e.RowIndex = variables.obtenerPosicionFila() Then
-                limpiar1()
-                limpiar2()
-                ModoEdit = False
-                AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
             Else
-                MsgBox("No se puede mover a esta fila por que el puntero esta en la fila  " + (variables.obtenerPosicionFila + 1).ToString + ".Solamente puede moverve en filas anteriores")
-            End If
+                If e.RowIndex = variables.obtenerPosicionFila() Then
+                    limpiar1()
+                    limpiar2()
+                    ModoEdit = False
+                    If (seleccion >= 0) Then
+                        DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.White
+                    End If
 
+                    AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
+                Else
+                    MsgBox("No se puede mover a esta fila por que el puntero esta en la fila  " + (variables.obtenerPosicionFila + 1).ToString + ".Solamente puede moverve en filas anteriores")
+                End If
+
+            End If
         End If
+
     End Sub
 
     Private Sub DataGridView2_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellDoubleClick
@@ -621,5 +726,15 @@ Public Class frmIndexacion
 
     Private Sub DateTimePicker1_Enter(sender As Object, e As EventArgs) Handles DateTimePicker1.Enter
         DateTimePicker1.Format = DateTimePickerFormat.Short
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
+    End Sub
+
+    Private Sub AxAcroPDF1_Enter(sender As Object, e As EventArgs) Handles AxAcroPDF1.Enter
+        AxAcroPDF1.src = variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
+        ''lectorPdf = New iTextSharp.text.pdf.PdfReader(variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString)
+        ''MsgBox(lectorPdf.NumberOfPages)
     End Sub
 End Class

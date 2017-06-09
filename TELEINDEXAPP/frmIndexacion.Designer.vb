@@ -23,11 +23,13 @@ Partial Class frmIndexacion
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIndexacion))
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.lblFin = New System.Windows.Forms.Label()
         Me.lblInicio = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -63,6 +65,7 @@ Partial Class frmIndexacion
         Me.Button5 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel4.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -76,8 +79,7 @@ Partial Class frmIndexacion
         'Panel4
         '
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel4.Controls.Add(Me.lblFin)
-        Me.Panel4.Controls.Add(Me.lblInicio)
+        Me.Panel4.Controls.Add(Me.Panel3)
         Me.Panel4.Controls.Add(Me.Button3)
         Me.Panel4.Controls.Add(Me.Button1)
         Me.Panel4.Location = New System.Drawing.Point(4, -1)
@@ -85,29 +87,51 @@ Partial Class frmIndexacion
         Me.Panel4.Size = New System.Drawing.Size(389, 49)
         Me.Panel4.TabIndex = 16
         '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.Label7)
+        Me.Panel3.Controls.Add(Me.lblFin)
+        Me.Panel3.Controls.Add(Me.lblInicio)
+        Me.Panel3.Location = New System.Drawing.Point(62, 8)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(161, 32)
+        Me.Panel3.TabIndex = 13
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(62, 7)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(29, 20)
+        Me.Label7.TabIndex = 12
+        Me.Label7.Text = "de"
+        '
         'lblFin
         '
         Me.lblFin.AutoSize = True
-        Me.lblFin.Location = New System.Drawing.Point(213, 17)
+        Me.lblFin.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFin.Location = New System.Drawing.Point(107, 7)
         Me.lblFin.Name = "lblFin"
-        Me.lblFin.Size = New System.Drawing.Size(45, 13)
+        Me.lblFin.Size = New System.Drawing.Size(49, 20)
         Me.lblFin.TabIndex = 11
-        Me.lblFin.Text = "Label12"
+        Me.lblFin.Text = "1000"
         '
         'lblInicio
         '
         Me.lblInicio.AutoSize = True
-        Me.lblInicio.Location = New System.Drawing.Point(149, 17)
+        Me.lblInicio.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblInicio.Location = New System.Drawing.Point(20, 7)
         Me.lblInicio.Name = "lblInicio"
-        Me.lblInicio.Size = New System.Drawing.Size(39, 13)
+        Me.lblInicio.Size = New System.Drawing.Size(19, 20)
         Me.lblInicio.TabIndex = 10
-        Me.lblInicio.Text = "Label7"
+        Me.lblInicio.Text = "1"
         '
         'Button3
         '
         Me.Button3.BackgroundImage = CType(resources.GetObject("Button3.BackgroundImage"), System.Drawing.Image)
         Me.Button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button3.Location = New System.Drawing.Point(14, 3)
+        Me.Button3.Location = New System.Drawing.Point(283, 3)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(40, 40)
         Me.Button3.TabIndex = 9
@@ -116,9 +140,9 @@ Partial Class frmIndexacion
         'Button1
         '
         Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(329, 6)
+        Me.Button1.Location = New System.Drawing.Point(336, 3)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(51, 35)
+        Me.Button1.Size = New System.Drawing.Size(40, 40)
         Me.Button1.TabIndex = 8
         Me.Button1.UseVisualStyleBackColor = True
         '
@@ -127,7 +151,7 @@ Partial Class frmIndexacion
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel2.Controls.Add(Me.Panel5)
         Me.Panel2.Controls.Add(Me.Panel7)
-        Me.Panel2.Location = New System.Drawing.Point(6, 189)
+        Me.Panel2.Location = New System.Drawing.Point(5, 187)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(389, 382)
         Me.Panel2.TabIndex = 15
@@ -232,28 +256,28 @@ Partial Class frmIndexacion
         'DataGridView2
         '
         Me.DataGridView2.AllowUserToAddRows = False
-        DataGridViewCellStyle21.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle22.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        DataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle6
         Me.DataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridView2.Location = New System.Drawing.Point(3, 110)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
         Me.DataGridView2.RowHeadersVisible = False
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowsDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowsDefaultCellStyle = DataGridViewCellStyle7
         Me.DataGridView2.Size = New System.Drawing.Size(367, 104)
         Me.DataGridView2.TabIndex = 0
         '
@@ -365,7 +389,7 @@ Partial Class frmIndexacion
         '
         Me.ComboBox1.DisplayMember = "nombre"
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Propiedades", "Gravamenes", "Phohibiciones", "Sentencias", "Personal", "Embargos"})
+        Me.ComboBox1.Items.AddRange(New Object() {"Propiedades", "Gravamenes", "Prohibiciones", "Sentencias", "Personal", "Embargos"})
         Me.ComboBox1.Location = New System.Drawing.Point(105, 32)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(264, 21)
@@ -409,11 +433,12 @@ Partial Class frmIndexacion
         Me.Panel6.Controls.Add(Me.DataGridView1)
         Me.Panel6.Location = New System.Drawing.Point(4, 54)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(389, 131)
+        Me.Panel6.Size = New System.Drawing.Size(389, 129)
         Me.Panel6.TabIndex = 17
         '
         'Button5
         '
+        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button5.Location = New System.Drawing.Point(4, 101)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(376, 23)
@@ -424,6 +449,7 @@ Partial Class frmIndexacion
         'DataGridView1
         '
         Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -433,8 +459,8 @@ Partial Class frmIndexacion
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
-        DataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle8
         Me.DataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.Size = New System.Drawing.Size(376, 95)
         Me.DataGridView1.TabIndex = 0
@@ -456,7 +482,8 @@ Partial Class frmIndexacion
         Me.Text = "Módulo de Indexación Offline"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
@@ -506,4 +533,6 @@ Partial Class frmIndexacion
     Friend WithEvents Button3 As Button
     Friend WithEvents lblFin As Label
     Friend WithEvents lblInicio As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Panel3 As Panel
 End Class
