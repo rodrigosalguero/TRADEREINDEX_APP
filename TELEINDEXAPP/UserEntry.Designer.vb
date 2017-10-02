@@ -57,7 +57,6 @@ Partial Class UserEntry
         Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TextBox2.Size = New System.Drawing.Size(174, 20)
         Me.TextBox2.TabIndex = 11
-        Me.TextBox2.Text = "12345678"
         '
         'Label2
         '
@@ -74,7 +73,6 @@ Partial Class UserEntry
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(174, 20)
         Me.TextBox1.TabIndex = 9
-        Me.TextBox1.Text = "1312716358"
         '
         'Label1
         '
