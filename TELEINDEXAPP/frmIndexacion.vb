@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Speech.Recognition
 Imports System.Speech.Synthesis
+Imports System.Text
 Imports System.Threading
 
 Public Class frmIndexacion
@@ -495,7 +496,7 @@ Public Class frmIndexacion
                 MsgBox("No hay mas pdf")
             End If
         End If
-
+        automplete.FillControls(TextBox5, "comparecientes.txt", 4, "|")
     End Function
 
 
@@ -805,5 +806,42 @@ Public Class frmIndexacion
 
     Private Sub ComboBox5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox5.SelectedIndexChanged
 
+    End Sub
+
+    Private Sub TextBox4_LostFocus(sender As Object, e As EventArgs) Handles TextBox4.LostFocus
+        Dim cedula As String = TextBox4.Text
+        Dim catalogoRuta As String = variables.ruta(0) + "/catalogos/userData.txt"
+
+        If (File.Exists(catalogoRuta)) Then
+            If (Not String.IsNullOrWhiteSpace(cedula)) Then
+                Dim reader As New StreamReader(catalogoRuta, Encoding.Default)
+                Dim linea As String
+                Do
+                    linea = reader.ReadLine()
+
+                    If (linea Is Nothing) Then
+                        Exit Do
+                    End If
+                    Dim ArrayLine As String() = linea.Split(",")
+
+                    If (ArrayLine(0).Equals(cedula)) Then
+                        TextBox5.Text = ArrayLine(1)
+                        TextBox7.Text = ArrayLine(2)
+                        reader.Dispose()
+                        Exit Do
+                    End If
+
+                Loop Until linea Is Nothing
+                reader.Dispose()
+            End If
+        End If
+
+        'Dim Reader As strea
+
+    End Sub
+
+    Private Sub TextBox4_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox4.KeyPress
+        TextBox5.Text = ""
+        TextBox7.Text = ""
     End Sub
 End Class
