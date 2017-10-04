@@ -21,6 +21,7 @@ Public Class AutocompleteItems
                     control.AutoCompleteSource = AutoCompleteSource.CustomSource
                 End If
             Loop Until linea Is Nothing
+            lector.Dispose()
         End If
     End Sub
 

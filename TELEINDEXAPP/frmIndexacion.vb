@@ -214,7 +214,8 @@ Public Class frmIndexacion
         DataGridView1.Rows(variables.obtenerPosicionFila()).DefaultCellStyle.BackColor = Color.FromName("Highlight")
         lblFin.Text = DataGridView1.RowCount.ToString
         lblInicio.Text = (variables.obtenerPosicionFila() + 1).ToString
-        automplete.FillControls(TextBox5, "comparecientes.txt", 4, "|")
+        automplete.FillControls(TextBox5, "comparecientes.txt", 3, "|")
+        automplete.FillControls(TextBox7, "comparecientes.txt", 4, "|")
     End Sub
     Public Sub RECONOCE(ByVal sender As Object, ByVal e As SpeechRecognizedEventArgs)
         If microactive Then
@@ -325,7 +326,6 @@ Public Class frmIndexacion
             String.IsNullOrWhiteSpace(TextBox1.Text) And String.IsNullOrWhiteSpace(TextBox6.Text)) Then
             MsgBox("NO SE PUEDEN DEJAR CAMPOS EN BLANCO. RELLENE CON 'N/A' EN CASO DE QUE NO CONTENGAN INFORMACIÓN")
         Else
-            automplete.FillControls(TextBox5, "comparecientes.txt", 1, "|")
             siguiente()
         End If
 
@@ -496,7 +496,8 @@ Public Class frmIndexacion
                 MsgBox("No hay mas pdf")
             End If
         End If
-        automplete.FillControls(TextBox5, "comparecientes.txt", 4, "|")
+        automplete.FillControls(TextBox5, "comparecientes.txt", 3, "|")
+        automplete.FillControls(TextBox7, "comparecientes.txt", 4, "|")
     End Function
 
 
@@ -633,10 +634,7 @@ Public Class frmIndexacion
         Dim creartxt As FileStream
         creartxt = File.Create(txtPDFTemp)
         creartxt.Close()
-
         Dim escritorPDFMetadatos As New StreamWriter(txtPDFTemp)
-
-
         For index = 0 To DataGridView1.Rows.Count - 1
             Dim linea As String = ""
             Dim cryp1 As New Simple3Des("123456")
@@ -823,7 +821,6 @@ Public Class frmIndexacion
                         Exit Do
                     End If
                     Dim ArrayLine As String() = linea.Split(",")
-
                     If (ArrayLine(0).Equals(cedula)) Then
                         TextBox5.Text = ArrayLine(1)
                         TextBox7.Text = ArrayLine(2)
