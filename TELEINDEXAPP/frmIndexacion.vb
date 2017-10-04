@@ -34,7 +34,7 @@ Public Class frmIndexacion
         ComboInit.Fill(ComboBox4, variables.rutaPath + "DescBien.txt")
         ComboInit.Fill(ComboBox5, variables.rutaPath + "TipoContrato.txt")
         ComboInit.Fill(ComboBox6, variables.rutaPath + "Notarias.txt")
-        ComboInit.Fill(ComboBox3, variables.rutaPath + "Comparecientes.txt")
+        ''ComboInit.Fill(ComboBox3, variables.rutaPath + "Comparecientes.txt")
         ''MsgBox(MainForm.Size.Width.ToString)
         Dim columna1 As Double = 0.4
         Dim columna2 As Double = 0.6
@@ -616,6 +616,7 @@ Public Class frmIndexacion
         Me.ComboBox4.SelectedIndex = -1
         Me.ComboBox5.SelectedIndex = -1
         Me.ComboBox6.SelectedIndex = -1
+        Me.ComboBox3.Items.Clear()
         DateTimePicker1.Value = Now
         DateTimePicker2.Value = Now
         DataGridView2.Rows.Clear()
@@ -803,6 +804,25 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub ComboBox5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox5.SelectedIndexChanged
+        ComboBox3.Items.Clear()
+
+        Dim indice As String = Convert.ToString(ComboBox5.SelectedIndex.ToString)
+        Dim reader As New StreamReader(variables.rutaPath + "Comparecientes.txt")
+        Dim linea As String
+        Do
+            linea = reader.ReadLine()
+            If (Not linea Is Nothing) Then
+                Dim vectorLinea As String() = linea.Split(",")
+                If (vectorLinea(0).Equals(indice)) Then
+                    ComboBox3.Enabled = True
+                    ComboBox3.Items.Add(vectorLinea(1))
+                End If
+            End If
+        Loop Until linea Is Nothing
+
+        ComboBox3.Visible = False
+        Task.Delay(200)
+        ComboBox3.Visible = True
 
     End Sub
 
