@@ -22,11 +22,12 @@ Partial Class frmIndexacion
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmIndexacion))
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -49,19 +50,19 @@ Partial Class frmIndexacion
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.DateTimePicker2 = New System.Windows.Forms.MaskedTextBox()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.DateTimePicker1 = New System.Windows.Forms.MaskedTextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.ComboBox6 = New System.Windows.Forms.ComboBox()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.ComboBox5 = New System.Windows.Forms.ComboBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.ComboBox4 = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -75,6 +76,7 @@ Partial Class frmIndexacion
         Me.AxAcroPDF1 = New AxAcroPDFLib.AxAcroPDF()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -158,6 +160,7 @@ Partial Class frmIndexacion
         Me.Button3.Size = New System.Drawing.Size(40, 40)
         Me.Button3.TabIndex = 9
         Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.Visible = False
         '
         'Button1
         '
@@ -270,6 +273,7 @@ Partial Class frmIndexacion
         'ComboBox3
         '
         Me.ComboBox3.DisplayMember = "nombre"
+        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox3.FormattingEnabled = True
         Me.ComboBox3.Location = New System.Drawing.Point(3, 16)
         Me.ComboBox3.Name = "ComboBox3"
@@ -280,28 +284,28 @@ Partial Class frmIndexacion
         'DataGridView2
         '
         Me.DataGridView2.AllowUserToAddRows = False
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        Me.DataGridView2.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle9
         Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White
+        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle10
         Me.DataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.DataGridView2.Location = New System.Drawing.Point(3, 110)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
         Me.DataGridView2.RowHeadersVisible = False
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.RowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.RowsDefaultCellStyle = DataGridViewCellStyle11
         Me.DataGridView2.Size = New System.Drawing.Size(367, 104)
         Me.DataGridView2.TabIndex = 0
         '
@@ -317,19 +321,19 @@ Partial Class frmIndexacion
         'Panel7
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel7.Controls.Add(Me.DateTimePicker2)
+        Me.Panel7.Controls.Add(Me.TextBox6)
+        Me.Panel7.Controls.Add(Me.DateTimePicker1)
         Me.Panel7.Controls.Add(Me.Label10)
         Me.Panel7.Controls.Add(Me.ComboBox6)
-        Me.Panel7.Controls.Add(Me.DateTimePicker2)
         Me.Panel7.Controls.Add(Me.Label16)
         Me.Panel7.Controls.Add(Me.Label15)
-        Me.Panel7.Controls.Add(Me.TextBox6)
         Me.Panel7.Controls.Add(Me.Label14)
         Me.Panel7.Controls.Add(Me.ComboBox5)
         Me.Panel7.Controls.Add(Me.TextBox1)
         Me.Panel7.Controls.Add(Me.Label13)
         Me.Panel7.Controls.Add(Me.ComboBox4)
         Me.Panel7.Controls.Add(Me.Label12)
-        Me.Panel7.Controls.Add(Me.DateTimePicker1)
         Me.Panel7.Controls.Add(Me.Label2)
         Me.Panel7.Controls.Add(Me.Label3)
         Me.Panel7.Controls.Add(Me.TextBox2)
@@ -344,6 +348,31 @@ Partial Class frmIndexacion
         Me.Panel7.Size = New System.Drawing.Size(376, 291)
         Me.Panel7.TabIndex = 36
         '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Location = New System.Drawing.Point(302, 233)
+        Me.DateTimePicker2.Mask = "00/00/0000"
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(67, 20)
+        Me.DateTimePicker2.TabIndex = 10
+        Me.DateTimePicker2.ValidatingType = GetType(Date)
+        '
+        'TextBox6
+        '
+        Me.TextBox6.Location = New System.Drawing.Point(105, 232)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(91, 20)
+        Me.TextBox6.TabIndex = 9
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Location = New System.Drawing.Point(105, 86)
+        Me.DateTimePicker1.Mask = "00/00/0000"
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(264, 20)
+        Me.DateTimePicker1.TabIndex = 5
+        Me.DateTimePicker1.ValidatingType = GetType(Date)
+        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -356,21 +385,13 @@ Partial Class frmIndexacion
         'ComboBox6
         '
         Me.ComboBox6.DisplayMember = "nombre"
+        Me.ComboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox6.FormattingEnabled = True
         Me.ComboBox6.Location = New System.Drawing.Point(105, 259)
         Me.ComboBox6.Name = "ComboBox6"
         Me.ComboBox6.Size = New System.Drawing.Size(264, 21)
         Me.ComboBox6.TabIndex = 11
         Me.ComboBox6.ValueMember = "codigo"
-        '
-        'DateTimePicker2
-        '
-        Me.DateTimePicker2.CalendarTitleBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker2.Location = New System.Drawing.Point(297, 233)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(75, 20)
-        Me.DateTimePicker2.TabIndex = 10
         '
         'Label16
         '
@@ -390,14 +411,6 @@ Partial Class frmIndexacion
         Me.Label15.TabIndex = 34
         Me.Label15.Text = "Cuantía:"
         '
-        'TextBox6
-        '
-        Me.TextBox6.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBox6.Location = New System.Drawing.Point(105, 233)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(91, 20)
-        Me.TextBox6.TabIndex = 9
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
@@ -410,6 +423,7 @@ Partial Class frmIndexacion
         'ComboBox5
         '
         Me.ComboBox5.DisplayMember = "nombre"
+        Me.ComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox5.FormattingEnabled = True
         Me.ComboBox5.Location = New System.Drawing.Point(105, 59)
         Me.ComboBox5.Name = "ComboBox5"
@@ -438,6 +452,7 @@ Partial Class frmIndexacion
         'ComboBox4
         '
         Me.ComboBox4.DisplayMember = "nombre"
+        Me.ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox4.FormattingEnabled = True
         Me.ComboBox4.Location = New System.Drawing.Point(105, 139)
         Me.ComboBox4.Name = "ComboBox4"
@@ -453,15 +468,6 @@ Partial Class frmIndexacion
         Me.Label12.Size = New System.Drawing.Size(106, 13)
         Me.Label12.TabIndex = 27
         Me.Label12.Text = "Descripción del bien:"
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.CalendarTitleBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker1.Location = New System.Drawing.Point(105, 86)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(264, 20)
-        Me.DateTimePicker1.TabIndex = 5
         '
         'Label2
         '
@@ -526,6 +532,7 @@ Partial Class frmIndexacion
         'ComboBox1
         '
         Me.ComboBox1.DisplayMember = "nombre"
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(105, 32)
         Me.ComboBox1.Name = "ComboBox1"
@@ -536,6 +543,7 @@ Partial Class frmIndexacion
         'ComboBox2
         '
         Me.ComboBox2.DisplayMember = "nombre"
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(105, 112)
         Me.ComboBox2.Name = "ComboBox2"
@@ -580,11 +588,16 @@ Partial Class frmIndexacion
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle12
         Me.DataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView1.Size = New System.Drawing.Size(376, 95)
         Me.DataGridView1.TabIndex = 0
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.IsBalloon = True
+        Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.[Error]
         '
         'frmIndexacion
         '
@@ -633,11 +646,8 @@ Partial Class frmIndexacion
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel7 As Panel
-    Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents Label9 As Label
@@ -662,9 +672,13 @@ Partial Class frmIndexacion
     Friend WithEvents Label14 As Label
     Friend WithEvents ComboBox5 As ComboBox
     Friend WithEvents Label15 As Label
-    Friend WithEvents TextBox6 As TextBox
     Friend WithEvents Label16 As Label
-    Friend WithEvents DateTimePicker2 As DateTimePicker
     Friend WithEvents Label10 As Label
     Friend WithEvents ComboBox6 As ComboBox
+    Friend WithEvents DateTimePicker1 As MaskedTextBox
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents DateTimePicker2 As MaskedTextBox
+    Public WithEvents Label3 As Label
+    Protected Friend WithEvents Label5 As Label
 End Class

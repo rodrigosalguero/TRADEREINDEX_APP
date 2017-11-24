@@ -1,11 +1,17 @@
 ﻿Imports System.Windows.Forms
 Imports System.IO
+
+Imports TELEINDEXAPP.frmIndexacion
+
+
 Public Class AutocompleteItems
+
 
     Private variables As New VariablesGlobalesYfunciones()
     Private cryp As New Simple3Des("123456")
     Public Sub FillControls(ByVal control As TextBox, ByVal pathItemsAutocomplete As String, ByVal column As Integer, ByVal separator As Char)
         control.AutoCompleteCustomSource.Clear()
+
         Dim ruta As String = variables.ruta(0) + "/" + pathItemsAutocomplete
 
         If File.Exists(ruta) Then

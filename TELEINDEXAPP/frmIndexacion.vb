@@ -4,6 +4,7 @@ Imports System.Speech.Recognition
 Imports System.Speech.Synthesis
 Imports System.Text
 Imports System.Threading
+Imports TELEINDEXAPP.validedDecimal
 
 Public Class frmIndexacion
     Private rutapdf As String
@@ -29,6 +30,7 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub frmIndexacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         ComboInit.Fill(ComboBox2, variables.rutaPath + "Parroquia.txt")
         ComboInit.Fill(ComboBox1, variables.rutaPath + "LibroRegistral.txt")
         ComboInit.Fill(ComboBox4, variables.rutaPath + "DescBien.txt")
@@ -144,17 +146,17 @@ Public Class frmIndexacion
         ComboBox6.Location = New Point(96 + 20, ComboBox6.Location.Y)
         ComboBox6.Width = Panel7.Width - (96 + 30)
 
-        microfono = New SpeechRecognitionEngine()
-        Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro", "inscripcion", "parroquia", "fecha", "siguiente", "agregar", "borrar", "actualizar", "cancelar"}
-        Dim VOCABULARIO As New GrammarBuilder
-        VOCABULARIO.Append(New Choices(comandos))
-        microfono.LoadGrammar(New Grammar(VOCABULARIO))
+        'microfono = New SpeechRecognitionEngine()
+        'Dim comandos As String() = {"cedula", "nombres", "apellido", "compareciente", "repertorio", "libro", "inscripcion", "parroquia", "fecha", "siguiente", "agregar", "borrar", "actualizar", "cancelar"}
+        'Dim VOCABULARIO As New GrammarBuilder
+        'VOCABULARIO.Append(New Choices(comandos))
+        'microfono.LoadGrammar(New Grammar(VOCABULARIO))
 
-        microfono.SetInputToDefaultAudioDevice()
-        microfono.RecognizeAsync(RecognizeMode.Multiple)
-        AddHandler microfono.SpeechRecognized, AddressOf RECONOCE
-        AddHandler microfono.SpeechRecognitionRejected, AddressOf NORECONOCE
-        AddHandler microfono.SpeechDetected, AddressOf DETECTA
+        'microfono.SetInputToDefaultAudioDevice()
+        'microfono.RecognizeAsync(RecognizeMode.Multiple)
+        'AddHandler microfono.SpeechRecognized, AddressOf RECONOCE
+        'AddHandler microfono.SpeechRecognitionRejected, AddressOf NORECONOCE
+        'AddHandler microfono.SpeechDetected, AddressOf DETECTA
 
         rutapdf = variables.ruta(0).ToString + "/pdf/"
 
@@ -216,120 +218,120 @@ Public Class frmIndexacion
         lblInicio.Text = (variables.obtenerPosicionFila() + 1).ToString
         automplete.FillControls(TextBox5, "comparecientes.txt", 3, "|")
         automplete.FillControls(TextBox7, "comparecientes.txt", 4, "|")
+        loadMetadate()
     End Sub
-    Public Sub RECONOCE(ByVal sender As Object, ByVal e As SpeechRecognizedEventArgs)
-        If microactive Then
-            Dim resultado As RecognitionResult
-            resultado = e.Result
-            Dim palabra As String = resultado.Text
+    'Public Sub RECONOCE(ByVal sender As Object, ByVal e As SpeechRecognizedEventArgs)
+    '    If microactive Then
+    '        Dim resultado As RecognitionResult
+    '        resultado = e.Result
+    '        Dim palabra As String = resultado.Text
 
-            Select Case palabra
-                Case "fecha"
-                    DateTimePicker1.Focus()
-                    elemento.BackColor = Color.White
-                    Return
-                Case "nombres"
-                    TextBox5.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = TextBox5
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
-                Case "cedula"
-                    TextBox4.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = TextBox4
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
-                Case "apellido"
-                    TextBox7.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = TextBox7
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
-                Case "compareciente"
-                    ComboBox3.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = ComboBox3
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
-                Case "agregar"
-                    If Button2.Text = "Agregar" Then
-                        agregar()
-                        If elemento IsNot Nothing Then
-                            elemento.BackColor = Color.White
-                            Label1.Focus()
-                        End If
-                    End If
-                Case "siguiente"
-                    siguiente()
-                Case "borrar"
-                    If Button4.Enabled Then
-                        Button4_Click(Nothing, Nothing)
-                    End If
-                Case "cancelar"
-                    If Button2.Text = "Cancelar" Then
-                        Button2_Click_1(Nothing, Nothing)
-                    End If
-                Case "actualizar"
-                    If Button2.Text = "Actualizar" Then
-                        Button2_Click_1(Nothing, Nothing)
-                    End If
-                Case "repertorio"
-                    TextBox2.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = TextBox2
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
-                Case "libro"
-                    ComboBox1.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = ComboBox1
-                        ComboBox1.BackColor = Color.FromName("Highlight")
-                    End If
-                Case "inscripcion"
-                    TextBox3.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = TextBox3
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
+    '        Select Case palabra
+    '            Case "fecha"
+    '                DateTimePicker1.Focus()
+    '                elemento.BackColor = Color.White
+    '                Return
+    '            Case "nombres"
+    '                TextBox5.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = TextBox5
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case "cedula"
+    '                TextBox4.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = TextBox4
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case "apellido"
+    '                TextBox7.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = TextBox7
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case "compareciente"
+    '                ComboBox3.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = ComboBox3
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case "agregar"
+    '                If Button2.Text = "Agregar" Then
+    '                    agregar()
+    '                    If elemento IsNot Nothing Then
+    '                        elemento.BackColor = Color.White
+    '                        Label1.Focus()
+    '                    End If
+    '                End If
+    '            Case "siguiente"
+    '                siguiente()
+    '            Case "borrar"
+    '                If Button4.Enabled Then
+    '                    Button4_Click(Nothing, Nothing)
+    '                End If
+    '            Case "cancelar"
+    '                If Button2.Text = "Cancelar" Then
+    '                    Button2_Click_1(Nothing, Nothing)
+    '                End If
+    '            Case "actualizar"
+    '                If Button2.Text = "Actualizar" Then
+    '                    Button2_Click_1(Nothing, Nothing)
+    '                End If
+    '            Case "repertorio"
+    '                TextBox2.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = TextBox2
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case "libro"
+    '                ComboBox1.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = ComboBox1
+    '                    ComboBox1.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case "inscripcion"
+    '                TextBox3.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = TextBox3
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
 
-                Case "parroquia"
-                    ComboBox2.Focus()
-                    If elemento IsNot Nothing Then
-                        elemento.BackColor = Color.White
-                        elemento = ComboBox2
-                        elemento.BackColor = Color.FromName("Highlight")
-                    End If
-                Case Else
-                    Exit Select
-            End Select
-        End If
-    End Sub
+    '            Case "parroquia"
+    '                ComboBox2.Focus()
+    '                If elemento IsNot Nothing Then
+    '                    elemento.BackColor = Color.White
+    '                    elemento = ComboBox2
+    '                    elemento.BackColor = Color.FromName("Highlight")
+    '                End If
+    '            Case Else
+    '                Exit Select
+    '        End Select
+    '    End If
 
-    Public Sub DETECTA()
+    'End Sub
 
-    End Sub
+    'Public Sub DETECTA()
 
-    Public Sub NORECONOCE()
+    'End Sub
 
-    End Sub
+    'Public Sub NORECONOCE()
+
+    'End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         If (String.IsNullOrWhiteSpace(TextBox2.Text) And String.IsNullOrWhiteSpace(TextBox3.Text) And
             String.IsNullOrWhiteSpace(TextBox1.Text) And String.IsNullOrWhiteSpace(TextBox6.Text)) Then
-            MsgBox("NO SE PUEDEN DEJAR CAMPOS EN BLANCO. RELLENE CON 'N/A' EN CASO DE QUE NO CONTENGAN INFORMACIÓN")
+            MsgBox("NO SE PUEDEN DEJAR CAMPOS EN BLANCO. RELLENE CON 'N/A' EN CASO DE QUE NO CONTENGA INFORMACIÓN")
         Else
             siguiente()
         End If
-
-
     End Sub
 
     Public Function siguiente()
@@ -338,12 +340,12 @@ Public Class frmIndexacion
             DataGridView1.Item(2, seleccion).Value = ComboBox1.SelectedItem.ToString
             DataGridView1.Item(3, seleccion).Value = ComboBox5.SelectedItem.ToString
             DataGridView1.Item(4, seleccion).Value = TextBox3.Text
-            DataGridView1.Item(5, seleccion).Value = DateTimePicker1.Value.ToString
+            DataGridView1.Item(5, seleccion).Value = DateTimePicker1.Text.ToString
             DataGridView1.Item(6, seleccion).Value = ComboBox2.SelectedItem.ToString
             DataGridView1.Item(7, seleccion).Value = ComboBox4.SelectedItem.ToString
             DataGridView1.Item(8, seleccion).Value = TextBox1.Text
             DataGridView1.Item(9, seleccion).Value = TextBox6.Text
-            DataGridView1.Item(10, seleccion).Value = DateTimePicker2.Value.ToString()
+            DataGridView1.Item(10, seleccion).Value = DateTimePicker2.Text.ToString()
             DataGridView1.Item(11, seleccion).Value = ComboBox6.Text
             Button2.Text = "Agregar"
             Button4.Enabled = False
@@ -369,35 +371,16 @@ Public Class frmIndexacion
                 ComboBox1.Text = DataGridView1(2, seleccion).Value.ToString
                 ComboBox5.Text = DataGridView1(3, seleccion).Value.ToString
                 TextBox3.Text = DataGridView1(4, seleccion).Value.ToString
-                DateTimePicker1.Value = DataGridView1(5, seleccion).Value
+                DateTimePicker1.Text = DataGridView1(5, seleccion).Value
                 ComboBox2.Text = DataGridView1(6, seleccion).Value.ToString
                 ComboBox4.Text = DataGridView1(7, seleccion).Value.ToString
                 TextBox1.Text = DataGridView1(8, seleccion).Value.ToString
                 TextBox6.Text = DataGridView1.Item(9, seleccion).Value.ToString
-                DateTimePicker2.Value = DataGridView1.Item(10, seleccion).Value
+                DateTimePicker2.Text = DataGridView1.Item(10, seleccion).Value
                 ComboBox6.Text = DataGridView1.Item(11, seleccion).Value.ToString
 
-                If File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente) Then
-                    Dim linea As String
-                    Dim lectorCompareciente As New StreamReader(variables.ruta(0).ToString + variables.archivoCompareciente)
-                    Do
-                        linea = lectorCompareciente.ReadLine()
-                        If linea IsNot Nothing Then
-                            Dim arrayLinea As String() = linea.Split("|")
-                            Dim datoId As String = cryp.DecryptData(arrayLinea(0))
-                            If datoId.ToString.Equals(DataGridView1(0, seleccion).Value.ToString) Then
-                                Dim array(arrayLinea.Count - 1) As String
-                                For index = 0 To array.Count - 1
-                                    If arrayLinea(index).Trim() IsNot "" Then
-                                        array(index) = cryp.DecryptData(arrayLinea(index))
-                                    End If
-                                Next
-                                DataGridView2.Rows.Add(array)
-                            End If
-                        End If
-                    Loop Until linea Is Nothing
-                    lectorCompareciente.Close()
-                End If
+                FillComparecientes(DataGridView1(0, seleccion).Value.ToString)
+
                 DataGridView1.Rows(seleccion - 1).DefaultCellStyle.BackColor = Color.White
                 DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.Cyan
                 DataGridView1.CurrentCell = DataGridView1.Rows(seleccion).Cells(0)
@@ -409,49 +392,12 @@ Public Class frmIndexacion
                 seleccion = -1
             End If
         Else
-            Dim errores As Boolean = False
+
             If variables.obtenerPosicionFila() < DataGridView1.RowCount Then
-                If TextBox2.Text.Trim = "" Then
-                    Label3.BackColor = Color.Red
-                    Label3.ForeColor = Color.White
-                    errores = True
-                Else
-                    Label3.BackColor = Color.Transparent
-                    Label3.ForeColor = Color.Black
-                    errores = False
-                End If
 
-                If TextBox3.Text.Trim = "" Then
-                    Label6.BackColor = Color.Red
-                    Label6.ForeColor = Color.White
-                    errores = True
-                Else
-                    Label6.BackColor = Color.Transparent
-                    Label6.ForeColor = Color.Black
-                    errores = False
-                End If
+                Dim validatedCamps As New ValidatedControlsForms()
 
-                If (ComboBox1.SelectedIndex = -1) Then
-                    Label5.BackColor = Color.Red
-                    Label5.ForeColor = Color.White
-                    errores = True
-                Else
-                    Label5.BackColor = Color.Transparent
-                    Label5.ForeColor = Color.Black
-                    errores = False
-                End If
-
-                If (ComboBox2.SelectedIndex = -1) Then
-                    Label9.BackColor = Color.Red
-                    Label9.ForeColor = Color.White
-                    errores = True
-                Else
-                    Label9.BackColor = Color.Transparent
-                    Label9.ForeColor = Color.Black
-                    errores = False
-                End If
-
-                If errores Then
+                If validatedCamps.check() Then
                     MsgBox("Los campos Marcados son Obligatorios")
                 Else
                     Button2.Text = "Agregar"
@@ -462,12 +408,12 @@ Public Class frmIndexacion
                     DataGridView1.Item(2, variables.obtenerPosicionFila()).Value = ComboBox1.SelectedItem.ToString
                     DataGridView1.Item(3, variables.obtenerPosicionFila()).Value = ComboBox5.SelectedItem.ToString
                     DataGridView1.Item(4, variables.obtenerPosicionFila()).Value = TextBox3.Text
-                    DataGridView1.Item(5, variables.obtenerPosicionFila()).Value = DateTimePicker1.Value.ToString
+                    DataGridView1.Item(5, variables.obtenerPosicionFila()).Value = DateTimePicker1.Text.ToString
                     DataGridView1.Item(6, variables.obtenerPosicionFila()).Value = ComboBox2.SelectedItem.ToString
                     DataGridView1.Item(7, variables.obtenerPosicionFila()).Value = ComboBox4.SelectedItem.ToString
                     DataGridView1.Item(8, variables.obtenerPosicionFila()).Value = TextBox1.Text
                     DataGridView1.Item(9, variables.obtenerPosicionFila()).Value = TextBox6.Text
-                    DataGridView1.Item(10, variables.obtenerPosicionFila()).Value = DateTimePicker2.Value.ToString()
+                    DataGridView1.Item(10, variables.obtenerPosicionFila()).Value = DateTimePicker2.Text.ToString()
                     DataGridView1.Item(11, variables.obtenerPosicionFila()).Value = ComboBox6.Text
 
                     'funcion que permite cambiar el nombre del pdf por un formato especifico
@@ -489,6 +435,7 @@ Public Class frmIndexacion
                         lblInicio.Text = (1 + variables.obtenerPosicionFila()).ToString
                         AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
                     Else
+                        'AQUI SE DEBE MARCAR QUE YA SE FINALIZO TODO
                         MsgBox("NO HAY MAS PDF PARA INDEXAR")
                     End If
                 End If
@@ -617,8 +564,8 @@ Public Class frmIndexacion
         Me.ComboBox5.SelectedIndex = -1
         Me.ComboBox6.SelectedIndex = -1
         Me.ComboBox3.Items.Clear()
-        DateTimePicker1.Value = Now
-        DateTimePicker2.Value = Now
+        DateTimePicker1.Text = Now
+        DateTimePicker2.Text = Now
         DataGridView2.Rows.Clear()
     End Function
 
@@ -685,44 +632,12 @@ Public Class frmIndexacion
                 seleccion = e.RowIndex
                 ModoEdit = True
                 DataGridView2.Rows.Clear()
-                TextBox2.Text = DataGridView1(1, seleccion).Value.ToString
-                ComboBox1.Text = DataGridView1(2, seleccion).Value.ToString
-                ComboBox5.Text = DataGridView1(3, seleccion).Value.ToString
-                TextBox3.Text = DataGridView1(4, seleccion).Value.ToString
-                DateTimePicker1.Value = DataGridView1(5, seleccion).Value
-                ComboBox2.Text = DataGridView1(6, seleccion).Value.ToString
-                ComboBox4.Text = DataGridView1(7, seleccion).Value.ToString
-                TextBox1.Text = DataGridView1(8, seleccion).Value.ToString
-                TextBox6.Text = DataGridView1.Item(9, seleccion).Value.ToString
-                DateTimePicker2.Value = DataGridView1.Item(10, seleccion).Value
-                ComboBox6.Text = DataGridView1.Item(11, seleccion).Value.ToString
+                fillCambos()
                 DataGridView1.CurrentCell = DataGridView1.Rows(e.RowIndex).Cells(0)
                 Dim id As String = DataGridView1(0, seleccion).Value.ToString
                 AxAcroPDF1.src = variables.ruta(0).ToString + "\pdf\" + id
-                If File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente) Then
-                    Dim linea As String
-                    Dim lectorCompareciente As New StreamReader(variables.ruta(0).ToString + variables.archivoCompareciente)
 
-                    Do
-                        linea = lectorCompareciente.ReadLine()
-                        If linea IsNot Nothing Then
-
-                            Dim arrayLinea As String() = linea.Split("|")
-                            Dim datoId As String = cryp.DecryptData(arrayLinea(0))
-                            If datoId.ToString.Equals(id) Then
-                                Dim array(arrayLinea.Count - 1) As String
-                                For index = 0 To array.Count - 1
-                                    If arrayLinea(index).Trim() IsNot "" Then
-                                        array(index) = cryp.DecryptData(arrayLinea(index))
-                                    End If
-                                Next
-
-                                DataGridView2.Rows.Add(array)
-                            End If
-                        End If
-                    Loop Until linea Is Nothing
-                    lectorCompareciente.Close()
-                End If
+                FillComparecientes(id)
 
                 DataGridView1.Rows(e.RowIndex).DefaultCellStyle.BackColor = Color.Cyan
 
@@ -731,6 +646,7 @@ Public Class frmIndexacion
                     limpiar1()
                     limpiar2()
                     ModoEdit = False
+
                     If (seleccion >= 0) Then
                         DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.White
                     End If
@@ -792,20 +708,16 @@ Public Class frmIndexacion
         End If
     End Function
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
-    End Sub
-
     Private Sub AxAcroPDF1_Enter(sender As Object, e As EventArgs) Handles AxAcroPDF1.Enter
         AxAcroPDF1.src = variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString
-        ''lectorPdf = New iTextSharp.text.pdf.PdfReader(variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString)
-        ''MsgBox(lectorPdf.NumberOfPages)
-
+        'lectorPdf = New iTextSharp.text.pdf.PdfReader(variables.ruta(0) + "\pdf\" + DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString)
+        'MsgBox(lectorPdf.NumberOfPages)
     End Sub
 
     Private Sub ComboBox5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox5.SelectedIndexChanged
         ComboBox3.Items.Clear()
-
+        ComboBox3.SelectedIndex = -1
+        ComboBox3.Text = ""
         Dim indice As String = Convert.ToString(ComboBox5.SelectedIndex.ToString)
         Dim reader As New StreamReader(variables.rutaPath + "Comparecientes.txt")
         Dim linea As String
@@ -819,11 +731,9 @@ Public Class frmIndexacion
                 End If
             End If
         Loop Until linea Is Nothing
-
         ComboBox3.Visible = False
         Task.Delay(200)
         ComboBox3.Visible = True
-
     End Sub
 
     Private Sub TextBox4_LostFocus(sender As Object, e As EventArgs) Handles TextBox4.LostFocus
@@ -836,7 +746,6 @@ Public Class frmIndexacion
                 Dim linea As String
                 Do
                     linea = reader.ReadLine()
-
                     If (linea Is Nothing) Then
                         Exit Do
                     End If
@@ -847,18 +756,115 @@ Public Class frmIndexacion
                         reader.Dispose()
                         Exit Do
                     End If
-
                 Loop Until linea Is Nothing
                 reader.Dispose()
             End If
         End If
-
-        'Dim Reader As strea
-
     End Sub
 
     Private Sub TextBox4_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox4.KeyPress
+
         TextBox5.Text = ""
         TextBox7.Text = ""
     End Sub
+
+    Private Sub DateTimePicker1_TypeValidationCompleted(sender As Object, e As TypeValidationEventArgs) Handles DateTimePicker1.TypeValidationCompleted
+        ToolTip1.RemoveAll()
+        If Not e.IsValidInput Then
+            ToolTip1.ToolTipTitle = "Fecha invalida"
+            ToolTip1.Show("La fecha ingresada es incorrecta", DateTimePicker1, 0, -DateTimePicker1.Location.Y + DateTimePicker1.Height - 10)
+            DateTimePicker1.Focus()
+        Else
+            Dim userData As DateTime = DirectCast(e.ReturnValue, DateTime)
+
+            If userData > DateTime.Now Then
+                ToolTip1.ToolTipTitle = "Fecha invalida"
+                ToolTip1.Show("La fecha ingresada es mayor a la fecha actual", DateTimePicker1, 0, -DateTimePicker1.Location.Y + DateTimePicker1.Height - 10)
+                DateTimePicker1.Focus()
+            End If
+
+        End If
+
+    End Sub
+    Private Sub TextBox6_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox6.KeyPress
+        Dim valid As New validedDecimal()
+        If Not valid.validated(e, TextBox6.Text) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub DateTimePicker2_TypeValidationCompleted(sender As Object, e As TypeValidationEventArgs) Handles DateTimePicker2.TypeValidationCompleted
+        ToolTip1.RemoveAll()
+        If Not e.IsValidInput Then
+            ToolTip1.ToolTipTitle = "Fecha invalida"
+            ToolTip1.Show("La fecha ingresada es incorrecta", DateTimePicker2, 0, -73)
+            DateTimePicker2.Focus()
+        Else
+            Dim userData As DateTime = DirectCast(e.ReturnValue, DateTime)
+
+            If userData > DateTime.Now Then
+                ToolTip1.ToolTipTitle = "Fecha invalida"
+                ToolTip1.Show("La fecha ingresada es mayor a la fecha actual", DateTimePicker2, 0, -73)
+                DateTimePicker2.Focus()
+            End If
+
+        End If
+    End Sub
+
+    Private Sub DateTimePicker1_KeyDown(sender As Object, e As KeyEventArgs) Handles DateTimePicker1.KeyDown
+        Me.ToolTip1.Hide(Me.DateTimePicker1)
+    End Sub
+
+    Private Sub DateTimePicker2_KeyDown(sender As Object, e As KeyEventArgs) Handles DateTimePicker2.KeyDown
+        Me.ToolTip1.Hide(Me.DateTimePicker2)
+    End Sub
+
+    Private Sub loadMetadate()
+        If DataGridView1.Rows.Count = variables.obtenerPosicionFila() + 1 Then
+            seleccion = DataGridView1.Rows.Count - 1
+            'fillCambos()
+
+        End If
+    End Sub
+    Private Sub fillCambos()
+        TextBox2.Text = DataGridView1(1, seleccion).Value.ToString
+        ComboBox1.Text = DataGridView1(2, seleccion).Value.ToString
+        ComboBox5.Text = DataGridView1(3, seleccion).Value.ToString
+        TextBox3.Text = DataGridView1(4, seleccion).Value.ToString
+        DateTimePicker1.Text = DataGridView1(5, seleccion).Value
+        ComboBox2.Text = DataGridView1(6, seleccion).Value.ToString
+        ComboBox4.Text = DataGridView1(7, seleccion).Value.ToString
+        TextBox1.Text = DataGridView1(8, seleccion).Value.ToString
+        TextBox6.Text = DataGridView1.Item(9, seleccion).Value.ToString
+        DateTimePicker2.Text = DataGridView1.Item(10, seleccion).Value
+        ComboBox6.Text = DataGridView1.Item(11, seleccion).Value.ToString
+    End Sub
+
+    Private Sub FillComparecientes(ByVal id As String)
+        If File.Exists(variables.ruta(0).ToString + variables.archivoCompareciente) Then
+            Dim linea As String
+            Dim lectorCompareciente As New StreamReader(variables.ruta(0).ToString + variables.archivoCompareciente)
+
+            Do
+                linea = lectorCompareciente.ReadLine()
+                If linea IsNot Nothing Then
+
+                    Dim arrayLinea As String() = linea.Split("|")
+                    Dim datoId As String = cryp.DecryptData(arrayLinea(0))
+                    If datoId.ToString.Equals(id) Then
+                        Dim array(arrayLinea.Count - 1) As String
+                        For index = 0 To array.Count - 1
+                            If arrayLinea(index).Trim() IsNot "" Then
+                                array(index) = cryp.DecryptData(arrayLinea(index))
+                            End If
+                        Next
+
+                        DataGridView2.Rows.Add(array)
+                    End If
+                End If
+            Loop Until linea Is Nothing
+            lectorCompareciente.Close()
+        End If
+    End Sub
+
 End Class
