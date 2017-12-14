@@ -22,9 +22,11 @@ Public Class AutocompleteItems
                 If (linea Is Nothing) Then
                 Else
                     Dim vectorLinea As String() = linea.Split(separator)
-                    control.AutoCompleteCustomSource.Add(cryp.DecryptData(vectorLinea(column)))
-                    control.AutoCompleteMode = AutoCompleteMode.Suggest
-                    control.AutoCompleteSource = AutoCompleteSource.CustomSource
+                    If Not String.IsNullOrWhiteSpace(vectorLinea(column)) Then
+                        control.AutoCompleteCustomSource.Add(cryp.DecryptData(vectorLinea(column)))
+                        control.AutoCompleteMode = AutoCompleteMode.Suggest
+                        control.AutoCompleteSource = AutoCompleteSource.CustomSource
+                    End If
                 End If
             Loop Until linea Is Nothing
             lector.Dispose()

@@ -4,6 +4,9 @@ Public Class VariablesGlobalesYfunciones
     Public archivoGuia As String = "/posiciongrid.txt"
     Public archivoCompareciente As String = "/comparecientes.txt"
     Public archivoActos As String = "/metadatosActos.txt"
+    Public archivoMarginaciones As String = "/marginaciones.txt"
+    Public archivoEstadisticas As String = "/Estadisticas.txt"
+    Public archivoLoginInspector As String = "UConfigInspect.txt"
 
     '    Public ruta As String() = Application.StartupPath.ToString.Split("\")
     Public ruta As String() = Application.StartupPath.ToString.Split("\")

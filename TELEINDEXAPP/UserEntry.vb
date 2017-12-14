@@ -1,10 +1,13 @@
 ﻿Imports System
 Imports System.IO
+Imports System.Text
 
 Public Class UserEntry
     Public rd_cedula As String
     Public rd_nombre As String
     Public rd_clave As String
+    Dim variables As New VariablesGlobalesYfunciones
+    Public modeUsers As Integer = 0 ''0=> digitador, 1=> inspector,2 => create
 
     Private Sub TextBox1_Validated(sender As Object, e As EventArgs) Handles TextBox1.Validated
         ValidaCedula(TextBox1.Text.Trim())
@@ -64,16 +67,32 @@ Public Class UserEntry
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If TestDecoding(rd_clave) = TextBox2.Text.Trim Then
+
+        If modeUsers = 2 Or rd_cedula = Nothing Then
+            Dim writer As New StreamWriter(variables.archivoLoginInspector)
+            writer.WriteLine(TextBox1.Text)
+            writer.WriteLine("Inspector")
+            writer.WriteLine(TestEncoding(TextBox2.Text))
+            writer.Close()
+            MainForm.IndexarToolStripMenuItem.Enabled = True
+            MainForm.mode = 1
+            Me.Close()
+            Exit Sub
+        End If
+
+        If modeUsers = 1 Then
+            MainForm.mode = 1
+        End If
+
+        If TestDecoding(rd_clave) = TextBox2.Text.Trim And rd_cedula = TextBox1.Text Then
             MainForm.IndexarToolStripMenuItem.Enabled = True
             Me.Close()
         Else
-            MsgBox("Contraseña incorrecta!", MsgBoxStyle.OkOnly)
+            MsgBox("Datos incorrectos!", MsgBoxStyle.OkOnly)
             TextBox2.Text = ""
             TextBox2.Focus()
             Return
         End If
-
     End Sub
 
     Private Sub TextBox2_Click(sender As Object, e As EventArgs) Handles TextBox2.Click
@@ -115,7 +134,9 @@ Public Class UserEntry
     End Function
 
     Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim variables As New VariablesGlobalesYfunciones
+
+        Console.WriteLine(TestEncoding("60"))
+
         If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivotext1) Then
             Dim creartxt As System.IO.FileStream
             creartxt = File.Create(variables.ruta(0).ToString + variables.archivotext1)
@@ -141,19 +162,71 @@ Public Class UserEntry
             escribir.Close()
         End If
 
+        If File.Exists(variables.ruta(0).ToString + variables.archivoEstadisticas) Then
+            modeLabel.Text = "CONTROL DE CALIDAD"
+            If Not File.Exists(variables.archivoLoginInspector) Then
+                File.Create(variables.archivoLoginInspector).Close()
+                modeUsers = 2
+                showMsm()
+            Else
+                loadData(variables.archivoLoginInspector)
+                If rd_cedula = Nothing Then
+                    showMsm()
+                End If
+                modeUsers = 1
+            End If
+
+            loadStatistics(variables.ruta(0).ToString + variables.archivoEstadisticas)
+            loadPercentage()
+        Else
+            modeLabel.Text = "INDEXADOR"
+            loadData("UConfig.txt")
+        End If
+        TextBox1.Focus()
+    End Sub
+
+
+    Public Function showMsm()
+        MsgBox("LOS PDF HAN SIDO INDEXADOS")
+        MsgBox("AHORA EL SISTEMA VA A PASAR AL MODO CONTROL DE CALIDAD, DEBES INGRESAR TU ID DE USUARIO Y UNA CONTRASEÑA")
+    End Function
+
+    Public Function loadData(ByVal path As String)
         ' Open the file using a stream reader.
-        Using sr As New StreamReader("UConfig.txt")
+        Using sr As New StreamReader(path)
             ' Read the stream to a string and write the string to the console.
             rd_cedula = sr.ReadLine()
             rd_nombre = sr.ReadLine()
             rd_clave = sr.ReadLine()
-            '            MsgBox(rd_cedula & rd_nombre & rd_clave, vbOKOnly)
+            'MsgBox(rd_cedula & rd_nombre & rd_clave, vbOKOnly)
         End Using
-        TextBox1.Focus()
+    End Function
+
+    Public Sub loadStatistics(ByVal path As String)
+
+        Dim lector As New StreamReader(path, Encoding.Default)
+
+        Dim linea As String = lector.ReadLine()
+
+        While Not linea Is Nothing
+            Dim arrayString() As String = linea.Split("|")
+            Dim id As String = TestDecoding(arrayString(0))
+
+            If Not MainForm.listDocCheck.IndexOf(id) > -1 Then
+                MainForm.listDocCheck.Add(id)
+            End If
+            linea = lector.ReadLine()
+        End While
+
+        lector.Close()
+
     End Sub
 
-    Function generarTXtPdf()
+    Public Sub loadPercentage()
+        Dim lineas() As String = File.ReadAllLines("UConfig.txt")
+        'Console.WriteLine(lineas(lineas.Length - 1))
+        MainForm.porcentajeRevision = Convert.ToDecimal(TestDecoding(lineas(lineas.Length - 1))) / 100
 
-    End Function
+    End Sub
 
 End Class

@@ -88,6 +88,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Render\FillCombo.vb" />
+    <Compile Include="Render\FillDocsAcept.vb" />
+    <Compile Include="Render\setLibros.vb" />
     <Compile Include="Simple3Des.vb" />
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
@@ -120,6 +122,12 @@
     <Compile Include="validated\ValidatedControlsForms.vb" />
     <Compile Include="validated\validedDecimal.vb" />
     <Compile Include="VariablesGlobalesYfunciones.vb" />
+    <Compile Include="visorPDF.Designer.vb">
+      <DependentUpon>visorPDF.vb</DependentUpon>
+    </Compile>
+    <Compile Include="visorPDF.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmIndexacion.resx">
@@ -137,6 +145,9 @@
     <EmbeddedResource Include="UserEntry.resx">
       <DependentUpon>UserEntry.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="visorPDF.resx">
+      <DependentUpon>visorPDF.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -149,6 +160,25 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
