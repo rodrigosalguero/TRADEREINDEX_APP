@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TELEINDEXAPP", "TELEINDEXAPP\TELEINDEXAPP.vbproj", "{320FA610-4B9B-4930-9E33-8AACD13F5D21}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TradereIndex_APP", "TRADEREINDEX_APP\TradereIndex_APP.vbproj", "{320FA610-4B9B-4930-9E33-8AACD13F5D21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

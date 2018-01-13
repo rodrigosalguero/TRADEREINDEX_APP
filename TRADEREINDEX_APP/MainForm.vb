@@ -8,6 +8,7 @@ Public Class MainForm
     Public Shared nombre As String
     Public Shared porcentajeRevision As Decimal
     Public Shared listDocCheck As New List(Of String)
+    Public Shared cedControlCalidad As String
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         UserEntry.Show()

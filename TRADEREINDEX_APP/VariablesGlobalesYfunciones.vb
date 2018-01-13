@@ -6,6 +6,7 @@ Public Class VariablesGlobalesYfunciones
     Public archivoActos As String = "/metadatosActos.txt"
     Public archivoMarginaciones As String = "/marginaciones.txt"
     Public archivoEstadisticas As String = "/Estadisticas.txt"
+    Public archivoEstadisticastemp As String = "/tmpEstadisticas.txt"
     Public archivoLoginInspector As String = "UConfigInspect.txt"
 
     '    Public ruta As String() = Application.StartupPath.ToString.Split("\")
@@ -35,28 +36,30 @@ Public Class VariablesGlobalesYfunciones
             ''PERMITEN POSICIONAR EL FOCUS EN UNA POSICION DE LA FILA
             frmIndexacion.DataGridView1.CurrentCell = frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(0)
             ''CAMBIA EL COLOR DE TODA UNA FILA PARA DAR A CONOCER QUE ESTA SELECCIONADA
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).DefaultCellStyle.BackColor = Color.FromName("Highlight")
+            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).DefaultCellStyle.BackColor = Color.Green
+            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).DefaultCellStyle.ForeColor = Color.White
 
             'REGRESA A ESTADO NORNAL EL COLOR DE FONDO DE LA FILA
             frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).DefaultCellStyle.BackColor = Color.White
+            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).DefaultCellStyle.ForeColor = Color.Black
 
             'CAMBIA EL COLOR DE LAS LETRAS DE LA FILA ACTUAL
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(0).Style.ForeColor = Color.White
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(1).Style.ForeColor = Color.White
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(2).Style.ForeColor = Color.White
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(3).Style.ForeColor = Color.White
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(4).Style.ForeColor = Color.White
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(5).Style.ForeColor = Color.White
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(6).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(0).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(1).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(2).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(3).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(4).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(5).Style.ForeColor = Color.White
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila() + 1).Cells(6).Style.ForeColor = Color.White
 
             'RESTAURA EL COLOR
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(0).Style.ForeColor = Color.Black
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(1).Style.ForeColor = Color.Black
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(2).Style.ForeColor = Color.Black
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(3).Style.ForeColor = Color.Black
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(4).Style.ForeColor = Color.Black
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(5).Style.ForeColor = Color.Black
-            frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(6).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(0).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(1).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(2).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(3).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(4).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(5).Style.ForeColor = Color.Black
+            'frmIndexacion.DataGridView1.Rows(obtenerPosicionFila()).Cells(6).Style.ForeColor = Color.Black
         End If
     End Function
 

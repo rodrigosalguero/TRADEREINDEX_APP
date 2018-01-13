@@ -8,12 +8,12 @@ Imports System.Runtime.InteropServices
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("TELEINDEXAPP")>
+<Assembly: AssemblyTitle("TradereIndex_APP")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Microsoft")>
-<Assembly: AssemblyProduct("TELEINDEXAPP")>
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2017")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyCompany("TRADERE")>
+<Assembly: AssemblyProduct("TradereIndex_APP")>
+<Assembly: AssemblyCopyright("Copyright © 2017 Rodrigo Xavier Salguero Carvajal")>
+<Assembly: AssemblyTrademark("TRADERE")>
 
 <Assembly: ComVisible(False)>
 

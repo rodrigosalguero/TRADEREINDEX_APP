@@ -29,6 +29,7 @@ Partial Class frmIndexacion
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Button7 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -50,6 +51,12 @@ Partial Class frmIndexacion
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.MaskedTextBox2 = New System.Windows.Forms.MaskedTextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.ComboBox7 = New System.Windows.Forms.ComboBox()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.MaskedTextBox1 = New System.Windows.Forms.MaskedTextBox()
@@ -83,6 +90,8 @@ Partial Class frmIndexacion
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.PanelControls = New System.Windows.Forms.Panel()
+        Me.btnResetIndex = New System.Windows.Forms.Button()
+        Me.btnCambiarModoControl = New System.Windows.Forms.Button()
         Me.btnFiltrar = New System.Windows.Forms.Button()
         Me.panelfiltro = New System.Windows.Forms.Panel()
         Me.txtNumber = New System.Windows.Forms.MaskedTextBox()
@@ -93,7 +102,6 @@ Partial Class frmIndexacion
         Me.lblFiltro = New System.Windows.Forms.Label()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.ComboBox7 = New System.Windows.Forms.ComboBox()
         Me.Panel4.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -112,6 +120,7 @@ Partial Class frmIndexacion
         'Panel4
         '
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel4.Controls.Add(Me.Button7)
         Me.Panel4.Controls.Add(Me.Button5)
         Me.Panel4.Controls.Add(Me.Panel3)
         Me.Panel4.Controls.Add(Me.Button3)
@@ -119,16 +128,26 @@ Partial Class frmIndexacion
         Me.Panel4.Location = New System.Drawing.Point(4, -1)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(389, 49)
-        Me.Panel4.TabIndex = 16
+        Me.Panel4.TabIndex = 0
+        '
+        'Button7
+        '
+        Me.Button7.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button7.Location = New System.Drawing.Point(198, 10)
+        Me.Button7.Name = "Button7"
+        Me.Button7.Size = New System.Drawing.Size(104, 32)
+        Me.Button7.TabIndex = 1
+        Me.Button7.Text = "Imagen incorrecta"
+        Me.Button7.UseVisualStyleBackColor = True
         '
         'Button5
         '
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button5.Location = New System.Drawing.Point(11, 10)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(108, 32)
-        Me.Button5.TabIndex = 6
-        Me.Button5.Text = "Siguiente"
+        Me.Button5.Size = New System.Drawing.Size(152, 32)
+        Me.Button5.TabIndex = 0
+        Me.Button5.Text = "C. CALIDAD Y GUARDAR"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'Panel3
@@ -189,7 +208,7 @@ Partial Class frmIndexacion
         Me.Button1.Location = New System.Drawing.Point(336, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(40, 40)
-        Me.Button1.TabIndex = 8
+        Me.Button1.TabIndex = 2
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Panel2
@@ -197,10 +216,10 @@ Partial Class frmIndexacion
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel2.Controls.Add(Me.Panel5)
         Me.Panel2.Controls.Add(Me.Panel7)
-        Me.Panel2.Location = New System.Drawing.Point(4, 167)
+        Me.Panel2.Location = New System.Drawing.Point(4, 152)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(389, 533)
-        Me.Panel2.TabIndex = 15
+        Me.Panel2.Size = New System.Drawing.Size(389, 548)
+        Me.Panel2.TabIndex = 2
         '
         'Panel5
         '
@@ -216,43 +235,44 @@ Partial Class frmIndexacion
         Me.Panel5.Controls.Add(Me.ComboBox3)
         Me.Panel5.Controls.Add(Me.DataGridView2)
         Me.Panel5.Controls.Add(Me.Label1)
-        Me.Panel5.Location = New System.Drawing.Point(5, 300)
+        Me.Panel5.Location = New System.Drawing.Point(5, 319)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(377, 224)
-        Me.Panel5.TabIndex = 35
+        Me.Panel5.Size = New System.Drawing.Size(377, 222)
+        Me.Panel5.TabIndex = 0
         '
         'Button4
         '
         Me.Button4.Enabled = False
-        Me.Button4.Location = New System.Drawing.Point(194, 83)
+        Me.Button4.Location = New System.Drawing.Point(194, 87)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(177, 23)
-        Me.Button4.TabIndex = 38
+        Me.Button4.TabIndex = 5
         Me.Button4.Text = "Borrar"
         Me.Button4.UseVisualStyleBackColor = True
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(3, 83)
+        Me.Button2.Location = New System.Drawing.Point(3, 87)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(177, 23)
-        Me.Button2.TabIndex = 5
+        Me.Button2.TabIndex = 4
         Me.Button2.Text = "Agregar"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(183, 40)
+        Me.Label11.Location = New System.Drawing.Point(183, 44)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(52, 13)
         Me.Label11.TabIndex = 37
         Me.Label11.Text = "Apellidos:"
+        Me.Label11.Visible = False
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(183, 1)
+        Me.Label8.Location = New System.Drawing.Point(183, 5)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(43, 13)
         Me.Label8.TabIndex = 36
@@ -261,7 +281,7 @@ Partial Class frmIndexacion
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(3, 41)
+        Me.Label4.Location = New System.Drawing.Point(3, 45)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(52, 13)
         Me.Label4.TabIndex = 35
@@ -270,18 +290,19 @@ Partial Class frmIndexacion
         'TextBox7
         '
         Me.TextBox7.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBox7.Location = New System.Drawing.Point(194, 57)
+        Me.TextBox7.Location = New System.Drawing.Point(194, 61)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(177, 20)
-        Me.TextBox7.TabIndex = 4
+        Me.TextBox7.TabIndex = 3
+        Me.TextBox7.Visible = False
         '
         'TextBox5
         '
         Me.TextBox5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBox5.Location = New System.Drawing.Point(3, 57)
+        Me.TextBox5.Location = New System.Drawing.Point(3, 61)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(177, 20)
-        Me.TextBox5.TabIndex = 3
+        Me.TextBox5.TabIndex = 2
         '
         'TextBox4
         '
@@ -289,20 +310,23 @@ Partial Class frmIndexacion
         Me.TextBox4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.TextBox4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource
         Me.TextBox4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBox4.Location = New System.Drawing.Point(194, 17)
+        Me.TextBox4.Location = New System.Drawing.Point(194, 21)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(177, 20)
-        Me.TextBox4.TabIndex = 2
+        Me.TextBox4.TabIndex = 1
         '
         'ComboBox3
         '
+        Me.ComboBox3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboBox3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox3.DisplayMember = "nombre"
         Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(3, 16)
+        Me.ComboBox3.Location = New System.Drawing.Point(3, 20)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(177, 21)
-        Me.ComboBox3.TabIndex = 1
+        Me.ComboBox3.Sorted = True
+        Me.ComboBox3.TabIndex = 0
         Me.ComboBox3.ValueMember = "codigo"
         '
         'DataGridView2
@@ -323,7 +347,7 @@ Partial Class frmIndexacion
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView2.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.DataGridView2.Location = New System.Drawing.Point(3, 110)
+        Me.DataGridView2.Location = New System.Drawing.Point(3, 114)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.ReadOnly = True
@@ -331,12 +355,12 @@ Partial Class frmIndexacion
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView2.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView2.Size = New System.Drawing.Size(367, 104)
-        Me.DataGridView2.TabIndex = 0
+        Me.DataGridView2.TabIndex = 6
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Location = New System.Drawing.Point(3, 4)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(81, 13)
         Me.Label1.TabIndex = 32
@@ -345,6 +369,11 @@ Partial Class frmIndexacion
         'Panel7
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel7.Controls.Add(Me.MaskedTextBox2)
+        Me.Panel7.Controls.Add(Me.Label19)
+        Me.Panel7.Controls.Add(Me.TextBox9)
+        Me.Panel7.Controls.Add(Me.Label18)
+        Me.Panel7.Controls.Add(Me.TextBox8)
         Me.Panel7.Controls.Add(Me.ComboBox7)
         Me.Panel7.Controls.Add(Me.Button6)
         Me.Panel7.Controls.Add(Me.Label17)
@@ -374,15 +403,66 @@ Partial Class frmIndexacion
         Me.Panel7.Controls.Add(Me.ComboBox2)
         Me.Panel7.Location = New System.Drawing.Point(4, 3)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(376, 291)
-        Me.Panel7.TabIndex = 36
+        Me.Panel7.Size = New System.Drawing.Size(376, 310)
+        Me.Panel7.TabIndex = 1
+        '
+        'MaskedTextBox2
+        '
+        Me.MaskedTextBox2.Location = New System.Drawing.Point(344, 87)
+        Me.MaskedTextBox2.Mask = "00/00/0000"
+        Me.MaskedTextBox2.Name = "MaskedTextBox2"
+        Me.MaskedTextBox2.Size = New System.Drawing.Size(58, 20)
+        Me.MaskedTextBox2.TabIndex = 3
+        Me.MaskedTextBox2.ValidatingType = GetType(Date)
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(242, 89)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(87, 13)
+        Me.Label19.TabIndex = 46
+        Me.Label19.Text = "Fecha repertorio:"
+        '
+        'TextBox9
+        '
+        Me.TextBox9.Location = New System.Drawing.Point(105, 286)
+        Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.Size = New System.Drawing.Size(52, 20)
+        Me.TextBox9.TabIndex = 13
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(7, 289)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(78, 13)
+        Me.Label18.TabIndex = 44
+        Me.Label18.Text = "Observaciones"
+        '
+        'TextBox8
+        '
+        Me.TextBox8.Location = New System.Drawing.Point(233, 113)
+        Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.Size = New System.Drawing.Size(136, 20)
+        Me.TextBox8.TabIndex = 5
+        '
+        'ComboBox7
+        '
+        Me.ComboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox7.FormattingEnabled = True
+        Me.ComboBox7.Items.AddRange(New Object() {"S", "D"})
+        Me.ComboBox7.Location = New System.Drawing.Point(171, 232)
+        Me.ComboBox7.Name = "ComboBox7"
+        Me.ComboBox7.Size = New System.Drawing.Size(33, 21)
+        Me.ComboBox7.TabIndex = 10
         '
         'Button6
         '
         Me.Button6.Location = New System.Drawing.Point(233, 188)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(63, 23)
-        Me.Button6.TabIndex = 10
+        Me.Button6.TabIndex = 100
         Me.Button6.Text = "Agregar"
         Me.Button6.UseVisualStyleBackColor = True
         '
@@ -401,7 +481,7 @@ Partial Class frmIndexacion
         Me.MaskedTextBox1.Mask = "00/00/0000"
         Me.MaskedTextBox1.Name = "MaskedTextBox1"
         Me.MaskedTextBox1.Size = New System.Drawing.Size(122, 20)
-        Me.MaskedTextBox1.TabIndex = 9
+        Me.MaskedTextBox1.TabIndex = 8
         Me.MaskedTextBox1.ValidatingType = GetType(Date)
         '
         'gridMargin
@@ -414,7 +494,7 @@ Partial Class frmIndexacion
         Me.gridMargin.ReadOnly = True
         Me.gridMargin.RowHeadersVisible = False
         Me.gridMargin.Size = New System.Drawing.Size(67, 59)
-        Me.gridMargin.TabIndex = 39
+        Me.gridMargin.TabIndex = 100
         '
         'DateTimePicker2
         '
@@ -422,7 +502,7 @@ Partial Class frmIndexacion
         Me.DateTimePicker2.Mask = "00/00/0000"
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(67, 20)
-        Me.DateTimePicker2.TabIndex = 12
+        Me.DateTimePicker2.TabIndex = 11
         Me.DateTimePicker2.ValidatingType = GetType(Date)
         '
         'TextBox6
@@ -430,7 +510,7 @@ Partial Class frmIndexacion
         Me.TextBox6.Location = New System.Drawing.Point(105, 233)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(60, 20)
-        Me.TextBox6.TabIndex = 11
+        Me.TextBox6.TabIndex = 9
         '
         'DateTimePicker1
         '
@@ -438,8 +518,8 @@ Partial Class frmIndexacion
         Me.DateTimePicker1.Mask = "00/00/0000"
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.ReadOnly = True
-        Me.DateTimePicker1.Size = New System.Drawing.Size(264, 20)
-        Me.DateTimePicker1.TabIndex = 5
+        Me.DateTimePicker1.Size = New System.Drawing.Size(131, 20)
+        Me.DateTimePicker1.TabIndex = 100
         Me.DateTimePicker1.ValidatingType = GetType(Date)
         '
         'Label10
@@ -453,13 +533,17 @@ Partial Class frmIndexacion
         '
         'ComboBox6
         '
+        Me.ComboBox6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboBox6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox6.DisplayMember = "nombre"
         Me.ComboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox6.Font = New System.Drawing.Font("Courier New", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox6.FormattingEnabled = True
         Me.ComboBox6.Location = New System.Drawing.Point(105, 259)
         Me.ComboBox6.Name = "ComboBox6"
-        Me.ComboBox6.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox6.TabIndex = 13
+        Me.ComboBox6.Size = New System.Drawing.Size(122, 22)
+        Me.ComboBox6.Sorted = True
+        Me.ComboBox6.TabIndex = 12
         Me.ComboBox6.ValueMember = "codigo"
         '
         'Label16
@@ -468,7 +552,7 @@ Partial Class frmIndexacion
         Me.Label16.Location = New System.Drawing.Point(202, 236)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(104, 13)
-        Me.Label16.TabIndex = 35
+        Me.Label16.TabIndex = 14
         Me.Label16.Text = "Fecha otorgamiento:"
         '
         'Label15
@@ -491,13 +575,16 @@ Partial Class frmIndexacion
         '
         'ComboBox5
         '
+        Me.ComboBox5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboBox5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox5.DisplayMember = "nombre"
         Me.ComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox5.FormattingEnabled = True
         Me.ComboBox5.Location = New System.Drawing.Point(105, 59)
         Me.ComboBox5.Name = "ComboBox5"
         Me.ComboBox5.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox5.TabIndex = 4
+        Me.ComboBox5.Sorted = True
+        Me.ComboBox5.TabIndex = 2
         Me.ComboBox5.ValueMember = "codigo"
         '
         'TextBox1
@@ -507,7 +594,7 @@ Partial Class frmIndexacion
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(122, 34)
-        Me.TextBox1.TabIndex = 8
+        Me.TextBox1.TabIndex = 7
         '
         'Label13
         '
@@ -520,13 +607,16 @@ Partial Class frmIndexacion
         '
         'ComboBox4
         '
+        Me.ComboBox4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboBox4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox4.DisplayMember = "nombre"
         Me.ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox4.FormattingEnabled = True
         Me.ComboBox4.Location = New System.Drawing.Point(105, 139)
         Me.ComboBox4.Name = "ComboBox4"
         Me.ComboBox4.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox4.TabIndex = 7
+        Me.ComboBox4.Sorted = True
+        Me.ComboBox4.TabIndex = 6
         Me.ComboBox4.ValueMember = "id"
         '
         'Label12
@@ -543,9 +633,9 @@ Partial Class frmIndexacion
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(7, 89)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(40, 13)
+        Me.Label2.Size = New System.Drawing.Size(93, 13)
         Me.Label2.TabIndex = 26
-        Me.Label2.Text = "Fecha:"
+        Me.Label2.Text = "Fecha inscripción:"
         '
         'Label3
         '
@@ -588,7 +678,7 @@ Partial Class frmIndexacion
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ReadOnly = True
         Me.TextBox3.Size = New System.Drawing.Size(58, 20)
-        Me.TextBox3.TabIndex = 2
+        Me.TextBox3.TabIndex = 100
         '
         'Label9
         '
@@ -601,6 +691,8 @@ Partial Class frmIndexacion
         '
         'ComboBox1
         '
+        Me.ComboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox1.DisplayMember = "nombre"
         Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox1.Enabled = False
@@ -608,18 +700,22 @@ Partial Class frmIndexacion
         Me.ComboBox1.Location = New System.Drawing.Point(105, 32)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox1.TabIndex = 3
+        Me.ComboBox1.Sorted = True
+        Me.ComboBox1.TabIndex = 100
         Me.ComboBox1.ValueMember = "codigo"
         '
         'ComboBox2
         '
+        Me.ComboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ComboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ComboBox2.DisplayMember = "nombre"
         Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(105, 112)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(264, 21)
-        Me.ComboBox2.TabIndex = 6
+        Me.ComboBox2.Size = New System.Drawing.Size(122, 21)
+        Me.ComboBox2.Sorted = True
+        Me.ComboBox2.TabIndex = 4
         Me.ComboBox2.ValueMember = "id"
         '
         'Panel1
@@ -647,8 +743,8 @@ Partial Class frmIndexacion
         Me.Panel6.Controls.Add(Me.DataGridView1)
         Me.Panel6.Location = New System.Drawing.Point(4, 54)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(389, 107)
-        Me.Panel6.TabIndex = 17
+        Me.Panel6.Size = New System.Drawing.Size(389, 92)
+        Me.Panel6.TabIndex = 1
         '
         'DataGridView1
         '
@@ -666,7 +762,7 @@ Partial Class frmIndexacion
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle4
         Me.DataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.Size = New System.Drawing.Size(376, 95)
+        Me.DataGridView1.Size = New System.Drawing.Size(376, 76)
         Me.DataGridView1.TabIndex = 0
         '
         'ToolTip1
@@ -682,6 +778,8 @@ Partial Class frmIndexacion
         'PanelControls
         '
         Me.PanelControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.PanelControls.Controls.Add(Me.btnResetIndex)
+        Me.PanelControls.Controls.Add(Me.btnCambiarModoControl)
         Me.PanelControls.Controls.Add(Me.btnFiltrar)
         Me.PanelControls.Controls.Add(Me.panelfiltro)
         Me.PanelControls.Controls.Add(Me.cmbFiltro)
@@ -691,14 +789,34 @@ Partial Class frmIndexacion
         Me.PanelControls.Location = New System.Drawing.Point(399, 4)
         Me.PanelControls.Name = "PanelControls"
         Me.PanelControls.Size = New System.Drawing.Size(833, 44)
-        Me.PanelControls.TabIndex = 1
+        Me.PanelControls.TabIndex = 3
+        '
+        'btnResetIndex
+        '
+        Me.btnResetIndex.Location = New System.Drawing.Point(594, 8)
+        Me.btnResetIndex.Name = "btnResetIndex"
+        Me.btnResetIndex.Size = New System.Drawing.Size(130, 29)
+        Me.btnResetIndex.TabIndex = 4
+        Me.btnResetIndex.Text = "VOLVER A INDEXAR"
+        Me.btnResetIndex.UseVisualStyleBackColor = True
+        Me.btnResetIndex.Visible = False
+        '
+        'btnCambiarModoControl
+        '
+        Me.btnCambiarModoControl.Location = New System.Drawing.Point(497, 8)
+        Me.btnCambiarModoControl.Name = "btnCambiarModoControl"
+        Me.btnCambiarModoControl.Size = New System.Drawing.Size(141, 29)
+        Me.btnCambiarModoControl.TabIndex = 3
+        Me.btnCambiarModoControl.Text = "FINALIZAR INDEXACIÓN"
+        Me.btnCambiarModoControl.UseVisualStyleBackColor = True
+        Me.btnCambiarModoControl.Visible = False
         '
         'btnFiltrar
         '
         Me.btnFiltrar.Location = New System.Drawing.Point(460, 8)
         Me.btnFiltrar.Name = "btnFiltrar"
         Me.btnFiltrar.Size = New System.Drawing.Size(57, 23)
-        Me.btnFiltrar.TabIndex = 5
+        Me.btnFiltrar.TabIndex = 2
         Me.btnFiltrar.Text = "Filtrar"
         Me.btnFiltrar.UseVisualStyleBackColor = True
         Me.btnFiltrar.Visible = False
@@ -709,16 +827,15 @@ Partial Class frmIndexacion
         Me.panelfiltro.Controls.Add(Me.RadioButton5)
         Me.panelfiltro.Controls.Add(Me.RadioButton4)
         Me.panelfiltro.Controls.Add(Me.RadioButton3)
-        Me.panelfiltro.Location = New System.Drawing.Point(164, 1)
+        Me.panelfiltro.Location = New System.Drawing.Point(167, 2)
         Me.panelfiltro.Name = "panelfiltro"
-        Me.panelfiltro.Size = New System.Drawing.Size(287, 42)
-        Me.panelfiltro.TabIndex = 4
+        Me.panelfiltro.Size = New System.Drawing.Size(189, 42)
+        Me.panelfiltro.TabIndex = 1
         Me.panelfiltro.Visible = False
         '
         'txtNumber
         '
-        Me.txtNumber.Location = New System.Drawing.Point(245, 9)
-        Me.txtNumber.Mask = "99"
+        Me.txtNumber.Location = New System.Drawing.Point(142, 9)
         Me.txtNumber.Name = "txtNumber"
         Me.txtNumber.Size = New System.Drawing.Size(32, 20)
         Me.txtNumber.TabIndex = 3
@@ -726,21 +843,21 @@ Partial Class frmIndexacion
         'RadioButton5
         '
         Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(173, 10)
+        Me.RadioButton5.Location = New System.Drawing.Point(95, 11)
         Me.RadioButton5.Name = "RadioButton5"
-        Me.RadioButton5.Size = New System.Drawing.Size(59, 17)
+        Me.RadioButton5.Size = New System.Drawing.Size(31, 17)
         Me.RadioButton5.TabIndex = 2
-        Me.RadioButton5.Text = "igual a "
+        Me.RadioButton5.Text = "="
         Me.RadioButton5.UseVisualStyleBackColor = True
         '
         'RadioButton4
         '
         Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(92, 10)
+        Me.RadioButton4.Location = New System.Drawing.Point(49, 11)
         Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(75, 17)
+        Me.RadioButton4.Size = New System.Drawing.Size(31, 17)
         Me.RadioButton4.TabIndex = 1
-        Me.RadioButton4.Text = "menor que"
+        Me.RadioButton4.Text = "<"
         Me.RadioButton4.UseVisualStyleBackColor = True
         '
         'RadioButton3
@@ -749,21 +866,21 @@ Partial Class frmIndexacion
         Me.RadioButton3.Checked = True
         Me.RadioButton3.Location = New System.Drawing.Point(12, 10)
         Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(74, 17)
+        Me.RadioButton3.Size = New System.Drawing.Size(31, 17)
         Me.RadioButton3.TabIndex = 0
         Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "mayor que"
+        Me.RadioButton3.Text = ">"
         Me.RadioButton3.UseVisualStyleBackColor = True
         '
         'cmbFiltro
         '
         Me.cmbFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbFiltro.FormattingEnabled = True
-        Me.cmbFiltro.Items.AddRange(New Object() {"Sin filtro", "Numero comparecientes", "Campos con N/D", "Palabras basuras"})
+        Me.cmbFiltro.Items.AddRange(New Object() {"Sin filtro", "Numero comparecientes", "Campos con N/D", "Actas incorrectas"})
         Me.cmbFiltro.Location = New System.Drawing.Point(49, 9)
         Me.cmbFiltro.Name = "cmbFiltro"
         Me.cmbFiltro.Size = New System.Drawing.Size(109, 21)
-        Me.cmbFiltro.TabIndex = 3
+        Me.cmbFiltro.TabIndex = 0
         Me.cmbFiltro.Visible = False
         '
         'lblFiltro
@@ -784,7 +901,7 @@ Partial Class frmIndexacion
         Me.RadioButton2.Location = New System.Drawing.Point(674, 15)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(65, 17)
-        Me.RadioButton2.TabIndex = 1
+        Me.RadioButton2.TabIndex = 5
         Me.RadioButton2.Text = "Correcto"
         Me.RadioButton2.UseVisualStyleBackColor = False
         Me.RadioButton2.Visible = False
@@ -796,20 +913,10 @@ Partial Class frmIndexacion
         Me.RadioButton1.Location = New System.Drawing.Point(756, 15)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(70, 17)
-        Me.RadioButton1.TabIndex = 0
+        Me.RadioButton1.TabIndex = 6
         Me.RadioButton1.Text = "Corregido"
         Me.RadioButton1.UseVisualStyleBackColor = True
         Me.RadioButton1.Visible = False
-        '
-        'ComboBox7
-        '
-        Me.ComboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox7.FormattingEnabled = True
-        Me.ComboBox7.Items.AddRange(New Object() {"S", "D"})
-        Me.ComboBox7.Location = New System.Drawing.Point(171, 232)
-        Me.ComboBox7.Name = "ComboBox7"
-        Me.ComboBox7.Size = New System.Drawing.Size(33, 21)
-        Me.ComboBox7.TabIndex = 42
         '
         'frmIndexacion
         '
@@ -823,10 +930,11 @@ Partial Class frmIndexacion
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmIndexacion"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.Text = "Módulo de Indexación Offline"
+        Me.Text = "Módulo de Indexación - TRADEREINDEX"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel4.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
@@ -916,4 +1024,12 @@ Partial Class frmIndexacion
     Friend WithEvents txtNumber As MaskedTextBox
     Friend WithEvents btnFiltrar As Button
     Friend WithEvents ComboBox7 As ComboBox
+    Friend WithEvents Button7 As Button
+    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents btnCambiarModoControl As Button
+    Friend WithEvents btnResetIndex As Button
+    Friend WithEvents Label19 As Label
+    Friend WithEvents MaskedTextBox2 As MaskedTextBox
 End Class

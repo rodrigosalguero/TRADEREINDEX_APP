@@ -68,6 +68,8 @@ Public Class UserEntry
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        MainForm.cedControlCalidad = TextBox1.Text
+
         If modeUsers = 2 Or rd_cedula = Nothing Then
             Dim writer As New StreamWriter(variables.archivoLoginInspector)
             writer.WriteLine(TextBox1.Text)
@@ -135,7 +137,7 @@ Public Class UserEntry
 
     Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Console.WriteLine(TestEncoding("60"))
+        Console.WriteLine(TestEncoding("KONTS"))
 
         If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivotext1) Then
             Dim creartxt As System.IO.FileStream
@@ -188,7 +190,7 @@ Public Class UserEntry
 
     Public Function showMsm()
         MsgBox("LOS PDF HAN SIDO INDEXADOS")
-        MsgBox("AHORA EL SISTEMA VA A PASAR AL MODO CONTROL DE CALIDAD, DEBES INGRESAR TU ID DE USUARIO Y UNA CONTRASEÑA")
+        MsgBox("AHORA EL SISTEMA VA A PASAR AL MODO CONTROL DE CALIDAD, DEBES INGRESAR TU ID DE USUARIO Y UNA CONTRASEÑA PARA EL NUEVO INGRESO")
     End Function
 
     Public Function loadData(ByVal path As String)

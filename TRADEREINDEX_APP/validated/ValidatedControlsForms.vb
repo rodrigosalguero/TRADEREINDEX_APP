@@ -43,7 +43,14 @@
             frmIndexacion.Label2.ForeColor = Color.Black
         End If
 
-        If (frmIndexacion.ComboBox2.SelectedIndex = -1) Then
+        If (frmIndexacion.MaskedTextBox2.Text.Trim = "/  /") Then
+            controlsResturn.Add(frmIndexacion.Label19)
+        Else
+            frmIndexacion.Label19.BackColor = Color.Transparent
+            frmIndexacion.Label19.ForeColor = Color.Black
+        End If
+
+        If (frmIndexacion.TextBox8.Text.Trim = "") Then
             controlsResturn.Add(frmIndexacion.Label9)
         Else
             frmIndexacion.Label9.BackColor = Color.Transparent

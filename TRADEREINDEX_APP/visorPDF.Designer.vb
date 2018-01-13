@@ -44,8 +44,9 @@ Partial Class visorPDF
         Me.ClientSize = New System.Drawing.Size(486, 290)
         Me.Controls.Add(Me.visorPDFSecondScreen)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "visorPDF"
-        Me.Text = "visorPDF"
+        Me.Text = "Visor PDF"
         CType(Me.visorPDFSecondScreen, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

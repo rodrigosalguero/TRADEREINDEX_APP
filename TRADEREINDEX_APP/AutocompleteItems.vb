@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports System.IO
 
-Imports TELEINDEXAPP.frmIndexacion
+Imports TradereIndex_APP.frmIndexacion
 
 
 Public Class AutocompleteItems
