@@ -23,10 +23,12 @@ Public Class frmIndexacion
     Dim automplete As New AutocompleteItems()
     Dim validError As Boolean = False
     Dim sc() As Screen = Screen.AllScreens()
+    Dim dgv2(4, 100) As String
+    Dim gm2(3, 100) As String
 
     Private docToCheck As Integer
     Private finishProcessCheck = False
-
+    Private trd1 As Thread
     Private selectionMargin As Integer = -1
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -42,6 +44,7 @@ Public Class frmIndexacion
             visorPDF.WindowState = FormWindowState.Maximized
             visorPDF.Show()
         End If
+        CheckForIllegalCrossThreadCalls = False
         ComboInit.Fill(ComboBox2, variables.rutaPath + "Parroquia.txt")
         ComboInit.Fill(ComboBox1, variables.rutaPath + "LibroRegistral.txt")
         ComboInit.Fill(ComboBox4, variables.rutaPath + "DescBien.txt")
@@ -615,11 +618,27 @@ Public Class frmIndexacion
             'File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
             'DataGridView1(0, seleccion).Value = NombrePdf + ".pdf"
 
-            createChildrenMetadata(DataGridView2, variables.ruta(0).ToString + variables.archivoCompareciente, "\comparecientestemp.txt")
-            createChildrenMetadata(gridMargin, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt")
+            Button5.Enabled = False
+            Button7.Enabled = False
+
+            For i = 0 To DataGridView2.RowCount - 1
+                For j = 0 To DataGridView2.ColumnCount - 1
+                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                Next
+            Next
+
+            For i = 0 To gridMargin.RowCount - 1
+                For j = 0 To gridMargin.ColumnCount - 1
+                    gm2(j, i) = gridMargin(j, i).Value.ToString
+                Next
+            Next
+
+            trd1 = New Thread(AddressOf guardarMetadatosPdf)
+            trd1.IsBackground = True
+            trd1.Start()
+
             limpiar1()
             limpiar2()
-            guardarMetadatosPdf()
 
             If MainForm.mode = 1 Then
 
@@ -779,9 +798,32 @@ Public Class frmIndexacion
                 'File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
                 'DataGridView1(0, variables.obtenerPosicionFila()).Value = NombrePdf + ".pdf"
 
-                createChildrenMetadata(DataGridView2, variables.ruta(0).ToString + variables.archivoCompareciente, "\comparecientestemp.txt")
-                createChildrenMetadata(gridMargin, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt")
-                guardarMetadatosPdf()
+                Button5.Enabled = False
+                Button7.Enabled = False
+
+                '                trd2 = New Thread(Sub() Me.createChildrenMetadata1(DataGridView2, variables.ruta(0).ToString + variables.archivoCompareciente, "\comparecientestemp.txt"))
+                '                trd2.IsBackground = True
+                '                trd2.Start()
+
+                '                trd3 = New Thread(Sub() Me.createChildrenMetadata2(gridMargin, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt"))
+                '                trd3.IsBackground = True
+                '                trd3.Start()
+                For i = 0 To DataGridView2.RowCount - 1
+                    For j = 0 To DataGridView2.ColumnCount - 1
+                        dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                    Next
+                Next
+
+                For i = 0 To gridMargin.RowCount - 1
+                    For j = 0 To gridMargin.ColumnCount - 1
+                        gm2(j, i) = gridMargin(j, i).Value.ToString
+                    Next
+                Next
+
+                trd1 = New Thread(AddressOf guardarMetadatosPdf)
+                trd1.IsBackground = True
+                trd1.Start()
+                '                guardarMetadatosPdf()
                 variables.MarcarFilaActual()
                 limpiar1()
                 limpiar2()
@@ -831,14 +873,44 @@ Public Class frmIndexacion
             MsgBox("YA SE HA CUMPLIDO CON EL PORCENTAJE DE REVISIÓN")
             'MainForm.IndexarToolStripMenuItem.Enabled = False
             FillDocsAcept.Acept(DataGridView1)
-            guardarMetadatosPdf()
+
+            '            guardarMetadatosPdf()
+            For i = 0 To DataGridView2.RowCount - 1
+                For j = 0 To DataGridView2.ColumnCount - 1
+                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                Next
+            Next
+
+            For i = 0 To gridMargin.RowCount - 1
+                For j = 0 To gridMargin.ColumnCount - 1
+                    gm2(j, i) = gridMargin(j, i).Value.ToString
+                Next
+            Next
+            trd1 = New Thread(AddressOf guardarMetadatosPdf)
+            trd1.IsBackground = True
+            trd1.Start()
             'finishProcessCheck = True
         End If
 
 
         If MainForm.listDocCheck.Count >= docToCheck And MainForm.mode = 1 Then
             FillDocsAcept.Acept(DataGridView1)
-            guardarMetadatosPdf()
+            '            guardarMetadatosPdf()
+            For i = 0 To DataGridView2.RowCount - 1
+                For j = 0 To DataGridView2.ColumnCount - 1
+                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                Next
+            Next
+
+            For i = 0 To gridMargin.RowCount - 1
+                For j = 0 To gridMargin.ColumnCount - 1
+                    gm2(j, i) = gridMargin(j, i).Value.ToString
+                Next
+            Next
+
+            trd1 = New Thread(AddressOf guardarMetadatosPdf)
+            trd1.IsBackground = True
+            trd1.Start()
         End If
     End Sub
 
@@ -862,7 +934,23 @@ Public Class frmIndexacion
                 DataGridView1.Item(21, seleccion).Value = "FALSE"
                 DataGridView1.Item(22, seleccion).Value = "TRUE"
                 DataGridView1.Item(23, seleccion).Value = DateTime.Now()
-                guardarMetadatosPdf()
+                '                guardarMetadatosPdf()
+
+                For i = 0 To DataGridView2.RowCount - 1
+                    For j = 0 To DataGridView2.ColumnCount - 1
+                        dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                    Next
+                Next
+
+                For i = 0 To gridMargin.RowCount - 1
+                    For j = 0 To gridMargin.ColumnCount - 1
+                        gm2(j, i) = gridMargin(j, i).Value.ToString
+                    Next
+                Next
+
+                trd1 = New Thread(AddressOf guardarMetadatosPdf)
+                trd1.IsBackground = True
+                trd1.Start()
 
                 Button5.Enabled = False
                 Button7.Enabled = False
@@ -897,7 +985,24 @@ Public Class frmIndexacion
             DataGridView1.Item(21, seleccion).Value = "FALSE"
             DataGridView1.Item(22, seleccion).Value = "TRUE"
             DataGridView1.Item(23, seleccion).Value = DateTime.Now()
-            guardarMetadatosPdf()
+            '            guardarMetadatosPdf()
+
+            For i = 0 To DataGridView2.RowCount - 1
+                For j = 0 To DataGridView2.ColumnCount - 1
+                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                Next
+            Next
+
+            For i = 0 To gridMargin.RowCount - 1
+                For j = 0 To gridMargin.ColumnCount - 1
+                    gm2(j, i) = gridMargin(j, i).Value.ToString
+                Next
+            Next
+
+            trd1 = New Thread(AddressOf guardarMetadatosPdf)
+            trd1.IsBackground = True
+            trd1.Start()
+
             limpiar1()
             limpiar2()
             seleccion = seleccion + 1
@@ -953,7 +1058,23 @@ Public Class frmIndexacion
             DataGridView1.Item(22, variables.obtenerPosicionFila()).Value = "TRUE"
             DataGridView1.Item(23, variables.obtenerPosicionFila()).Value = DateTime.Now()
 
-            guardarMetadatosPdf()
+            '            guardarMetadatosPdf()
+            For i = 0 To DataGridView2.RowCount - 1
+                For j = 0 To DataGridView2.ColumnCount - 1
+                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
+                Next
+            Next
+
+            For i = 0 To gridMargin.RowCount - 1
+                For j = 0 To gridMargin.ColumnCount - 1
+                    gm2(j, i) = gridMargin(j, i).Value.ToString
+                Next
+            Next
+
+            trd1 = New Thread(AddressOf guardarMetadatosPdf)
+            trd1.IsBackground = True
+            trd1.Start()
+
             variables.MarcarFilaActual()
             limpiar1()
             limpiar2()
@@ -1057,15 +1178,13 @@ Public Class frmIndexacion
         End If
     End Function
 
-    Public Function createChildrenMetadata(ByVal grid As DataGridView, ByVal path As String, ByVal archiveTemp As String)
-
-        If (grid.Rows.Count > 0) Then
+    Private Sub createChildrenMetadata1(ByVal grid As Array, ByVal path As String, ByVal archiveTemp As String)
+        If (grid.GetLength(1) > 0) Then
             If (Not System.IO.File.Exists(path)) Then
                 Dim creararchivo As FileStream
                 creararchivo = File.Create(path)
                 creararchivo.Close()
             End If
-            ''MsgBox(DataGridView2.Rows.Count.ToString)
 
             Dim lectorCompareciente As New StreamReader(path)
 
@@ -1083,7 +1202,7 @@ Public Class frmIndexacion
 
                     Dim datoID As String = cryp.DecryptData(vectorLinea(0))
 
-                    If (datoID.Equals(grid(0, 0).Value.ToString)) Then
+                    If (datoID.Equals(grid(0, 0))) Then
                         ''MsgBox(vectorLinea(0).ToString)
                     Else
                         escribirCompaTemp.WriteLine(linea)
@@ -1095,37 +1214,107 @@ Public Class frmIndexacion
             lectorCompareciente.Close()
 
             Dim dataLine As String = ""
-            For index = 0 To grid.Rows.Count - 1
+            For index = 0 To grid.GetLength(1) - 1
+                If String.IsNullOrWhiteSpace(grid(0, index)) Then
+                    Exit For
+                End If
                 If index > 0 Then
                     dataLine = dataLine + vbCrLf
                 End If
-                '                Dim dataLine As String = ""
-                If ModoEdit Then
-                    grid(0, index).Value = DataGridView1(0, seleccion).Value
-                Else
-                    grid(0, index).Value = DataGridView1(0, variables.obtenerPosicionFila()).Value
-                End If
-                For i = 0 To grid.ColumnCount - 1
+                For i = 0 To grid.GetLength(0) - 1
                     Try
-                        If Not i = grid.ColumnCount Then
-                            dataLine = dataLine + cryp.EncryptData(grid(i, index).Value.ToString) + "|"
+                        If Not i = grid.GetLength(0) Then
+                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString) + "|"
                         Else
-                            dataLine = dataLine + cryp.EncryptData(grid(i, index).Value.ToString)
+                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString)
                         End If
                     Catch ex As Exception
                         dataLine = dataLine + "|"
                     End Try
                 Next
-                '               escribirCompaTemp.WriteLine(dataLine)
             Next
             escribirCompaTemp.WriteLine(dataLine)
             escribirCompaTemp.Close()
-            File.Delete(path)
+            Do While True
+                Try
+                    File.Delete(path)
+                    Exit Do
+                Catch ex As Exception
+                    Thread.Sleep(500)
+                End Try
+            Loop
             File.Move(archivoTemp, path)
-
         End If
-        grid.Rows.Clear()
-    End Function
+    End Sub
+
+    Private Sub createChildrenMetadata2(ByVal grid As Array, ByVal path As String, ByVal archiveTemp As String)
+        If (grid.GetLength(1) > 0) Then
+            If (Not System.IO.File.Exists(path)) Then
+                Dim creararchivo As FileStream
+                creararchivo = File.Create(path)
+                creararchivo.Close()
+            End If
+
+            Dim lectorCompareciente As New StreamReader(path)
+
+            Dim archivoTemp As String = variables.ruta(0).ToString + archiveTemp
+            Dim archivotemporal As FileStream
+            archivotemporal = File.Create(archivoTemp)
+            archivotemporal.Close()
+
+            Dim linea As String
+            Dim escribirCompaTemp As New StreamWriter(archivoTemp)
+            Do
+                linea = lectorCompareciente.ReadLine()
+                If linea IsNot Nothing Then
+                    Dim vectorLinea As String() = linea.Split("|")
+
+                    Dim datoID As String = cryp.DecryptData(vectorLinea(0))
+
+                    If (datoID.Equals(grid(0, 0))) Then
+                        ''MsgBox(vectorLinea(0).ToString)
+                    Else
+                        escribirCompaTemp.WriteLine(linea)
+                    End If
+                    ''DataGridView1.Rows.Insert(0, New String() {linea})
+                End If
+            Loop Until linea Is Nothing
+
+            lectorCompareciente.Close()
+
+            Dim dataLine As String = ""
+            For index = 0 To grid.GetLength(1) - 1
+                If String.IsNullOrWhiteSpace(grid(0, index)) Then
+                    Exit For
+                End If
+                If index > 0 Then
+                    dataLine = dataLine + vbCrLf
+                End If
+                For i = 0 To grid.GetLength(0) - 1
+                    Try
+                        If Not i = grid.GetLength(0) Then
+                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString) + "|"
+                        Else
+                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString)
+                        End If
+                    Catch ex As Exception
+                        dataLine = dataLine + "|"
+                    End Try
+                Next
+            Next
+            escribirCompaTemp.WriteLine(dataLine)
+            escribirCompaTemp.Close()
+            Do While True
+                Try
+                    File.Delete(path)
+                    Exit Do
+                Catch ex As Exception
+                    Thread.Sleep(500)
+                End Try
+            Loop
+            File.Move(archivoTemp, path)
+        End If
+    End Sub
 
     Public Function limpiar1()
         Me.TextBox2.Clear()
@@ -1154,18 +1343,17 @@ Public Class frmIndexacion
         Me.TextBox7.Clear()
     End Function
 
-    Public Function guardarMetadatosPdf()
+    Private Sub guardarMetadatosPdf()
+        createChildrenMetadata1(dgv2, variables.ruta(0).ToString + variables.archivoCompareciente, "\comparecientestemp.txt")
+        createChildrenMetadata2(gm2, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt")
+
         Dim txtPDFTemp As String = variables.ruta(0).ToString + "\pdfTemp.txt"
-
-
-
         Dim creartxt As FileStream
         creartxt = File.Create(txtPDFTemp)
         creartxt.Close()
         Dim escritorPDFMetadatos As New StreamWriter(txtPDFTemp)
         Dim linea As String = ""
         Dim cryp1 As New Simple3Des("123456")
-        'MsgBox("hola metadatos", vbOK)
         For index = 0 To DataGridView1.Rows.Count - 1
             If index > 0 Then
                 linea = linea + vbCrLf
@@ -1186,9 +1374,10 @@ Public Class frmIndexacion
 
         File.Delete(variables.ruta(0) + variables.archivotext1)
         File.Move(txtPDFTemp, variables.ruta(0).ToString + variables.archivotext1)
-
-
-    End Function
+        Button5.Enabled = True
+        Button7.Enabled = True
+        trd1.Abort()
+    End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
 
@@ -1565,10 +1754,10 @@ Public Class frmIndexacion
 
     End Sub
 
-    Private Sub FillComparecientes(ByVal id As String, ByVal ruta As String, ByVal grid As DataGridView)
+    Private Sub FillComparecientes(ByVal id As String, ByVal ruta As String, ByVal grid1 As DataGridView)
 
 
-        grid.Rows.Clear()
+        grid1.Rows.Clear()
         If File.Exists(ruta) Then
             Dim linea As String
             Dim lectorCompareciente As New StreamReader(ruta)
@@ -1587,7 +1776,7 @@ Public Class frmIndexacion
                             End If
                         Next
 
-                        grid.Rows.Add(array)
+                        grid1.Rows.Add(array)
                     End If
                 End If
             Loop Until linea Is Nothing
@@ -1609,7 +1798,12 @@ Public Class frmIndexacion
                         selectionMargin = -1
                         Button6.Text = "Agregar"
                     Else
-                        gridMargin.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, TextBox1.Text, MaskedTextBox1.Text)
+                        If seleccion <> -1 Then
+                            gridMargin.Rows.Add(DataGridView1(0, seleccion).Value.ToString, TextBox1.Text, MaskedTextBox1.Text)
+                        Else
+                            gridMargin.Rows.Add(DataGridView1(0, variables.obtenerPosicionFila()).Value.ToString, TextBox1.Text, MaskedTextBox1.Text)
+                        End If
+
                     End If
 
                     TextBox1.Clear()

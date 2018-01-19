@@ -143,7 +143,7 @@ Partial Class frmIndexacion
         'Button5
         '
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(11, 10)
+        Me.Button5.Location = New System.Drawing.Point(12, 10)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(152, 32)
         Me.Button5.TabIndex = 0
