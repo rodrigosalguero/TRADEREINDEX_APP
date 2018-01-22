@@ -23,6 +23,7 @@ Public Class frmIndexacion
     Dim automplete As New AutocompleteItems()
     Dim validError As Boolean = False
     Dim sc() As Screen = Screen.AllScreens()
+    Dim idpdf As String
     Dim dgv2(4, 100) As String
     Dim gm2(3, 100) As String
 
@@ -286,7 +287,7 @@ Public Class frmIndexacion
 
 
         gridMargin.Columns.Add(0, "id")
-        gridMargin.Columns(0).Visible = False
+        gridMargin.Columns(0).Visible = True
         gridMargin.Columns.Add(1, "Detalle")
         gridMargin.Columns.Add(2, "Fecha")
 
@@ -808,6 +809,7 @@ Public Class frmIndexacion
                 '                trd3 = New Thread(Sub() Me.createChildrenMetadata2(gridMargin, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt"))
                 '                trd3.IsBackground = True
                 '                trd3.Start()
+
                 For i = 0 To DataGridView2.RowCount - 1
                     For j = 0 To DataGridView2.ColumnCount - 1
                         dgv2(j, i) = DataGridView2(j, i).Value.ToString
@@ -1245,75 +1247,79 @@ Public Class frmIndexacion
             Loop
             File.Move(archivoTemp, path)
         End If
+        Array.Clear(dgv2, 0, dgv2.Length)
     End Sub
 
     Private Sub createChildrenMetadata2(ByVal grid As Array, ByVal path As String, ByVal archiveTemp As String)
-        If (grid.GetLength(1) > 0) Then
-            If (Not System.IO.File.Exists(path)) Then
-                Dim creararchivo As FileStream
-                creararchivo = File.Create(path)
-                creararchivo.Close()
-            End If
-
-            Dim lectorCompareciente As New StreamReader(path)
-
-            Dim archivoTemp As String = variables.ruta(0).ToString + archiveTemp
-            Dim archivotemporal As FileStream
-            archivotemporal = File.Create(archivoTemp)
-            archivotemporal.Close()
-
-            Dim linea As String
-            Dim escribirCompaTemp As New StreamWriter(archivoTemp)
-            Do
-                linea = lectorCompareciente.ReadLine()
-                If linea IsNot Nothing Then
-                    Dim vectorLinea As String() = linea.Split("|")
-
-                    Dim datoID As String = cryp.DecryptData(vectorLinea(0))
-
-                    If (datoID.Equals(grid(0, 0))) Then
-                        ''MsgBox(vectorLinea(0).ToString)
-                    Else
-                        escribirCompaTemp.WriteLine(linea)
-                    End If
-                    ''DataGridView1.Rows.Insert(0, New String() {linea})
-                End If
-            Loop Until linea Is Nothing
-
-            lectorCompareciente.Close()
-
-            Dim dataLine As String = ""
-            For index = 0 To grid.GetLength(1) - 1
-                If String.IsNullOrWhiteSpace(grid(0, index)) Then
-                    Exit For
-                End If
-                If index > 0 Then
-                    dataLine = dataLine + vbCrLf
-                End If
-                For i = 0 To grid.GetLength(0) - 1
-                    Try
-                        If Not i = grid.GetLength(0) Then
-                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString) + "|"
-                        Else
-                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString)
-                        End If
-                    Catch ex As Exception
-                        dataLine = dataLine + "|"
-                    End Try
-                Next
-            Next
-            escribirCompaTemp.WriteLine(dataLine)
-            escribirCompaTemp.Close()
-            Do While True
-                Try
-                    File.Delete(path)
-                    Exit Do
-                Catch ex As Exception
-                    Thread.Sleep(500)
-                End Try
-            Loop
-            File.Move(archivoTemp, path)
+        '        If (grid.GetLength(1) > 0) Then
+        If (Not System.IO.File.Exists(path)) Then
+            Dim creararchivo As FileStream
+            creararchivo = File.Create(path)
+            creararchivo.Close()
         End If
+
+        Dim lectorCompareciente As New StreamReader(path)
+
+        Dim archivoTemp As String = variables.ruta(0).ToString + archiveTemp
+        Dim archivotemporal As FileStream
+        archivotemporal = File.Create(archivoTemp)
+        archivotemporal.Close()
+
+        Dim linea As String
+        Dim escribirCompaTemp As New StreamWriter(archivoTemp)
+        Do
+            linea = lectorCompareciente.ReadLine()
+            If linea IsNot Nothing Then
+                Dim vectorLinea As String() = linea.Split("|")
+
+                Dim datoID As String = cryp.DecryptData(vectorLinea(0))
+
+                If (datoID.Equals(idpdf)) Then
+                    ''MsgBox(vectorLinea(0).ToString)
+                Else
+                    escribirCompaTemp.WriteLine(linea)
+                End If
+                ''DataGridView1.Rows.Insert(0, New String() {linea})
+            End If
+        Loop Until linea Is Nothing
+
+        lectorCompareciente.Close()
+
+        Dim dataLine As String = ""
+        For index = 0 To grid.GetLength(1) - 1
+            If String.IsNullOrWhiteSpace(grid(0, index)) Then
+                Exit For
+            End If
+            If index > 0 Then
+                dataLine = dataLine + vbCrLf
+            End If
+            For i = 0 To grid.GetLength(0) - 1
+                Try
+                    If Not i = grid.GetLength(0) Then
+                        dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString) + "|"
+                    Else
+                        dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString)
+                    End If
+                Catch ex As Exception
+                    dataLine = dataLine + "|"
+                End Try
+            Next
+        Next
+        If Not String.IsNullOrWhiteSpace(dataLine) Then
+            escribirCompaTemp.WriteLine(dataLine)
+        End If
+        escribirCompaTemp.Close()
+        Do While True
+            Try
+                File.Delete(path)
+                Exit Do
+            Catch ex As Exception
+                Thread.Sleep(500)
+            End Try
+        Loop
+        File.Move(archivoTemp, path)
+        '        End If
+        Array.Clear(gm2, 0, gm2.Length)
     End Sub
 
     Public Function limpiar1()
@@ -1344,6 +1350,7 @@ Public Class frmIndexacion
     End Function
 
     Private Sub guardarMetadatosPdf()
+        idpdf = dgv2(0, 0)
         createChildrenMetadata1(dgv2, variables.ruta(0).ToString + variables.archivoCompareciente, "\comparecientestemp.txt")
         createChildrenMetadata2(gm2, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt")
 
