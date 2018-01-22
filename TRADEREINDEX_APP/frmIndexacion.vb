@@ -1228,7 +1228,7 @@ Public Class frmIndexacion
                         If Not i = grid.GetLength(0) Then
                             dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString) + "|"
                         Else
-                            dataLine = dataLine + cryp.EncryptData(grid(i, index).ToString)
+                            dataLine = dataLine + cryp.EncryptData(IIf(String.IsNullOrEmpty(grid(i, index).ToString), DateTime.Now.ToShortDateString, grid(i, index).ToString))
                         End If
                     Catch ex As Exception
                         dataLine = dataLine + "|"
