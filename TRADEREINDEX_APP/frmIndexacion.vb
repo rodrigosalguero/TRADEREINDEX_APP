@@ -1235,7 +1235,9 @@ Public Class frmIndexacion
                     End Try
                 Next
             Next
-            escribirCompaTemp.WriteLine(dataLine)
+            If Not String.IsNullOrWhiteSpace(dataLine) Then
+                escribirCompaTemp.WriteLine(dataLine)
+            End If
             escribirCompaTemp.Close()
             Do While True
                 Try
