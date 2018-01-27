@@ -26,7 +26,8 @@ Public Class frmIndexacion
     Dim idpdf As String
     Dim dgv2(4, 100) As String
     Dim gm2(3, 100) As String
-
+    Dim activeEditCC = False
+    Dim waitActiveBtnCC = False
     Private docToCheck As Integer
     Private finishProcessCheck = False
     Private trd1 As Thread
@@ -619,6 +620,29 @@ Public Class frmIndexacion
             'File.Move(variables.ruta(0).ToString + "/pdf/" + NombrePdfOld, variables.ruta(0).ToString + "/pdf/" + NombrePdf + ".pdf")
             'DataGridView1(0, seleccion).Value = NombrePdf + ".pdf"
 
+            If MainForm.mode = 1 Then
+
+                If MainForm.listDocCheck.IndexOf(DataGridView1.Item(0, seleccion).Value.ToString()) = -1 Then
+                    MainForm.listDocCheck.Add(DataGridView1.Item(0, seleccion).Value.ToString())
+                End If
+
+                If docToCheck = MainForm.listDocCheck.Count And MainForm.mode = 1 Then
+                    MsgBox("YA SE HA CUMPLIDO CON EL PORCENTAJE DE REVISIÓN")
+                    MsgBox("pruebaaa")
+
+                    'MainForm.IndexarToolStripMenuItem.Enabled = False
+                    FillDocsAcept.Acept(DataGridView1)
+
+                End If
+
+                If MainForm.listDocCheck.Count >= docToCheck And MainForm.mode = 1 Then
+                    FillDocsAcept.Acept(DataGridView1)
+                    '            guardarMetadatosPdf()
+                End If
+
+                generateReportControlCalidad()
+            End If
+
             Button5.Enabled = False
             Button7.Enabled = False
 
@@ -640,12 +664,6 @@ Public Class frmIndexacion
 
             limpiar1()
             limpiar2()
-
-            If MainForm.mode = 1 Then
-
-                generateReportControlCalidad()
-
-            End If
 
             If (Not MainForm.mode = 1) Then
                 seleccion = seleccion + 1
@@ -865,54 +883,77 @@ Public Class frmIndexacion
 
     Public Sub generateReportControlCalidad()
         CreateReportInspect()
-        If MainForm.listDocCheck.IndexOf(DataGridView1.Item(0, seleccion).Value.ToString()) = -1 Then
-            MainForm.listDocCheck.Add(DataGridView1.Item(0, seleccion).Value.ToString())
-        End If
+        'If MainForm.listDocCheck.IndexOf(DataGridView1.Item(0, seleccion).Value.ToString()) = -1 Then
+        '    MainForm.listDocCheck.Add(DataGridView1.Item(0, seleccion).Value.ToString())
+        'End If
 
         lblInicio.Text = "Revisado    " + MainForm.listDocCheck.Count.ToString()
 
-        If docToCheck = MainForm.listDocCheck.Count And MainForm.mode = 1 Then
-            MsgBox("YA SE HA CUMPLIDO CON EL PORCENTAJE DE REVISIÓN")
-            'MainForm.IndexarToolStripMenuItem.Enabled = False
-            FillDocsAcept.Acept(DataGridView1)
+        'If docToCheck = MainForm.listDocCheck.Count And MainForm.mode = 1 Then
+        '    MsgBox("YA SE HA CUMPLIDO CON EL PORCENTAJE DE REVISIÓN")
+        '    'MainForm.IndexarToolStripMenuItem.Enabled = False
+        '    FillDocsAcept.Acept(DataGridView1)
 
-            '            guardarMetadatosPdf()
-            For i = 0 To DataGridView2.RowCount - 1
-                For j = 0 To DataGridView2.ColumnCount - 1
-                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
-                Next
-            Next
+        '    '            guardarMetadatosPdf()
+        '    For i = 0 To DataGridView2.RowCount - 1
+        '        For j = 0 To DataGridView2.ColumnCount - 1
+        '            dgv2(j, i) = DataGridView2(j, i).Value.ToString
+        '        Next
+        '    Next
 
-            For i = 0 To gridMargin.RowCount - 1
-                For j = 0 To gridMargin.ColumnCount - 1
-                    gm2(j, i) = gridMargin(j, i).Value.ToString
-                Next
-            Next
-            trd1 = New Thread(AddressOf guardarMetadatosPdf)
-            trd1.IsBackground = True
-            trd1.Start()
-            'finishProcessCheck = True
-        End If
+        '    For i = 0 To gridMargin.RowCount - 1
+        '        For j = 0 To gridMargin.ColumnCount - 1
+        '            gm2(j, i) = gridMargin(j, i).Value.ToString
+        '        Next
+        '    Next
+
+        '    trd1 = New Thread(AddressOf guardarMetadatosPdf)
+        '    trd1.IsBackground = True
+        '    trd1.Start()
+        '    'finishProcessCheck = True
+        'End If
 
 
-        If MainForm.listDocCheck.Count >= docToCheck And MainForm.mode = 1 Then
-            FillDocsAcept.Acept(DataGridView1)
-            '            guardarMetadatosPdf()
-            For i = 0 To DataGridView2.RowCount - 1
-                For j = 0 To DataGridView2.ColumnCount - 1
-                    dgv2(j, i) = DataGridView2(j, i).Value.ToString
-                Next
-            Next
+        'If MainForm.listDocCheck.Count >= docToCheck And MainForm.mode = 1 Then
+        '    FillDocsAcept.Acept(DataGridView1)
+        '    '            guardarMetadatosPdf()
+        '    For i = 0 To DataGridView2.RowCount - 1
+        '        For j = 0 To DataGridView2.ColumnCount - 1
+        '            dgv2(j, i) = DataGridView2(j, i).Value.ToString
+        '        Next
+        '    Next
 
-            For i = 0 To gridMargin.RowCount - 1
-                For j = 0 To gridMargin.ColumnCount - 1
-                    gm2(j, i) = gridMargin(j, i).Value.ToString
-                Next
-            Next
+        '    For i = 0 To gridMargin.RowCount - 1
+        '        For j = 0 To gridMargin.ColumnCount - 1
+        '            gm2(j, i) = gridMargin(j, i).Value.ToString
+        '        Next
+        '    Next
 
-            trd1 = New Thread(AddressOf guardarMetadatosPdf)
-            trd1.IsBackground = True
-            trd1.Start()
+        '    trd1 = New Thread(AddressOf guardarMetadatosPdf)
+        '    trd1.IsBackground = True
+        '    trd1.Start()
+
+        'End If
+    End Sub
+
+    Public Sub CreateReportInspect()
+        If File.Exists(variables.ruta(0).ToString() + variables.archivoEstadisticas) Then
+            Dim action As String
+            Dim dateNow As String = DateTime.Now.ToString()
+            Dim idDoc As String = DataGridView1(0, seleccion).Value.ToString()
+            Dim operarioControl As String = "OPERARIO INDEXADOR"
+
+            Dim writer As New StreamWriter(variables.ruta(0).ToString() + variables.archivoEstadisticas, True)
+            If RadioButton1.Checked Then
+                action = "corregido"
+            Else
+                action = "correcto"
+            End If
+
+            writer.WriteLine(cryp.EncryptData(idDoc) + "|" + cryp.EncryptData(action) + "|" + cryp.EncryptData(dateNow) + "|" + cryp.EncryptData(operarioControl) + "|" + cryp.EncryptData(MainForm.cedControlCalidad))
+            writer.Close()
+            writer.Dispose()
+
         End If
     End Sub
 
@@ -1383,8 +1424,21 @@ Public Class frmIndexacion
 
         File.Delete(variables.ruta(0) + variables.archivotext1)
         File.Move(txtPDFTemp, variables.ruta(0).ToString + variables.archivotext1)
-        Button5.Enabled = True
-        Button7.Enabled = True
+
+        If MainForm.mode = 1 Then
+            If waitActiveBtnCC Then
+                Button5.Enabled = True
+                Button7.Enabled = True
+                waitActiveBtnCC = False
+                activeEditCC = False
+            Else
+                waitActiveBtnCC = False
+                activeEditCC = False
+            End If
+        Else
+            Button5.Enabled = True
+            Button7.Enabled = True
+        End If
         trd1.Abort()
     End Sub
 
@@ -1416,7 +1470,8 @@ Public Class frmIndexacion
             'Catch ex As Exception
             'End Try
 
-            Button5.Enabled = True
+
+
             Button7.Enabled = True
             seleccion2 = -1
             limpiar2()
@@ -1425,6 +1480,15 @@ Public Class frmIndexacion
                 RadioButton1.ForeColor = Color.Black
                 RadioButton2.BackColor = Color.Transparent
                 RadioButton2.ForeColor = Color.Black
+
+                If Not activeEditCC Then
+                    Button5.Enabled = True
+                    activeEditCC = True
+                Else
+                    waitActiveBtnCC = True
+                End If
+            Else
+                Button5.Enabled = True
             End If
 
             clearErrors()
@@ -1434,8 +1498,6 @@ Public Class frmIndexacion
             If Not seleccion = -1 Then
                 DataGridView1.Rows(seleccion).DefaultCellStyle.BackColor = Color.White
             End If
-
-
 
             If e.RowIndex < variables.obtenerPosicionFila Then
                 limpiar1()
@@ -1502,11 +1564,23 @@ Public Class frmIndexacion
 
     Private Sub DataGridView2_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellDoubleClick
         seleccion2 = e.RowIndex
-        If e.RowIndex = -1 Then
-        Else
-            ComboBox3.SelectedItem = DataGridView2(1, e.RowIndex).Value
-            TextBox4.Text = DataGridView2(2, e.RowIndex).Value.ToString
-            TextBox5.Text = DataGridView2(3, e.RowIndex).Value.ToString
+        If Not e.RowIndex = -1 Then
+            Try
+                ComboBox3.SelectedItem = DataGridView2(1, e.RowIndex).Value
+            Catch ex As Exception
+                ComboBox3.SelectedItem = ""
+            End Try
+            Try
+                TextBox4.Text = DataGridView2(2, e.RowIndex).Value.ToString
+            Catch ex As Exception
+                TextBox4.Text = ""
+            End Try
+            Try
+                TextBox5.Text = DataGridView2(3, e.RowIndex).Value.ToString
+            Catch ex As Exception
+                TextBox5.Text = ""
+            End Try
+
             Button4.Enabled = True
             Button2.Text = "Cancelar"
         End If
@@ -1895,26 +1969,7 @@ Public Class frmIndexacion
 
     End Sub
 
-    Public Sub CreateReportInspect()
-        If File.Exists(variables.ruta(0).ToString() + variables.archivoEstadisticas) Then
-            Dim action As String
-            Dim dateNow As String = DateTime.Now.ToString()
-            Dim idDoc As String = DataGridView1(0, seleccion).Value.ToString()
-            Dim operarioControl As String = "OPERARIO INDEXADOR"
 
-            Dim writer As New StreamWriter(variables.ruta(0).ToString() + variables.archivoEstadisticas, True)
-            If RadioButton1.Checked Then
-                action = "corregido"
-            Else
-                action = "correcto"
-            End If
-
-            writer.WriteLine(cryp.EncryptData(idDoc) + "|" + cryp.EncryptData(action) + "|" + cryp.EncryptData(dateNow) + "|" + cryp.EncryptData(operarioControl) + "|" + cryp.EncryptData(MainForm.cedControlCalidad))
-            writer.Close()
-            writer.Dispose()
-
-        End If
-    End Sub
 
     Private Sub cmbFiltro_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbFiltro.SelectedIndexChanged
         If cmbFiltro.SelectedIndex = 1 Then
@@ -2143,6 +2198,10 @@ Public Class frmIndexacion
     End Sub
 
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
+    End Sub
+
+    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
 
     End Sub
 End Class
