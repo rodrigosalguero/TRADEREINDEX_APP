@@ -51,7 +51,11 @@ Public Class frmIndexacion
         ComboInit.Fill(ComboBox1, variables.rutaPath + "LibroRegistral.txt")
         ComboInit.Fill(ComboBox4, variables.rutaPath + "DescBien.txt")
         ComboInit.Fill(ComboBox5, variables.rutaPath + "TipoContrato.txt")
-        ComboInit.Fill(ComboBox6, variables.rutaPath + "Entidad.txt")
+        ComboInit.Fill(ComboBox8, variables.rutaPath + "Tipo_Entidad.txt")
+        ComboInit.Fill(ComboBox9, variables.rutaPath + "Numero_Entidad.txt")
+        ComboInit.Fill(ComboBox10, variables.rutaPath + "Provincias.txt")
+        ComboInit.Fill(ComboBox11, variables.rutaPath + "Cantones.txt")
+        ComboInit.Fill(ComboBox12, variables.rutaPath + "Rep_Entidades.txt")
         ''ComboInit.Fill(ComboBox3, variables.rutaPath + "Comparecientes.txt")
         ''MsgBox(MainForm.Size.Width.ToString)
         Dim columna1 As Double = 0.45
@@ -164,9 +168,29 @@ Public Class frmIndexacion
         TextBox1.Location = New Point(96 + 20, TextBox1.Location.Y)
         TextBox1.Width = (Panel7.Width / 2) - (96 + 30)
 
+        ComboBox8.Location = New Point(96 + 20, ComboBox8.Location.Y)
+        ComboBox8.Width = (Panel7.Width - (96 + 20)) * 0.2 - 5
+
+        ComboBox9.Location = New Point(ComboBox8.Location.X + ComboBox8.Width + 5, ComboBox9.Location.Y)
+        ComboBox9.Width = (Panel7.Width - (96 + 20)) * 0.075 - 5
+
+        ComboBox10.Location = New Point(ComboBox9.Location.X + ComboBox9.Width + 5, ComboBox10.Location.Y)
+        ComboBox10.Width = (Panel7.Width - (96 + 20)) * 0.175 - 5
+
+        ComboBox11.Location = New Point(ComboBox10.Location.X + ComboBox10.Width + 5, ComboBox11.Location.Y)
+        ComboBox11.Width = (Panel7.Width - (96 + 20)) * 0.15 - 5
+
+        ComboBox12.Location = New Point(ComboBox11.Location.X + ComboBox11.Width + 5, ComboBox12.Location.Y)
+        ComboBox12.Width = (Panel7.Width - (96 + 20)) * 0.25 - 5
+
+        Button8.Location = New Point(ComboBox12.Location.X + ComboBox12.Width + 5, Button8.Location.Y)
+        Button8.Width = (Panel7.Width - (96 + 20)) * 0.075 - 5
+
+        Button9.Location = New Point(Button8.Location.X + Button8.Width + 5, Button9.Location.Y)
+        Button9.Width = (Panel7.Width - (96 + 20)) * 0.075 - 5
+
         MaskedTextBox1.Location = New Point(96 + 20, MaskedTextBox1.Location.Y)
         MaskedTextBox1.Width = (Panel7.Width / 2) - (96 + 30)
-
 
         gridMargin.Location = New Point(Label16.Location.X + Label16.Width + 5, gridMargin.Location.Y)
         gridMargin.Width = (Panel7.Width / 2) - 108
@@ -200,11 +224,11 @@ Public Class frmIndexacion
         DateTimePicker2.Location = New Point(Label16.Location.X + Label16.Width + 5, DateTimePicker2.Location.Y)
         DateTimePicker2.Width = (Panel7.Width / 2) - (108)
 
-        ComboBox6.Location = New Point(96 + 20, ComboBox6.Location.Y)
-        ComboBox6.Width = Panel7.Width - (96 + 30)
+        TextBox10.Location = New Point(96 + 20, TextBox10.Location.Y)
+        TextBox10.Width = Panel7.Width - (96 + 30)
 
-        TextBox9.Location = New Point(ComboBox6.Location.X, TextBox9.Location.Y)
-        TextBox9.Width = ComboBox6.Width
+        TextBox9.Location = New Point(TextBox10.Location.X, TextBox9.Location.Y)
+        TextBox9.Width = TextBox10.Width
 
         RadioButton1.Location = New Point(PanelControls.Width - RadioButton1.Width - 20 - btnResetIndex.Width, RadioButton1.Location.Y)
         RadioButton2.Location = New Point(PanelControls.Width - RadioButton1.Width * 2 - 30 - btnResetIndex.Width, RadioButton2.Location.Y)
@@ -396,18 +420,23 @@ Public Class frmIndexacion
     End Sub
 
     Public Sub fillData(ByVal identy As Integer)
+
         Dim arrayStringDocName() As String = DataGridView1.Item(0, identy).Value.ToString().Split("-")
-        DateTimePicker1.Text = arrayStringDocName(3) + "/" + arrayStringDocName(2) + "/" + arrayStringDocName(1)
 
-        Dim a() As String = arrayStringDocName(4).Split(".")
+        If Len(DataGridView1.Item(0, identy).Value.ToString()) >= 22 Then
+            DateTimePicker1.Text = arrayStringDocName(3) + "/" + arrayStringDocName(2) + "/" + arrayStringDocName(1)
 
-        TextBox3.Text = a(0)
+            Dim a() As String = arrayStringDocName(4).Split(".")
 
-        Dim check As New setLibros()
-
-
-        ComboBox1.Text = check.getNameLibro(Convert.ToInt32(arrayStringDocName(0)))
-
+            TextBox3.Text = a(0)
+            Dim check As New setLibros()
+            ComboBox1.Text = check.getNameLibro(Convert.ToInt32(arrayStringDocName(0)))
+        Else
+            Dim a() As String = arrayStringDocName(2).Split(".")
+            TextBox3.Text = a(0)
+            Dim check As New SetLibrosBAS()
+            ComboBox1.Text = check.getNameLibro(Convert.ToInt32(arrayStringDocName(0)))
+        End If
     End Sub
     'Public Sub RECONOCE(ByVal sender As Object, ByVal e As SpeechRecognizedEventArgs)
     '    If microactive Then
@@ -555,6 +584,9 @@ Public Class frmIndexacion
         If MainForm.mode = 1 Then
             RadioButton1.Checked = False
             RadioButton2.Checked = False
+            Button5.Enabled = False
+            Button7.Enabled = False
+            waitActiveBtnCC = False
         End If
     End Sub
 
@@ -572,7 +604,7 @@ Public Class frmIndexacion
             DataGridView1.Item(9, seleccion).Value = TextBox6.Text
             DataGridView1.Item(10, seleccion).Value = ComboBox7.Text
             DataGridView1.Item(11, seleccion).Value = DateTimePicker2.Text.ToString()
-            DataGridView1.Item(12, seleccion).Value = ComboBox6.Text
+            DataGridView1.Item(12, seleccion).Value = TextBox10.Text
             DataGridView1.Item(13, seleccion).Value = DataGridView2.Rows.Count
             DataGridView1.Item(14, seleccion).Value = DateTime.Now()
             DataGridView1.Item(15, seleccion).Value = "TRUE"
@@ -794,7 +826,7 @@ Public Class frmIndexacion
                 DataGridView1.Item(9, variables.obtenerPosicionFila()).Value = TextBox6.Text
                 DataGridView1.Item(10, variables.obtenerPosicionFila()).Value = ComboBox7.Text
                 DataGridView1.Item(11, variables.obtenerPosicionFila()).Value = DateTimePicker2.Text.ToString()
-                DataGridView1.Item(12, variables.obtenerPosicionFila()).Value = ComboBox6.Text
+                DataGridView1.Item(12, variables.obtenerPosicionFila()).Value = TextBox10.Text
                 DataGridView1.Item(13, variables.obtenerPosicionFila()).Value = DataGridView2.Rows.Count
                 DataGridView1.Item(14, variables.obtenerPosicionFila()).Value = DateTime.Now()
                 DataGridView1.Item(15, variables.obtenerPosicionFila()).Value = "TRUE"
@@ -1376,7 +1408,7 @@ Public Class frmIndexacion
         Me.TextBox8.Clear()
         Me.ComboBox4.SelectedIndex = -1
         Me.ComboBox5.SelectedIndex = -1
-        Me.ComboBox6.SelectedIndex = -1
+        Me.TextBox10.Clear()
         Me.ComboBox7.SelectedIndex = -1
         Me.ComboBox3.Items.Clear()
         DateTimePicker1.Text = ""
@@ -1393,6 +1425,7 @@ Public Class frmIndexacion
     End Function
 
     Private Sub guardarMetadatosPdf()
+        activeEditCC = True
         idpdf = dgv2(0, 0)
         createChildrenMetadata1(dgv2, variables.ruta(0).ToString + variables.archivoCompareciente, "\comparecientestemp.txt")
         createChildrenMetadata2(gm2, variables.ruta(0).ToString + variables.archivoMarginaciones, "\marginacionestemp.txt")
@@ -1426,19 +1459,15 @@ Public Class frmIndexacion
         File.Move(txtPDFTemp, variables.ruta(0).ToString + variables.archivotext1)
 
         If MainForm.mode = 1 Then
-            If waitActiveBtnCC Then
+            If Not Button5.Enabled And waitActiveBtnCC Then
                 Button5.Enabled = True
                 Button7.Enabled = True
-                waitActiveBtnCC = False
-                activeEditCC = False
-            Else
-                waitActiveBtnCC = False
-                activeEditCC = False
             End If
         Else
             Button5.Enabled = True
             Button7.Enabled = True
         End If
+        activeEditCC = False
         trd1.Abort()
     End Sub
 
@@ -1460,6 +1489,7 @@ Public Class frmIndexacion
 
     Private Sub DataGridView1_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
         If e.RowIndex <> -1 Then
+            waitActiveBtnCC = True
             selectionMargin = -1
             Button6.Text = "Agregar"
             'Try
@@ -1480,13 +1510,6 @@ Public Class frmIndexacion
                 RadioButton1.ForeColor = Color.Black
                 RadioButton2.BackColor = Color.Transparent
                 RadioButton2.ForeColor = Color.Black
-
-                If Not activeEditCC Then
-                    Button5.Enabled = True
-                    activeEditCC = True
-                Else
-                    waitActiveBtnCC = True
-                End If
             Else
                 Button5.Enabled = True
             End If
@@ -1556,6 +1579,10 @@ Public Class frmIndexacion
 
                     MsgBox("No se puede mover a esta fila por que el puntero esta en la fila  " + (variables.obtenerPosicionFila + 1).ToString + ".Solamente puede moverve en filas anteriores")
                 End If
+
+            End If
+            If Not activeEditCC And MainForm.mode = 1 Then
+                Button5.Enabled = True
 
             End If
         End If
@@ -1659,6 +1686,43 @@ Public Class frmIndexacion
             'combobox3.visible = true
         End If
     End Sub
+
+    Private Sub ComboBox10_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox10.SelectedIndexChanged
+
+        If ComboBox10.SelectedIndex > -1 Then
+            ComboBox11.Items.Clear()
+            ComboBox11.SelectedIndex = -1
+            ComboBox11.Text = ""
+            If Not ComboBox10.SelectedIndex = -1 Then
+                Dim indice As String = Convert.ToString(ComboBox10.SelectedItem.ToString)
+                Dim reader As New StreamReader(variables.rutaPath + "Cantones.txt")
+                Dim linea As String
+
+                Dim findResult As Boolean = False
+
+                Do
+                    linea = reader.ReadLine()
+                    If (Not linea Is Nothing) Then
+                        Dim vectorLinea As String() = linea.Split(",")
+                        If (vectorLinea(1).Equals(indice)) Then
+                            ComboBox11.Enabled = True
+                            ComboBox11.Items.Add(vectorLinea(0))
+                            findResult = True
+                        End If
+                    End If
+                Loop Until linea Is Nothing
+
+                reader.Close()
+            End If
+
+            ComboBox11.Enabled = True
+        Else
+            ComboBox11.Items.Clear()
+            ComboBox11.Enabled = False
+        End If
+    End Sub
+
+
 
     Private Sub TextBox4_LostFocus(sender As Object, e As EventArgs) Handles TextBox4.LostFocus
 
@@ -1818,9 +1882,9 @@ Public Class frmIndexacion
         End Try
 
         Try
-            ComboBox6.Text = DataGridView1.Item(12, rowsView).Value.ToString
+            TextBox10.Text = DataGridView1.Item(12, rowsView).Value.ToString
         Catch ex As Exception
-            ComboBox6.SelectedIndex = -1
+            TextBox10.Clear()
         End Try
 
         Try
@@ -2197,11 +2261,57 @@ Public Class frmIndexacion
         e.Column.SortMode = DataGridViewColumnSortMode.NotSortable
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+    Private Sub DateTimePicker1_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles DateTimePicker1.MaskInputRejected
 
     End Sub
 
-    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
+    Private Sub ComboBox9_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox9.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        TextBox10.Text = ComboBox8.Text.Trim + "-" + ComboBox9.Text.Trim + "-" + ComboBox10.Text.Trim + "-" + ComboBox11.Text.Trim + "-" + ComboBox12.Text.Trim
+        ComboBox8.SelectedIndex = -1
+        ComboBox9.SelectedIndex = -1
+        ComboBox10.SelectedIndex = -1
+        ComboBox11.SelectedIndex = -1
+        ComboBox12.SelectedIndex = -1
+        ComboBox12.Text = ""
+        ComboBox9.Enabled = False
+        ComboBox10.Enabled = False
+        ComboBox11.Enabled = False
+        ComboBox12.Enabled = False
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        TextBox10.Clear()
+        ComboBox8.SelectedIndex = -1
+        ComboBox9.SelectedIndex = -1
+        ComboBox10.SelectedIndex = -1
+        ComboBox11.SelectedIndex = -1
+        ComboBox12.SelectedIndex = -1
+        ComboBox12.Text = ""
+        ComboBox9.Enabled = False
+        ComboBox10.Enabled = False
+        ComboBox11.Enabled = False
+        ComboBox12.Enabled = False
+    End Sub
+
+    Private Sub ComboBox8_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox8.SelectedIndexChanged
+        If ComboBox8.SelectedIndex > -1 Then
+            ComboBox9.Enabled = True
+            ComboBox10.Enabled = True
+            ComboBox12.Enabled = True
+            Button8.Enabled = True
+        Else
+            ComboBox9.Enabled = False
+            ComboBox10.Enabled = False
+            ComboBox12.Enabled = False
+            Button8.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ComboBox12_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox12.SelectedIndexChanged
 
     End Sub
 End Class

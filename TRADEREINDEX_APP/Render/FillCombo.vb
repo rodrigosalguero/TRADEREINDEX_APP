@@ -4,7 +4,7 @@ Imports System.Windows.Forms
 
 Public Class FillCombo
     Public Sub Fill(ByVal el As ComboBox, ByVal UrlArchive As String)
-        Dim ContentDatList As New StreamReader(UrlArchive, Encoding.Default)
+        Dim ContentDatList As New StreamReader(UrlArchive, Encoding.UTF8)
         Dim linea As String
         Do
             linea = ContentDatList.ReadLine()

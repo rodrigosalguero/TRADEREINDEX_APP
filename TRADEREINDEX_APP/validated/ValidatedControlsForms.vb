@@ -78,7 +78,7 @@
             frmIndexacion.Label16.ForeColor = Color.Black
         End If
 
-        If (frmIndexacion.ComboBox6.SelectedIndex = -1) Then
+        If (frmIndexacion.TextBox10.Text.Trim = "") Then
             controlsResturn.Add(frmIndexacion.Label10)
         Else
             frmIndexacion.Label10.BackColor = Color.Transparent

@@ -137,7 +137,7 @@ Public Class UserEntry
 
     Private Sub UserEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Console.WriteLine(TestEncoding("650"))
+        Console.WriteLine(TestEncoding("699"))
 
         If Not System.IO.File.Exists(variables.ruta(0).ToString + variables.archivotext1) Then
             Dim creartxt As System.IO.FileStream
@@ -227,7 +227,7 @@ Public Class UserEntry
     Public Sub loadPercentage()
         Dim lineas() As String = File.ReadAllLines("UConfig.txt")
         'Console.WriteLine(lineas(lineas.Length - 1))
-        MainForm.porcentajeRevision = Convert.ToDecimal(TestDecoding(lineas(lineas.Length - 1))) / 100
+        MainForm.porcentajeRevision = Convert.ToDecimal(TestDecoding(lineas(lineas.Length - 2))) / 100
 
     End Sub
 
